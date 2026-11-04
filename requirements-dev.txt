@@ -1,0 +1,6 @@
+# Development and test tools. Keep in sync with [project.optional-dependencies].dev in pyproject.toml.
+-r requirements.txt
+ruff==0.17.3
+mypy==2.4.1
+pytest==9.2.0
+pytest-cov==7.1.0
