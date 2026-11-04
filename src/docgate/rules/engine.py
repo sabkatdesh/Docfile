@@ -84,3 +84,8 @@ def decide(results: Sequence[RuleResult]) -> Verdict:
 
 def evaluate(ex: Extraction, pr: PRLine | None, cfg: RuleConfig = DEFAULT_CONFIG) -> Verdict:
     return decide(run_rules(ex, pr, cfg))
+
+
+def escalate(reason: str) -> Verdict:
+    """Verdict for a pack the pipeline could not process. Never Approve: a person decides."""
+    return Verdict(decision=Decision.NEEDS_PERSON, reason=reason, rule_results=[])

@@ -5,7 +5,7 @@ from __future__ import annotations
 import datetime
 from decimal import Decimal
 from enum import StrEnum
-from typing import Any, Self
+from typing import Any, Literal, Self
 
 from pydantic import BaseModel, ConfigDict, field_validator, model_validator
 from pydantic import Field as PydanticField
@@ -132,3 +132,17 @@ class Verdict(BaseModel):
     @property
     def needs_human(self) -> bool:
         return self.decision is Decision.NEEDS_PERSON
+
+
+ErrorKind = Literal["error", "config"]
+
+
+class NodeError(BaseModel):
+    """A pipeline step failed. `config` marks an operator problem (bad key, budget) that stops a
+    batch; anything else escalates just that pack."""
+
+    model_config = ConfigDict(frozen=True)
+
+    node: str
+    kind: ErrorKind
+    message: str

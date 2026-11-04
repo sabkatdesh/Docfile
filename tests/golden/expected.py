@@ -2,23 +2,17 @@
 
 from __future__ import annotations
 
-from docgate.domain.models import Decision, RuleStatus
+from pathlib import Path
 
-A, R, N = Decision.APPROVE, Decision.REJECT, Decision.NEEDS_PERSON
+from docgate.domain.models import Decision, RuleStatus
+from docgate.evaluation.golden import load_golden
+
 FAIL, UNKNOWN = RuleStatus.FAIL, RuleStatus.UNKNOWN
 
-GOLDEN: dict[int, Decision] = {
-    1: A,
-    2: A,
-    3: R,
-    4: N,
-    5: R,
-    6: R,
-    7: N,
-    8: R,
-    9: N,
-    10: R,
-}
+# Single source of truth, shared with `python tasks.py eval`: data/golden/expected.json.
+GOLDEN: dict[int, Decision] = load_golden(
+    Path(__file__).parents[2] / "data" / "golden" / "expected.json"
+)
 
 # Every rule not listed for a pack must PASS.
 EXPECTED_NON_PASS: dict[int, dict[str, RuleStatus]] = {

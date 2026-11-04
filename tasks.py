@@ -51,10 +51,11 @@ COMMANDS: dict[str, Callable[[list[str]], int]] = {
     "setup": setup,
     "check": check,
     "demo": _not_yet("demo", "M5.5/M5"),
-    "live": _not_yet("live", "M3"),
+    "run": _cli("run"),
+    "live": lambda args: _cli("run")(["--provider", "groq", *args]),
     "extract": _cli("extract"),
     "record": _cli("record"),
-    "eval": _not_yet("eval", "M3"),
+    "eval": _cli("eval"),
 }
 
 

@@ -1,25 +1,38 @@
-"""Thin command-line shell: `extract` prints what was read, `record` captures live responses."""
+"""Thin command-line shell: `extract` reads, `record` captures live responses, `run` writes
+reports and `eval` scores the golden set. Logic lives in the packages; this only wires them."""
 
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 from collections import Counter
 from collections.abc import Mapping, Sequence
+from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
-from docgate.domain.models import Extraction, FieldStatus
+from docgate.domain.models import Decision, Extraction, FieldStatus
+from docgate.evaluation.golden import GoldenError, load_golden
+from docgate.evaluation.score import render_report, result_to_dict, score
 from docgate.extraction.factory import build_llm_stack
 from docgate.extraction.quotes import verify_quote
 from docgate.extraction.regex import RegexExtractor
 from docgate.extraction.service import extract_document
 from docgate.ingest.pdf import extract_text
+from docgate.ingest.purchase_request import load_pr_lines
 from docgate.llm.provider import LLMConfigError
-from docgate.settings import Settings, SettingsError, load_settings, parse_env_file
+from docgate.reporting.writer import write_run
+from docgate.settings import PROVIDERS, Settings, SettingsError, load_settings, parse_env_file
+from docgate.workflow.deps import Deps
+from docgate.workflow.graph import build_graph
+from docgate.workflow.runner import OperatorError, pack_number, run_packs
+from docgate.workflow.state import PackState
 
 SAMPLE_DIR = Path("data/sample")
+DEFAULT_OUT = Path("runs/latest")
+DEFAULT_GOLDEN = Path("data/golden/expected.json")
 SMOKE_PACK = 4  # a pack with every field present, so one request exercises the whole schema
 
 
@@ -92,6 +105,39 @@ def cmd_record(settings: Settings, packs: list[Path], force: bool) -> int:
     return 1 if failures else 0
 
 
+def _run_all(settings: Settings, packs: list[Path]) -> list[PackState]:
+    stack = build_llm_stack(settings)
+    deps = Deps(
+        llm=stack.extractor,
+        regex=RegexExtractor(),
+        pr_lines=load_pr_lines(SAMPLE_DIR / "purchase-request.csv"),
+    )
+    return run_packs(build_graph(deps), packs)
+
+
+def cmd_run(settings: Settings, packs: list[Path], out: Path) -> int:
+    states = _run_all(settings, packs)
+    write_run([s["report"] for s in states], out)
+    for s in states:
+        print(f"{s['pack_id']:<20} {s['report'].decision.value:<26} {s['report'].headline}")
+    print(f"reports written to {out}")
+    return 0
+
+
+def cmd_eval(settings: Settings, packs: list[Path], out: Path, golden_file: Path) -> int:
+    golden = load_golden(golden_file)
+    states = _run_all(settings, packs)
+    write_run([s["report"] for s in states], out)
+    # The automatic decision only: a later human decision must not mask a wrong verdict.
+    actual: dict[int, Decision] = {pack_number(s["pack_id"]): s["verdict"].decision for s in states}
+    result = score(golden, actual)
+    print(render_report(result))
+    (out / "eval.json").write_text(
+        json.dumps(result_to_dict(result), indent=2) + "\n", encoding="utf-8"
+    )
+    return 0 if result.passed else 1
+
+
 def main(argv: Sequence[str]) -> int:
     parser = argparse.ArgumentParser(prog="docgate")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -103,13 +149,28 @@ def main(argv: Sequence[str]) -> int:
     rec.add_argument("--pack", type=int, action="append", help="pack number, repeatable")
     rec.add_argument("--smoke", action="store_true", help=f"one request, pack {SMOKE_PACK} only")
     rec.add_argument("--force", action="store_true", help="overwrite existing recordings")
+    helps = {"run": "run the pipeline and write reports", "eval": "score the golden set"}
+    for name, text in helps.items():
+        cmd = sub.add_parser(name, help=text)
+        cmd.add_argument("--out", type=Path, default=DEFAULT_OUT, help="report directory")
+        # Replay unless asked: a stray DOCGATE_PROVIDER=groq in .env must never spend requests.
+        cmd.add_argument("--provider", choices=PROVIDERS, default="replay")
+        if name == "run":
+            cmd.add_argument("--pack", type=int, action="append", help="pack number, repeatable")
+        else:
+            cmd.add_argument("--golden", type=Path, default=DEFAULT_GOLDEN)
     args = parser.parse_args(argv)
     try:
         settings = load_settings(_environment())
+        if args.command in ("run", "eval"):
+            settings = replace(settings, provider=args.provider)
+            if args.command == "run":
+                return cmd_run(settings, _packs(args.pack), args.out)
+            return cmd_eval(settings, _packs(None), args.out, args.golden)
         if args.command == "extract":
             return cmd_extract(settings, _packs(args.pack))
         return cmd_record(settings, _packs([SMOKE_PACK] if args.smoke else args.pack), args.force)
-    except (SettingsError, LLMConfigError) as exc:
+    except (SettingsError, LLMConfigError, OperatorError, GoldenError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
 

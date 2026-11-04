@@ -1,0 +1,15 @@
+{
+  "source": "docs/plan/SPEC.md section 9. Hand-written; never derived from system output.",
+  "expected": {
+    "1": "Approve",
+    "2": "Approve",
+    "3": "Reject",
+    "4": "Needs a person to check",
+    "5": "Reject",
+    "6": "Reject",
+    "7": "Needs a person to check",
+    "8": "Reject",
+    "9": "Needs a person to check",
+    "10": "Reject"
+  }
+}
