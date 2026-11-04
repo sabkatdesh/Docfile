@@ -44,3 +44,24 @@ def test_pct_delta_is_exact() -> None:
 def test_pct_delta_zero_base_raises() -> None:
     with pytest.raises(ZeroDivisionError):
         pct_delta(Decimal("1"), Decimal("0"))
+
+
+def test_is_above_boundary() -> None:
+    from docgate.domain.money import is_above
+
+    d = Decimal
+    assert is_above(d("103.00"), d("100"), d("3")) is False
+    assert is_above(d("103.01"), d("100"), d("3")) is True
+    # Awkward denominator: exactly +3% must not tip over through rounding.
+    assert is_above(d("39.14"), d("38"), d("3")) is False
+    assert is_above(d("39.15"), d("38"), d("3")) is True
+
+
+def test_differs_by_more_than_boundary() -> None:
+    from docgate.domain.money import differs_by_more_than
+
+    d = Decimal
+    assert differs_by_more_than(d("21000"), d("20000"), d("5")) is False
+    assert differs_by_more_than(d("19000"), d("20000"), d("5")) is False
+    assert differs_by_more_than(d("21020"), d("20000"), d("5")) is True
+    assert differs_by_more_than(d("18980"), d("20000"), d("5")) is True

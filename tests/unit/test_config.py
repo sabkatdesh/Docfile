@@ -29,3 +29,7 @@ def test_config_is_immutable() -> None:
 def test_config_rejects_float_thresholds() -> None:
     with pytest.raises(ValidationError):
         RuleConfig(price_tolerance_pct=3.0)
+
+
+def test_arithmetic_tolerance_default() -> None:
+    assert DEFAULT_CONFIG.arithmetic_tolerance == Decimal("0.01")

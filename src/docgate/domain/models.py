@@ -27,6 +27,10 @@ class Field[T](BaseModel):
     quote: str | None = None
     status: FieldStatus = FieldStatus.MISSING
 
+    @property
+    def is_ok(self) -> bool:
+        return self.status is FieldStatus.OK
+
     @field_validator("value", mode="before")
     @classmethod
     def _no_floats(cls, v: Any) -> Any:
@@ -83,6 +87,19 @@ class Extraction(BaseModel):
     delivery_days: Field[int] = PydanticField(default_factory=_missing)
     penalty_pct_per_week: Field[Decimal] = PydanticField(default_factory=_missing)
     validity_days: Field[int] = PydanticField(default_factory=_missing)
+
+
+class PRLine(BaseModel):
+    """One requested item from the purchase request."""
+
+    model_config = ConfigDict(frozen=True)
+
+    pr_number: str
+    item_code: str
+    description: str
+    unit: str
+    qty: Decimal = PydanticField(gt=0)
+    max_unit_price: Decimal = PydanticField(gt=0)
 
 
 class RuleStatus(StrEnum):

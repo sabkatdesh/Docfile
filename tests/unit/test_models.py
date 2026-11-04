@@ -55,3 +55,21 @@ def test_rule_result_and_verdict() -> None:
 def test_approve_verdict_does_not_need_human() -> None:
     v = Verdict(decision=Decision.APPROVE, reason="all pass", rule_results=[])
     assert v.needs_human is False
+
+
+def test_pr_line_rejects_nonpositive() -> None:
+    from docgate.domain.models import PRLine
+
+    base = {
+        "pr_number": "PR-1",
+        "item_code": "A",
+        "description": "x",
+        "unit": "piece",
+        "qty": Decimal(1),
+        "max_unit_price": Decimal(1),
+    }
+    PRLine(**base)
+    with pytest.raises(ValidationError):
+        PRLine(**{**base, "qty": Decimal(0)})
+    with pytest.raises(ValidationError):
+        PRLine(**{**base, "max_unit_price": Decimal(-1)})

@@ -29,6 +29,8 @@ class RuleConfig(BaseModel):
     validity_min_days: int = 30
     # H5: VAT must be shown separately at this rate.
     vat_rate_pct: Decimal = Decimal("15")
+    # H5/H6: absolute BDT slack when comparing computed vs quoted amounts (paise rounding).
+    arithmetic_tolerance: Decimal = Decimal("0.01")
     # "4 weeks" is 28 days.
     days_per_week: int = 7
 
