@@ -1,0 +1,14 @@
+{
+  "key": "8b9964f7c0be09c3566d617aa4ca5d0ba2f77666446ddec4bba4fc9b1ffaa965",
+  "label": "supplier-pack-02",
+  "model": "openai/gpt-oss-120b",
+  "prompt_version": "extract-v3",
+  "schema_version": "wire-v1",
+  "params": {
+    "max_completion_tokens": "4096",
+    "reasoning_effort": "low",
+    "structured_mode": "strict",
+    "temperature": "0"
+  },
+  "response": "{\n  \"supplier\": {\n    \"value\": \"Jamuna Trims and Accessories\",\n    \"quote\": \"Jamuna Trims and Accessories\"\n  },\n  \"quotation_no\": {\n    \"value\": \"QT-2026-902\",\n    \"quote\": \"Quotation no. QT-2026-902 Date 2026-10-22\"\n  },\n  \"date\": {\n    \"value\": \"2026-10-22\",\n    \"quote\": \"Quotation no. QT-2026-902 Date 2026-10-22\"\n  },\n  \"item_code\": {\n    \"value\": \"B\",\n    \"quote\": \"B Metal zipper, 18 cm 20,000 piece 36.00 720,000.00\"\n  },\n  \"description\": {\n    \"value\": \"Metal zipper, 18 cm\",\n    \"quote\": \"B Metal zipper, 18 cm 20,000 piece 36.00 720,000.00\"\n  },\n  \"qty\": {\n    \"value\": \"20,000\",\n    \"quote\": \"B Metal zipper, 18 cm 20,000 piece 36.00 720,000.00\"\n  },\n  \"unit\": {\n    \"value\": \"piece\",\n    \"quote\": \"B Metal zipper, 18 cm 20,000 piece 36.00 720,000.00\"\n  },\n  \"unit_price\": {\n    \"value\": \"36.00\",\n    \"quote\": \"B Metal zipper, 18 cm 20,000 piece 36.00 720,000.00\"\n  },\n  \"subtotal\": {\n    \"value\": \"720,000.00\",\n    \"quote\": \"Subtotal 720,000.00\"\n  },\n  \"vat_amount\": {\n    \"value\": \"108,000.00\",\n    \"quote\": \"VAT 15% 108,000.00\"\n  },\n  \"total\": {\n    \"value\": \"828,000.00\",\n    \"quote\": \"Total 828,000.00\"\n  },\n  \"tax_inclusive_statement\": {\n    \"value\": null,\n    \"quote\": null\n  },\n  \"tin\": {\n    \"value\": \"102458023391\",\n    \"quote\": \"Supplier TIN: 102458023391 BIN: 000270241-0101\"\n  },\n  \"bin\": {\n    \"value\": \"000270241-0101\",\n    \"quote\": \"Supplier TIN: 102458023391 BIN: 000270241-0101\"\n  },\n  \"advance_pct\": {\n    \"value\": \"No advance payment required\",\n    \"quote\": \"1. Payment. No advance payment required. Full payment within 30 days of delivery.\"\n  },\n  \"payment_days\": {\n    \"value\": \"30 days\",\n    \"quote\": \"1. Payment. No advance payment required. Full payment within 30 days of delivery.\"\n  },\n  \"delivery_days\": {\n    \"value\": \"21 days\",\n    \"quote\": \"2. Delivery. Goods will be delivered at your factory within 21 days from the date of PO.\"\n  },\n  \"penalty_pct_per_week\": {\n    \"value\": \"0.75%\",\n    \"quote\": \"3. Delay. For late delivery the supplier shall pay 0.75% of the order value per week of delay.\"\n  },\n  \"validity_days\": {\n    \"value\": \"30 days\",\n    \"quote\": \"4. Validity. This quotation is valid for 30 days from the date above.\"\n  }\n}"
+}

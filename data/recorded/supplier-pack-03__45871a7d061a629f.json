@@ -1,0 +1,14 @@
+{
+  "key": "45871a7d061a629f021bb53ad6743eca60eeff44be375a579dd920ecc67a3fb2",
+  "label": "supplier-pack-03",
+  "model": "openai/gpt-oss-120b",
+  "prompt_version": "extract-v3",
+  "schema_version": "wire-v1",
+  "params": {
+    "max_completion_tokens": "4096",
+    "reasoning_effort": "low",
+    "structured_mode": "strict",
+    "temperature": "0"
+  },
+  "response": "{\n  \"supplier\": {\n    \"value\": \"Karnaphuli Yarn Traders\",\n    \"quote\": \"Karnaphuli Yarn Traders\"\n  },\n  \"quotation_no\": {\n    \"value\": \"QT-2026-903\",\n    \"quote\": \"Quotation no. QT-2026-903 Date 2026-10-23\"\n  },\n  \"date\": {\n    \"value\": \"2026-10-23\",\n    \"quote\": \"Quotation no. QT-2026-903 Date 2026-10-23\"\n  },\n  \"item_code\": {\n    \"value\": \"C\",\n    \"quote\": \"C Polyester sewing thread, cone 800 cone 229.00 183,200.00\"\n  },\n  \"description\": {\n    \"value\": \"Polyester sewing thread, cone\",\n    \"quote\": \"C Polyester sewing thread, cone 800 cone 229.00 183,200.00\"\n  },\n  \"qty\": {\n    \"value\": \"800\",\n    \"quote\": \"C Polyester sewing thread, cone 800 cone 229.00 183,200.00\"\n  },\n  \"unit\": {\n    \"value\": \"cone\",\n    \"quote\": \"C Polyester sewing thread, cone 800 cone 229.00 183,200.00\"\n  },\n  \"unit_price\": {\n    \"value\": \"229.00\",\n    \"quote\": \"C Polyester sewing thread, cone 800 cone 229.00 183,200.00\"\n  },\n  \"subtotal\": {\n    \"value\": \"183,200.00\",\n    \"quote\": \"Subtotal 183,200.00\"\n  },\n  \"vat_amount\": {\n    \"value\": \"27,480.00\",\n    \"quote\": \"VAT 15% 27,480.00\"\n  },\n  \"total\": {\n    \"value\": \"210,680.00\",\n    \"quote\": \"Total 210,680.00\"\n  },\n  \"tax_inclusive_statement\": {\n    \"value\": null,\n    \"quote\": null\n  },\n  \"tin\": {\n    \"value\": \"103458033391\",\n    \"quote\": \"Supplier TIN: 103458033391 BIN: 000370341-0101\"\n  },\n  \"bin\": {\n    \"value\": \"000370341-0101\",\n    \"quote\": \"Supplier TIN: 103458033391 BIN: 000370341-0101\"\n  },\n  \"advance_pct\": {\n    \"value\": \"15%\",\n    \"quote\": \"1. Payment. 15% advance payable with the purchase order. Balance within 40 days of delivery.\"\n  },\n  \"payment_days\": {\n    \"value\": \"40 days\",\n    \"quote\": \"1. Payment. 15% advance payable with the purchase order. Balance within 40 days of delivery.\"\n  },\n  \"delivery_days\": {\n    \"value\": \"20 days\",\n    \"quote\": \"2. Delivery. Delivery within 20 days of PO.\"\n  },\n  \"penalty_pct_per_week\": {\n    \"value\": \"0.5%\",\n    \"quote\": \"3. Delay. Delay in delivery will attract a penalty of 0.5% of order value per week.\"\n  },\n  \"validity_days\": {\n    \"value\": \"30 days\",\n    \"quote\": \"4. Validity. This quotation is valid for 30 days from the date above.\"\n  }\n}"
+}

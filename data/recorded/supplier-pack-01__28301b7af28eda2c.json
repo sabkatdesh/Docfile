@@ -1,0 +1,14 @@
+{
+  "key": "28301b7af28eda2c31b18f1bbbc86c98afbcb1dd7aa069634faae4159aa63690",
+  "label": "supplier-pack-01",
+  "model": "openai/gpt-oss-120b",
+  "prompt_version": "extract-v3",
+  "schema_version": "wire-v1",
+  "params": {
+    "max_completion_tokens": "4096",
+    "reasoning_effort": "low",
+    "structured_mode": "strict",
+    "temperature": "0"
+  },
+  "response": "{\n  \"supplier\": {\n    \"value\": \"Padma Textile Mills Ltd\",\n    \"quote\": \"Padma Textile Mills Ltd\"\n  },\n  \"quotation_no\": {\n    \"value\": \"QT-2026-901\",\n    \"quote\": \"Quotation no. QT-2026-901 Date 2026-10-21\"\n  },\n  \"date\": {\n    \"value\": \"2026-10-21\",\n    \"quote\": \"Quotation no. QT-2026-901 Date 2026-10-21\"\n  },\n  \"item_code\": {\n    \"value\": \"A\",\n    \"quote\": \"A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00\"\n  },\n  \"description\": {\n    \"value\": \"Cotton twill fabric, 280 gsm\",\n    \"quote\": \"A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00\"\n  },\n  \"qty\": {\n    \"value\": \"12,000\",\n    \"quote\": \"A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00\"\n  },\n  \"unit\": {\n    \"value\": \"metre\",\n    \"quote\": \"A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00\"\n  },\n  \"unit_price\": {\n    \"value\": \"472.00\",\n    \"quote\": \"A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00\"\n  },\n  \"subtotal\": {\n    \"value\": \"5,664,000.00\",\n    \"quote\": \"Subtotal 5,664,000.00\"\n  },\n  \"vat_amount\": {\n    \"value\": \"849,600.00\",\n    \"quote\": \"VAT 15% 849,600.00\"\n  },\n  \"total\": {\n    \"value\": \"6,513,600.00\",\n    \"quote\": \"Total 6,513,600.00\"\n  },\n  \"tax_inclusive_statement\": {\n    \"value\": null,\n    \"quote\": null\n  },\n  \"tin\": {\n    \"value\": \"101458013391\",\n    \"quote\": \"Supplier TIN: 101458013391 BIN: 000170141-0101\"\n  },\n  \"bin\": {\n    \"value\": \"000170141-0101\",\n    \"quote\": \"Supplier TIN: 101458013391 BIN: 000170141-0101\"\n  },\n  \"advance_pct\": {\n    \"value\": \"10%\",\n    \"quote\": \"1. Payment. 10% advance payable with the purchase order.\"\n  },\n  \"payment_days\": {\n    \"value\": \"45 days\",\n    \"quote\": \"Balance payable within 45 days after delivery and acceptance of goods.\"\n  },\n  \"delivery_days\": {\n    \"value\": \"24 days\",\n    \"quote\": \"2. Delivery. Delivery within 24 days of receiving the purchase order.\"\n  },\n  \"penalty_pct_per_week\": {\n    \"value\": \"1%\",\n    \"quote\": \"3. Delay. Late delivery penalty: 1% of order value for each full week of delay.\"\n  },\n  \"validity_days\": {\n    \"value\": \"45 days\",\n    \"quote\": \"4. Validity. This quotation is valid for 45 days from the date above.\"\n  }\n}"
+}

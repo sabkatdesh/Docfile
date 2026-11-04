@@ -1,0 +1,14 @@
+{
+  "key": "c17a3be73c9aac0a72ae3248f3990593bc929be98ecf597b1573606584c8259a",
+  "label": "supplier-pack-07",
+  "model": "openai/gpt-oss-120b",
+  "prompt_version": "extract-v3",
+  "schema_version": "wire-v1",
+  "params": {
+    "max_completion_tokens": "4096",
+    "reasoning_effort": "low",
+    "structured_mode": "strict",
+    "temperature": "0"
+  },
+  "response": "{\n  \"supplier\": {\n    \"value\": \"Rupsha Zipper Factory\",\n    \"quote\": \"Rupsha Zipper Factory\"\n  },\n  \"quotation_no\": {\n    \"value\": \"QT-2026-907\",\n    \"quote\": \"Quotation no. QT-2026-907 Date 2026-10-20\"\n  },\n  \"date\": {\n    \"value\": \"2026-10-20\",\n    \"quote\": \"Quotation no. QT-2026-907 Date 2026-10-20\"\n  },\n  \"item_code\": {\n    \"value\": \"B\",\n    \"quote\": \"B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00\"\n  },\n  \"description\": {\n    \"value\": \"Metal zipper, 18 cm\",\n    \"quote\": \"B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00\"\n  },\n  \"qty\": {\n    \"value\": \"16,500\",\n    \"quote\": \"B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00\"\n  },\n  \"unit\": {\n    \"value\": \"piece\",\n    \"quote\": \"B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00\"\n  },\n  \"unit_price\": {\n    \"value\": \"35.00\",\n    \"quote\": \"B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00\"\n  },\n  \"subtotal\": {\n    \"value\": \"577,500.00\",\n    \"quote\": \"Subtotal 577,500.00\"\n  },\n  \"vat_amount\": {\n    \"value\": \"86,625.00\",\n    \"quote\": \"VAT 15% 86,625.00\"\n  },\n  \"total\": {\n    \"value\": \"664,125.00\",\n    \"quote\": \"Total 664,125.00\"\n  },\n  \"tax_inclusive_statement\": {\n    \"value\": null,\n    \"quote\": null\n  },\n  \"tin\": {\n    \"value\": \"107458073391\",\n    \"quote\": \"Supplier TIN: 107458073391 BIN: 000770741-0101\"\n  },\n  \"bin\": {\n    \"value\": \"000770741-0101\",\n    \"quote\": \"Supplier TIN: 107458073391 BIN: 000770741-0101\"\n  },\n  \"advance_pct\": {\n    \"value\": \"No advance payment required\",\n    \"quote\": \"1. Payment. No advance payment required. Payment within 45 days of delivery.\"\n  },\n  \"payment_days\": {\n    \"value\": \"45 days\",\n    \"quote\": \"1. Payment. No advance payment required. Payment within 45 days of delivery.\"\n  },\n  \"delivery_days\": {\n    \"value\": \"22 days\",\n    \"quote\": \"2. Delivery. Delivery within 22 days of PO.\"\n  },\n  \"penalty_pct_per_week\": {\n    \"value\": \"0.5%\",\n    \"quote\": \"3. Delay. Late delivery penalty: 0.5% of order value per week.\"\n  },\n  \"validity_days\": {\n    \"value\": \"35 days\",\n    \"quote\": \"4. Validity. This quotation is valid for 35 days from the date above.\"\n  }\n}"
+}

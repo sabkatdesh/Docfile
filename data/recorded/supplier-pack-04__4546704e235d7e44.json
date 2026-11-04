@@ -1,0 +1,14 @@
+{
+  "key": "4546704e235d7e443c0fcc9d0799f05689f02da953253b5e266e09bf0e819568",
+  "label": "supplier-pack-04",
+  "model": "openai/gpt-oss-120b",
+  "prompt_version": "extract-v3",
+  "schema_version": "wire-v1",
+  "params": {
+    "max_completion_tokens": "4096",
+    "reasoning_effort": "low",
+    "structured_mode": "strict",
+    "temperature": "0"
+  },
+  "response": "{\n  \"supplier\": {\n    \"value\": \"Surma Packaging Industries\",\n    \"quote\": \"Surma Packaging Industries\"\n  },\n  \"quotation_no\": {\n    \"value\": \"QT-2026-904\",\n    \"quote\": \"Quotation no. QT-2026-904 Date 2026-10-24\"\n  },\n  \"date\": {\n    \"value\": \"2026-10-24\",\n    \"quote\": \"Quotation no. QT-2026-904 Date 2026-10-24\"\n  },\n  \"item_code\": {\n    \"value\": \"D\",\n    \"quote\": \"D Poly bag, 30 x 40 cm 50,000 piece 6.65 332,500.00\"\n  },\n  \"description\": {\n    \"value\": \"Poly bag, 30 x 40 cm\",\n    \"quote\": \"D Poly bag, 30 x 40 cm 50,000 piece 6.65 332,500.00\"\n  },\n  \"qty\": {\n    \"value\": \"50,000\",\n    \"quote\": \"D Poly bag, 30 x 40 cm 50,000 piece 6.65 332,500.00\"\n  },\n  \"unit\": {\n    \"value\": \"piece\",\n    \"quote\": \"D Poly bag, 30 x 40 cm 50,000 piece 6.65 332,500.00\"\n  },\n  \"unit_price\": {\n    \"value\": \"6.65\",\n    \"quote\": \"D Poly bag, 30 x 40 cm 50,000 piece 6.65 332,500.00\"\n  },\n  \"subtotal\": {\n    \"value\": \"332,500.00\",\n    \"quote\": \"Subtotal 332,500.00\"\n  },\n  \"vat_amount\": {\n    \"value\": \"49,875.00\",\n    \"quote\": \"VAT 15% 49,875.00\"\n  },\n  \"total\": {\n    \"value\": \"382,375.00\",\n    \"quote\": \"Total 382,375.00\"\n  },\n  \"tax_inclusive_statement\": {\n    \"value\": null,\n    \"quote\": null\n  },\n  \"tin\": {\n    \"value\": \"104458043391\",\n    \"quote\": \"Supplier TIN: 104458043391 BIN: 000470441-0101\"\n  },\n  \"bin\": {\n    \"value\": \"000470441-0101\",\n    \"quote\": \"Supplier TIN: 104458043391 BIN: 000470441-0101\"\n  },\n  \"advance_pct\": {\n    \"value\": \"10%\",\n    \"quote\": \"1. Payment. 10% advance payable with the purchase order. Payment within 30 days after delivery.\"\n  },\n  \"payment_days\": {\n    \"value\": \"30 days\",\n    \"quote\": \"1. Payment. 10% advance payable with the purchase order. Payment within 30 days after delivery.\"\n  },\n  \"delivery_days\": {\n    \"value\": \"28 days\",\n    \"quote\": \"2. Delivery. Delivery within 28 days of PO.\"\n  },\n  \"penalty_pct_per_week\": {\n    \"value\": \"0.6%\",\n    \"quote\": \"3. Delay. Late delivery penalty of 0.6% of order value per week.\"\n  },\n  \"validity_days\": {\n    \"value\": \"40 days\",\n    \"quote\": \"4. Validity. This quotation is valid for 40 days from the date above.\"\n  }\n}"
+}

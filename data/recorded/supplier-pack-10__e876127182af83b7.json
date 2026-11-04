@@ -1,0 +1,14 @@
+{
+  "key": "e876127182af83b780cd881e496ceb586203c78c7501c77890f1308decb06ba0",
+  "label": "supplier-pack-10",
+  "model": "openai/gpt-oss-120b",
+  "prompt_version": "extract-v3",
+  "schema_version": "wire-v1",
+  "params": {
+    "max_completion_tokens": "4096",
+    "reasoning_effort": "low",
+    "structured_mode": "strict",
+    "temperature": "0"
+  },
+  "response": "{\n  \"supplier\": {\n    \"value\": \"Kushiyara Box Industries\",\n    \"quote\": \"Kushiyara Box Industries\"\n  },\n  \"quotation_no\": {\n    \"value\": \"QT-2026-910\",\n    \"quote\": \"Quotation no. QT-2026-910 Date 2026-10-23\"\n  },\n  \"date\": {\n    \"value\": \"2026-10-23\",\n    \"quote\": \"Quotation no. QT-2026-910 Date 2026-10-23\"\n  },\n  \"item_code\": {\n    \"value\": \"E\",\n    \"quote\": \"E Carton box, 5-ply 3,000 piece 94.00 282,000.00\"\n  },\n  \"description\": {\n    \"value\": \"Carton box, 5-ply\",\n    \"quote\": \"E Carton box, 5-ply 3,000 piece 94.00 282,000.00\"\n  },\n  \"qty\": {\n    \"value\": \"3,000\",\n    \"quote\": \"E Carton box, 5-ply 3,000 piece 94.00 282,000.00\"\n  },\n  \"unit\": {\n    \"value\": \"piece\",\n    \"quote\": \"E Carton box, 5-ply 3,000 piece 94.00 282,000.00\"\n  },\n  \"unit_price\": {\n    \"value\": \"94.00\",\n    \"quote\": \"E Carton box, 5-ply 3,000 piece 94.00 282,000.00\"\n  },\n  \"subtotal\": {\n    \"value\": null,\n    \"quote\": null\n  },\n  \"vat_amount\": {\n    \"value\": null,\n    \"quote\": null\n  },\n  \"total\": {\n    \"value\": \"282,000.00\",\n    \"quote\": \"Total (all taxes included) 282,000.00\"\n  },\n  \"tax_inclusive_statement\": {\n    \"value\": \"Total (all taxes included)\",\n    \"quote\": \"Total (all taxes included) 282,000.00\"\n  },\n  \"tin\": {\n    \"value\": \"110458103391\",\n    \"quote\": \"Supplier TIN: 110458103391 BIN: 001071041-0101\"\n  },\n  \"bin\": {\n    \"value\": \"001071041-0101\",\n    \"quote\": \"Supplier TIN: 110458103391 BIN: 001071041-0101\"\n  },\n  \"advance_pct\": {\n    \"value\": \"10%\",\n    \"quote\": \"1. Payment. 10% advance payable with the purchase order.\"\n  },\n  \"payment_days\": {\n    \"value\": \"45 days\",\n    \"quote\": \"Payment within 45 days of delivery.\"\n  },\n  \"delivery_days\": {\n    \"value\": \"60 days\",\n    \"quote\": \"Delivery within 60 days of PO.\"\n  },\n  \"penalty_pct_per_week\": {\n    \"value\": \"0.5%\",\n    \"quote\": \"Late delivery penalty of 0.5% of order value per week.\"\n  },\n  \"validity_days\": {\n    \"value\": \"30 days\",\n    \"quote\": \"This quotation is valid for 30 days from the date above.\"\n  }\n}"
+}

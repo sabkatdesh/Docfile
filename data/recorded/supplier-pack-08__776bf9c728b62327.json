@@ -1,0 +1,14 @@
+{
+  "key": "776bf9c728b62327912ebf79c8f7e72074a9eeba8f7920fc1c16b3264b756632",
+  "label": "supplier-pack-08",
+  "model": "openai/gpt-oss-120b",
+  "prompt_version": "extract-v3",
+  "schema_version": "wire-v1",
+  "params": {
+    "max_completion_tokens": "4096",
+    "reasoning_effort": "low",
+    "structured_mode": "strict",
+    "temperature": "0"
+  },
+  "response": "{\n  \"supplier\": {\n    \"value\": \"Bhairab Thread and Co\",\n    \"quote\": \"Bhairab Thread and Co\"\n  },\n  \"quotation_no\": {\n    \"value\": \"QT-2026-908\",\n    \"quote\": \"Quotation no. QT-2026-908 Date 2026-10-21\"\n  },\n  \"date\": {\n    \"value\": \"2026-10-21\",\n    \"quote\": \"Quotation no. QT-2026-908 Date 2026-10-21\"\n  },\n  \"item_code\": {\n    \"value\": \"C\",\n    \"quote\": \"C Polyester sewing thread, cone 800 cone 205.00 164,000.00\"\n  },\n  \"description\": {\n    \"value\": \"Polyester sewing thread, cone\",\n    \"quote\": \"C Polyester sewing thread, cone 800 cone 205.00 164,000.00\"\n  },\n  \"qty\": {\n    \"value\": \"800\",\n    \"quote\": \"C Polyester sewing thread, cone 800 cone 205.00 164,000.00\"\n  },\n  \"unit\": {\n    \"value\": \"cone\",\n    \"quote\": \"C Polyester sewing thread, cone 800 cone 205.00 164,000.00\"\n  },\n  \"unit_price\": {\n    \"value\": \"205.00\",\n    \"quote\": \"C Polyester sewing thread, cone 800 cone 205.00 164,000.00\"\n  },\n  \"subtotal\": {\n    \"value\": \"164,000.00\",\n    \"quote\": \"Subtotal 164,000.00\"\n  },\n  \"vat_amount\": {\n    \"value\": \"24,600.00\",\n    \"quote\": \"VAT 15% 24,600.00\"\n  },\n  \"total\": {\n    \"value\": \"188,600.00\",\n    \"quote\": \"Total 188,600.00\"\n  },\n  \"tax_inclusive_statement\": {\n    \"value\": null,\n    \"quote\": null\n  },\n  \"tin\": {\n    \"value\": null,\n    \"quote\": null\n  },\n  \"bin\": {\n    \"value\": null,\n    \"quote\": null\n  },\n  \"advance_pct\": {\n    \"value\": \"10%\",\n    \"quote\": \"1. Payment. 10% advance payable with the purchase order.\"\n  },\n  \"payment_days\": {\n    \"value\": \"30 days\",\n    \"quote\": \"Payment within 30 days of delivery.\"\n  },\n  \"delivery_days\": {\n    \"value\": \"18 days\",\n    \"quote\": \"Delivery within 18 days of PO.\"\n  },\n  \"penalty_pct_per_week\": {\n    \"value\": \"0.5%\",\n    \"quote\": \"Late delivery penalty of 0.5% per week of delay.\"\n  },\n  \"validity_days\": {\n    \"value\": \"30 days\",\n    \"quote\": \"This quotation is valid for 30 days from the date above.\"\n  }\n}"
+}

@@ -25,3 +25,18 @@ Judgment calls made while building. Newest last.
 - **Engine safety.** An exception inside a rule becomes UNKNOWN. A missing or duplicated rule result counts as UNKNOWN for that id. Approve only when all 12 rules PASS (property-tested over 5,000 seeded combinations).
 - **Weeks to days** is an extraction concern (M2); M1 fixtures give days directly (pack 09: 4 weeks = 28).
 - **Fixtures** in `tests/fixtures/packs.py` are hand-written with verbatim quotes, and a test checks each quote against the PDF text. M2 owns real quote verification.
+
+## M2
+
+- **LLM provider is Groq, `openai/gpt-oss-120b` (free tier), not Bedrock.** The `LLMProvider` protocol is unchanged, so the provider is a config value (`DOCGATE_PROVIDER=replay|groq`). Client is the official `groq` SDK pinned to 1.7.0, with `max_retries=0` so our own `RetryingProvider` is the only retry policy (testable with a fake clock, honest request counts). Structured output uses `json_schema` with `strict: true`; `best_effort` and `json_object` are config fallbacks. Free-tier limits (30 req/min, 8K tokens/min, 1K req/day, 200K tokens/day) mean live recording is paced.
+- **LLM wire values are strings exactly as printed; code parses them.** The model never converts or computes (weeks to days, number formats, VAT). Status is assigned by code, never reported by the model.
+- **Total LLM failure gives UNVERIFIED, not MISSING.** M1 treats MISSING as FAIL for R3/R4, so MISSING-on-outage would turn an outage into Reject. UNVERIFIED escalates to a person instead.
+- **Dual extraction is required for every field the regex supports.** Both readers must agree (after quote verification). One side unreadable gives UNVERIFIED, one side absent while the other found a value gives CONFLICT, both absent gives MISSING. A bad LLM quote is never rescued by the regex alone.
+- **Regex is tri-state** (FOUND / ABSENT / UNREADABLE). ABSENT means the clause anchor is not in the text; UNREADABLE means anchor present but pattern failed or two different matches.
+- **CONFLICT keeps both values in `issues`**, not in `Field` (M0 invariant: non-OK carries no value), so the reviewer in M4 can see both sides.
+- **Recordings store the raw response string**, keyed by sha256 of (pdf text, prompt version, model id, schema version, request params). Parsing and quote verification re-run on replay. Failures are never recorded.
+- **"No advance payment required" gives advance 0** (packs 02, 07): one whitelisted case where the value is not literally in the quote.
+- **`extraction/replay.py` replaced by `extraction/factory.py`**; recording and replay live in `llm/replay_provider.py`. Extra modules `llm/retry.py` and `extraction/parsing.py` keep one responsibility per file.
+- **Strict number parsing** in `extraction/parsing.py` (not `domain.money.parse_money`, which would read `1.200,00` as 1.20000).
+- **Prompt is `extract-v3`.** v1 let the model return whole sentences as values (parsed as UNVERIFIED, never guessed); v2 fixed that by requiring only the figure; v3 stopped it returning null for pack 06's one-letter `item_code` (caught as a CONFLICT by reconcile). Each bump changes the recording key, so all 10 were re-recorded.
+- **Recordings keep the raw response even if the model slipped on a field;** only packs whose extraction failed outright are discarded.
