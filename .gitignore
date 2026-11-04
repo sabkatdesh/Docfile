@@ -1,0 +1,24 @@
+# Claude Code and planning (local only)
+.claude/
+CLAUDE.md
+docs/plan/
+
+# IDE
+.idea/
+
+# Python
+.venv/
+__pycache__/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Secrets and runtime
+.env
+*.sqlite
+runs/
+checkpoints/
+
+# Front end
+web/node_modules/
+web/dist/

@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "docgate"
+version = "0.1.0"
+description = "Supplier quotation checker: the LLM reads, code judges."
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic==2.14.2",
+    "pdfplumber==0.11.10",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff==0.17.3",
+    "mypy==2.4.1",
+    "pytest==9.2.0",
+    "pytest-cov==7.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "N", "RUF"]
+
+[tool.mypy]
+strict = true
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+files = ["src", "tests", "tasks.py"]
+
+[[tool.mypy.overrides]]
+module = ["pdfplumber", "pdfplumber.*"]
+ignore_missing_imports = true
