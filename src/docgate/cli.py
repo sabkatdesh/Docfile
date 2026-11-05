@@ -7,6 +7,7 @@ import argparse
 import getpass
 import json
 import os
+import sqlite3
 import sys
 from collections import Counter
 from collections.abc import Mapping, Sequence
@@ -22,10 +23,11 @@ from docgate.extraction.quotes import verify_quote
 from docgate.extraction.regex import RegexExtractor
 from docgate.extraction.service import extract_document
 from docgate.ingest.pdf import extract_text
-from docgate.ingest.purchase_request import load_pr_lines
+from docgate.ingest.purchase_request import PurchaseRequestError, load_pr_lines
 from docgate.llm.provider import LLMConfigError
 from docgate.reporting.writer import write_run
 from docgate.review.checkpoint import DEFAULT_DB, sqlite_saver
+from docgate.review.fresh import discard, start_fresh
 from docgate.review.render import render_pending, render_status
 from docgate.review.service import GraphReviewStore
 from docgate.review.store import ReviewError
@@ -38,6 +40,8 @@ from docgate.workflow.state import PackState
 SAMPLE_DIR = Path("data/sample")
 DEFAULT_OUT = Path("runs/latest")
 DEFAULT_GOLDEN = Path("data/golden/expected.json")
+DEMO_OUT = Path("runs/demo")
+DEMO_DB = Path("runs/demo.sqlite")
 SMOKE_PACK = 4  # a pack with every field present, so one request exercises the whole schema
 
 
@@ -50,6 +54,9 @@ def _packs(numbers: Sequence[int] | None) -> list[Path]:
     paths = sorted(SAMPLE_DIR.glob("supplier-pack-*.pdf"))
     if numbers:
         wanted = {f"supplier-pack-{n:02d}" for n in numbers}
+        unmatched = sorted(wanted - {p.stem for p in paths})
+        if unmatched:  # a typo must not quietly run fewer packs than asked for
+            raise SettingsError(f"no file in {SAMPLE_DIR} for: {', '.join(unmatched)}")
         paths = [p for p in paths if p.stem in wanted]
     if not paths:
         raise SettingsError(f"no matching supplier packs in {SAMPLE_DIR}")
@@ -123,22 +130,63 @@ def _run_all(settings: Settings, packs: list[Path]) -> list[PackState]:
     return run_packs(build_graph(_deps(settings)), packs)
 
 
-def cmd_run(settings: Settings, packs: list[Path], out: Path, db: Path) -> int:
+def _pending_on(db: Path, deps: Deps) -> list[str]:
+    try:
+        with sqlite_saver(db) as saver:
+            store = GraphReviewStore(build_graph(deps, checkpointer=saver), saver)
+            return [item.pack_id for item in store.pending()]
+    except sqlite3.DatabaseError as exc:
+        raise ReviewError(
+            f"{db} is not a readable checkpoint database ({exc}); delete it or choose --db"
+        ) from exc
+
+
+def _run_and_report(
+    graph: Any, store: GraphReviewStore, packs: list[Path], db: Path, out: Path
+) -> list[PackState]:
+    on_record = set(store.pack_ids())
+    for path in packs:
+        if path.stem in on_record:  # re-running would silently restart a paused pack
+            print(f"{path.stem:<20} already on record in {db}; skipped")
+    states = run_packs(graph, [p for p in packs if p.stem not in on_record])
+    for s in states:
+        r = report_of(s)
+        note = "  [awaiting review]" if "__interrupt__" in s else ""
+        print(f"{s['pack_id']:<20} {r.decision.value:<26} {r.headline}{note}")
+    write_run([report_of(s) for s in store.states()], out)
+    return states
+
+
+def cmd_run(settings: Settings, packs: list[Path], out: Path, db: Path, resume: bool) -> int:
     deps = _deps(settings)  # before the file is opened: a config error must not create a database
+    if not resume:
+        start_fresh(db, lambda: _pending_on(db, deps))
+    with sqlite_saver(db) as saver:
+        graph = build_graph(deps, checkpointer=saver)
+        _run_and_report(graph, GraphReviewStore(graph, saver), packs, db, out)
+    print(f"reports written to {out}")
+    return 0
+
+
+def cmd_demo(settings: Settings, out: Path, db: Path) -> int:
+    """All packs from the recordings, on a database of its own that is always rebuilt."""
+    offline = replace(settings, provider="replay", groq_api_key=None)  # no key, no network
+    packs = _packs(None)
+    deps = _deps(offline)
+    discard(db)  # demo owns this file; unlike `run` there is nothing of the user's to protect
     with sqlite_saver(db) as saver:
         graph = build_graph(deps, checkpointer=saver)
         store = GraphReviewStore(graph, saver)
-        on_record = set(store.pack_ids())
-        for path in packs:
-            if path.stem in on_record:  # re-running would silently restart a paused pack
-                print(f"{path.stem:<20} already on record in {db}; skipped")
-        states = run_packs(graph, [p for p in packs if p.stem not in on_record])
-        for s in states:
-            r = report_of(s)
-            note = "  [awaiting review]" if "__interrupt__" in s else ""
-            print(f"{s['pack_id']:<20} {r.decision.value:<26} {r.headline}{note}")
-        write_run([report_of(s) for s in store.states()], out)
+        states = _run_and_report(graph, store, packs, db, out)
+        tally = Counter(report_of(s).decision.value for s in states)
+        summary = ", ".join(f"{n} {d}" for d, n in sorted(tally.items()))
+        print(f"\n{len(states)} packs: {summary}")
+        print(render_pending(store.pending()))
     print(f"reports written to {out}")
+    print(
+        "resolve one with: python tasks.py review resolve <pack> --decision approve "
+        f'--reason "..." --db {db}'
+    )
     return 0
 
 
@@ -198,9 +246,17 @@ def main(argv: Sequence[str]) -> int:
         cmd.add_argument("--provider", choices=PROVIDERS, default="replay")
         if name == "run":
             cmd.add_argument("--db", type=Path, default=DEFAULT_DB, help="checkpoint database")
+            cmd.add_argument(
+                "--resume",
+                action="store_true",
+                help="keep the existing database (default: start from an empty one)",
+            )
             cmd.add_argument("--pack", type=int, action="append", help="pack number, repeatable")
         else:
             cmd.add_argument("--golden", type=Path, default=DEFAULT_GOLDEN)
+    demo = sub.add_parser("demo", help="run all packs from the recordings: no key, no network")
+    demo.add_argument("--out", type=Path, default=DEMO_OUT, help="report directory")
+    demo.add_argument("--db", type=Path, default=DEMO_DB, help="demo checkpoint database")
     rev = sub.add_parser("review", help="list, show and resolve packs waiting for a person")
     actions = rev.add_subparsers(dest="action", required=True)
     for action in ("list", "show", "resolve"):
@@ -218,15 +274,24 @@ def main(argv: Sequence[str]) -> int:
         settings = load_settings(_environment())
         if args.command == "review":
             return cmd_review(args)
+        if args.command == "demo":
+            return cmd_demo(settings, args.out, args.db)
         if args.command in ("run", "eval"):
             settings = replace(settings, provider=args.provider)
             if args.command == "run":
-                return cmd_run(settings, _packs(args.pack), args.out, args.db)
+                return cmd_run(settings, _packs(args.pack), args.out, args.db, args.resume)
             return cmd_eval(settings, _packs(None), args.out, args.golden)
         if args.command == "extract":
             return cmd_extract(settings, _packs(args.pack))
         return cmd_record(settings, _packs([SMOKE_PACK] if args.smoke else args.pack), args.force)
-    except (SettingsError, LLMConfigError, OperatorError, GoldenError, ReviewError) as exc:
+    except (
+        SettingsError,
+        LLMConfigError,
+        OperatorError,
+        GoldenError,
+        ReviewError,
+        PurchaseRequestError,
+    ) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
 

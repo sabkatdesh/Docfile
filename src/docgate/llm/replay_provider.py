@@ -31,15 +31,26 @@ def request_key(request: LLMRequest, model_id: str) -> str:
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
+def _load(path: Path) -> dict[str, Any]:
+    """A recording as a dict, or a ReplayMissError that names the damaged file."""
+    try:
+        record = json.loads(path.read_text("utf-8"))
+    except (OSError, ValueError) as exc:  # ValueError covers bad JSON and bad UTF-8
+        raise ReplayMissError(f"recording {path.name} is corrupt: {exc}") from exc
+    if not isinstance(record, dict):
+        raise ReplayMissError(f"recording {path.name} is corrupt: not a JSON object")
+    return record
+
+
 def _find(directory: Path, key: str) -> Path | None:
     for path in sorted(directory.glob(f"*__{key[:_KEY_PREFIX]}.json")):
-        if json.loads(path.read_text("utf-8")).get("key") == key:
+        if _load(path).get("key") == key:
             return path
     return None
 
 
 def _read(path: Path) -> str:
-    response = json.loads(path.read_text("utf-8"))["response"]
+    response = _load(path).get("response")
     if not isinstance(response, str):
         raise ReplayMissError(f"recording {path.name} is corrupt: response is not text")
     return response

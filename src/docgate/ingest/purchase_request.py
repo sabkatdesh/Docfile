@@ -3,13 +3,29 @@
 from __future__ import annotations
 
 import csv
+from decimal import InvalidOperation
 from pathlib import Path
 
 from docgate.domain.models import PRLine
 from docgate.domain.money import to_money
 
 
+class PurchaseRequestError(ValueError):  # a ValueError so existing callers and tests still match
+    """The purchase request file is missing or unusable. The message names the file."""
+
+
 def load_pr_lines(path: Path) -> dict[str, PRLine]:
+    try:
+        return _read_lines(path)
+    except OSError as exc:
+        raise PurchaseRequestError(f"cannot read purchase request {path}: {exc.strerror}") from exc
+    except KeyError as exc:
+        raise PurchaseRequestError(f"purchase request {path} has no column {exc}") from exc
+    except (ValueError, InvalidOperation) as exc:
+        raise PurchaseRequestError(f"purchase request {path} is invalid: {exc}") from exc
+
+
+def _read_lines(path: Path) -> dict[str, PRLine]:
     lines: dict[str, PRLine] = {}
     # utf-8-sig: the sample CSV starts with a BOM that would corrupt the first header.
     with path.open(newline="", encoding="utf-8-sig") as fh:
@@ -23,6 +39,6 @@ def load_pr_lines(path: Path) -> dict[str, PRLine]:
                 max_unit_price=to_money(row["Maximum unit price (BDT)"].strip()),
             )
             if line.item_code in lines:
-                raise ValueError(f"duplicate item code {line.item_code!r} in {path}")
+                raise ValueError(f"duplicate item code {line.item_code!r}")
             lines[line.item_code] = line
     return lines

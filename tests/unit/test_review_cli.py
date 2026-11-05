@@ -162,7 +162,7 @@ def test_rerun_does_not_restart_a_pack_on_record(
     _run(paths, out)
     _resolve(paths, out, "supplier-pack-04", reason="kept", decision="approve", reviewer="alice")
     capsys.readouterr()
-    assert _run(paths, out) == 0
+    assert _run(paths, out, "--resume") == 0  # a fresh start is the default; resuming is explicit
     assert "already on record" in capsys.readouterr().out
     data = json.loads((out / "supplier-pack-04.json").read_text("utf-8"))
     assert data["human_review"]["reason"] == "kept"
