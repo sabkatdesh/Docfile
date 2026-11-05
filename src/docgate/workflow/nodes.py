@@ -17,6 +17,7 @@ from docgate.domain.config import RuleConfig
 from docgate.domain.models import HumanReview, NodeError
 from docgate.extraction.base import ExtractorOutput
 from docgate.extraction.reconcile import reconcile
+from docgate.ingest.whitespace import normalise_whitespace
 from docgate.llm.provider import LLMConfigError
 from docgate.reporting.report import PackReport, build_report
 from docgate.review.payload import build_payload
@@ -64,7 +65,8 @@ def report_from_state(state: PackState, cfg: RuleConfig) -> PackReport:
 
 def build_nodes(deps: Deps) -> dict[str, Node]:
     def ingest(state: PackState) -> Update:
-        return {"text": deps.read_text(Path(state["pdf_path"]))}
+        # The one place text enters the graph, so every reader and quote check sees the same string.
+        return {"text": normalise_whitespace(deps.read_text(Path(state["pdf_path"])))}
 
     def extract_llm(state: PackState) -> Update:
         return {"llm_out": deps.llm.extract(state["text"], state["pack_id"])}

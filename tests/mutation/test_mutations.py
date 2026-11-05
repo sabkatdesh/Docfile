@@ -12,6 +12,8 @@ Families:
 
 from __future__ import annotations
 
+from dataclasses import replace
+
 import pytest
 
 from docgate.domain.models import Decision, FieldStatus, RuleStatus
@@ -192,12 +194,11 @@ CONTROLS: list[Mutation] = [
     Mutation("blank_lines_added", APPROVE, {}, transform=lambda t: t.replace("\n", "\n\n")),
 ]
 
-# Whitespace the PDF reader would not normally produce. The regex reader is literal about it
-# (its template check and item-row pattern), so today these ask for a person instead of approving.
-# That is the safe direction and is recorded as a known limitation; the probe pins only the safety
-# property: Approve (correct) or Needs person (cautious), never Reject.
+# Whitespace noise the PDF reader would not normally produce. The ingest node folds it before any
+# reader sees the text, so each must give exactly the original verdict.
 WHITESPACE_PROBES: list[Mutation] = [
     Mutation("spaces_widened", APPROVE, {}, transform=lambda t: t.replace(" ", "  ")),
+    Mutation("tabs_for_spaces", APPROVE, {}, transform=lambda t: t.replace(" ", "\t")),
     Mutation("crlf_line_endings", APPROVE, {}, transform=lambda t: t.replace("\n", "\r\n")),
     Mutation("trailing_spaces", APPROVE, {}, transform=lambda t: t.replace("\n", "   \n")),
 ]
@@ -244,10 +245,27 @@ def test_a_changed_document_with_the_old_extraction_is_refused(m: Mutation) -> N
 
 
 @pytest.mark.parametrize("m", WHITESPACE_PROBES, ids=_ids(WHITESPACE_PROBES))
-def test_whitespace_probe_is_never_a_wrong_answer(m: Mutation) -> None:
+def test_whitespace_noise_leaves_the_original_verdict(m: Mutation) -> None:
     state = run_mutant(m)
     assert state["errors"] == []
-    assert state["verdict"].decision in {APPROVE, PERSON}, state["verdict"].reason
+    assert state["verdict"].decision is APPROVE, state["verdict"].reason
+    assert non_pass(state) == {}
+
+
+def _noisy(m: Mutation) -> Mutation:
+    def noise(t: str) -> str:
+        return t.replace(" ", "\t\t").replace("\n", "  \r\n")
+
+    return replace(m, id=f"{m.id}[noisy]", transform=noise)
+
+
+@pytest.mark.parametrize("m", [_noisy(x) for x in MUTATIONS], ids=lambda m: m.id)
+def test_noise_never_hides_a_real_edit(m: Mutation) -> None:
+    """Normalising layout must not mask a changed number: the edit's verdict and rules hold."""
+    state = run_mutant(m)
+    assert state["errors"] == []
+    assert state["verdict"].decision is m.expect, state["verdict"].reason
+    assert non_pass(state) == m.fired
 
 
 # -- safety invariant ---------------------------------------------------------------------
