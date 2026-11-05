@@ -18,6 +18,7 @@ from docgate.domain.models import (
     DayRange,
     Decision,
     Extraction,
+    HumanReview,
     NodeError,
     PRLine,
     Verdict,
@@ -68,6 +69,7 @@ class PackReport(BaseModel):
     decision: Decision
     needs_human: bool
     human_decision: Decision | None
+    human_review: HumanReview | None
     reason: str
     explanation: str
     headline: str
@@ -113,6 +115,7 @@ def build_report(
     comparison: Comparison | None,
     errors: Sequence[NodeError],
     cfg: RuleConfig,
+    human_review: HumanReview | None = None,
 ) -> PackReport:
     titles = rule_titles(cfg)
     fields: list[FieldReport] = []
@@ -128,6 +131,7 @@ def build_report(
         decision=verdict.decision,
         needs_human=verdict.needs_human,
         human_decision=verdict.human_decision,
+        human_review=human_review,
         reason=verdict.reason,
         explanation=explain(verdict, errors, cfg),
         headline=headline(verdict, errors, cfg),
@@ -184,8 +188,21 @@ def _table(header: list[str], rows: list[list[object]]) -> list[str]:
 def render_markdown(r: PackReport) -> str:
     out = [f"# {r.pack_id}: {r.decision.value}", ""]
     if r.needs_human:
-        done = f" Human decision: {r.human_decision.value}." if r.human_decision else ""
-        out += [f"**Needs a person to check.**{done}", ""]
+        out += ["**Needs a person to check.**", ""]
+    if r.human_review:
+        h = r.human_review
+        out += [
+            "## Human review",
+            "",
+            f"- Machine verdict: {r.decision.value}",
+            f"- Human decision: {h.decision.value}",
+            f"- Reason: {h.reason}",
+            f"- Reviewer: {h.reviewer}",
+            f"- Reviewed at: {h.reviewed_at.isoformat()}",
+            "",
+        ]
+    elif r.needs_human:
+        out += ["_Awaiting a human decision._", ""]
     out += [f"**Reason.** {r.explanation}", ""]
     if r.errors:
         out += ["## Errors", ""]
@@ -247,6 +264,7 @@ class SummaryRow(BaseModel):
     supplier: str | None
     item: str | None
     decision: Decision
+    human_decision: Decision | None
     needs_human: bool
     primary_rule: str | None
     top_reason: str
@@ -275,6 +293,7 @@ def build_summary(reports: Sequence[PackReport]) -> Summary:
                 supplier=_field(r, "supplier"),
                 item=_field(r, "item_code"),
                 decision=r.decision,
+                human_decision=r.human_decision,
                 needs_human=r.needs_human,
                 primary_rule=r.primary_rule,
                 top_reason=r.headline,
@@ -292,7 +311,17 @@ def render_summary_markdown(s: Summary) -> str:
         "",
     ]
     out += _table(
-        ["Pack", "Supplier", "Item", "Decision", "Top reason"],
-        [[r.pack_id, r.supplier, r.item, r.decision.value, r.top_reason] for r in s.rows],
+        ["Pack", "Supplier", "Item", "Decision", "Human decision", "Top reason"],
+        [
+            [
+                r.pack_id,
+                r.supplier,
+                r.item,
+                r.decision.value,
+                r.human_decision.value if r.human_decision else "",
+                r.top_reason,
+            ]
+            for r in s.rows
+        ],
     )
     return "\n".join(out) + "\n"

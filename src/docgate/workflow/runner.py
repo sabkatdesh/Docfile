@@ -7,7 +7,10 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
+from docgate.domain.config import DEFAULT_CONFIG, RuleConfig
+from docgate.reporting.report import PackReport
 from docgate.workflow.graph import run_pack
+from docgate.workflow.nodes import report_from_state
 from docgate.workflow.state import PackState
 
 
@@ -31,3 +34,8 @@ def run_packs(graph: Any, paths: Sequence[Path]) -> list[PackState]:
             raise OperatorError("; ".join(f"{e.node}: {e.message}" for e in config_errors))
         states.append(state)
     return states
+
+
+def report_of(state: PackState, cfg: RuleConfig = DEFAULT_CONFIG) -> PackReport:
+    """The final report, or a provisional one while the pack waits at the human gate."""
+    return state["report"] if "report" in state else report_from_state(state, cfg)

@@ -103,7 +103,10 @@ def test_eval_ignores_a_groq_provider_in_the_environment(
 def test_run_single_pack_writes_its_report(
     tmp_path: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
-    assert main(["run", "--pack", "9", "--out", str(tmp_path)]) == 0
+    assert (
+        main(["run", "--pack", "9", "--out", str(tmp_path), "--db", str(tmp_path / "ck.sqlite")])
+        == 0
+    )
     assert "Needs a person to check" in capsys.readouterr().out
     assert (tmp_path / "supplier-pack-09.json").is_file()
     assert not (tmp_path / "supplier-pack-01.json").exists()
@@ -112,7 +115,19 @@ def test_run_single_pack_writes_its_report(
 def test_live_run_without_a_key_stops_with_a_clear_error(
     tmp_path: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
-    code = main(["run", "--provider", "groq", "--pack", "1", "--out", str(tmp_path)])
+    code = main(
+        [
+            "run",
+            "--provider",
+            "groq",
+            "--pack",
+            "1",
+            "--out",
+            str(tmp_path),
+            "--db",
+            str(tmp_path / "ck.sqlite"),
+        ]
+    )
     assert code == 2
     assert "GROQ_API_KEY" in capsys.readouterr().err
 

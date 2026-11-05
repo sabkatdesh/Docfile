@@ -5,6 +5,7 @@
               extract_regex /                                              |
     any failure after ingest/reconcile/compare/rules/decide -> escalate ---+
                                                                            v
+    decide -> human_gate only when the machine verdict is "Needs a person"; else -> report
                                                         human_gate -> report -> END
 """
 
@@ -15,6 +16,7 @@ from pathlib import Path
 from typing import Any, cast
 
 from langgraph.checkpoint.base import BaseCheckpointSaver
+from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import END, START, StateGraph
 
 from docgate.workflow.deps import Deps
@@ -31,6 +33,13 @@ def _unless_failed(next_node: str) -> Callable[[PackState], str]:
         return "escalate" if state.get("errors") else next_node
 
     return route
+
+
+def _after_decide(state: PackState) -> str:
+    """Approve and Reject are final: only a machine "Needs a person" ever reaches the gate."""
+    if state.get("errors"):
+        return "escalate"
+    return "human_gate" if state["verdict"].needs_human else "report"
 
 
 def _after_ingest(state: PackState) -> list[str]:
@@ -50,18 +59,20 @@ def build_graph(deps: Deps, checkpointer: BaseCheckpointSaver[Any] | None = None
         ("reconcile", "compare_pr"),
         ("compare_pr", "apply_rules"),
         ("apply_rules", "decide"),
-        ("decide", "human_gate"),
     ]:
         graph.add_conditional_edges(step, _unless_failed(following), [following, "escalate"])
+    graph.add_conditional_edges("decide", _after_decide, ["human_gate", "report", "escalate"])
     graph.add_edge("escalate", "human_gate")
     graph.add_edge("human_gate", "report")
     graph.add_edge("report", END)
-    return graph.compile(checkpointer=checkpointer)
+    # interrupt() needs a checkpointer; in memory is enough for runs that are never resumed.
+    return graph.compile(checkpointer=checkpointer or InMemorySaver())
 
 
 def run_pack(
     graph: Any, pack_id: str, pdf_path: Path, config: dict[str, Any] | None = None
 ) -> PackState:
+    config = config or {"configurable": {"thread_id": pack_id}}  # one thread per pack
     state: PackState = graph.invoke(
         {"pack_id": pack_id, "pdf_path": str(pdf_path), "errors": []}, config
     )

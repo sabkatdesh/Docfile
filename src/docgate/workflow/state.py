@@ -8,7 +8,7 @@ from collections.abc import Sequence
 from typing import Annotated, TypedDict
 
 from docgate.compare.summary import Comparison
-from docgate.domain.models import Extraction, NodeError, RuleResult, Verdict
+from docgate.domain.models import Extraction, HumanReview, NodeError, RuleResult, Verdict
 from docgate.extraction.base import ExtractorOutput
 from docgate.extraction.reconcile import FieldIssue
 from docgate.reporting.report import PackReport
@@ -25,6 +25,7 @@ class PackState(TypedDict, total=False):
     comparison: Comparison
     rule_results: list[RuleResult]
     verdict: Verdict
+    human_review: HumanReview
     report: PackReport
     # Both extractors can fail in the same step, so errors are appended, not overwritten.
     errors: Annotated[list[NodeError], operator.add]

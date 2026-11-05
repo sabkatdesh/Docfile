@@ -4,6 +4,7 @@ reports and `eval` scores the golden set. Logic lives in the packages; this only
 from __future__ import annotations
 
 import argparse
+import getpass
 import json
 import os
 import sys
@@ -24,10 +25,14 @@ from docgate.ingest.pdf import extract_text
 from docgate.ingest.purchase_request import load_pr_lines
 from docgate.llm.provider import LLMConfigError
 from docgate.reporting.writer import write_run
+from docgate.review.checkpoint import DEFAULT_DB, sqlite_saver
+from docgate.review.render import render_pending, render_status
+from docgate.review.service import GraphReviewStore
+from docgate.review.store import ReviewError
 from docgate.settings import PROVIDERS, Settings, SettingsError, load_settings, parse_env_file
 from docgate.workflow.deps import Deps
 from docgate.workflow.graph import build_graph
-from docgate.workflow.runner import OperatorError, pack_number, run_packs
+from docgate.workflow.runner import OperatorError, pack_number, report_of, run_packs
 from docgate.workflow.state import PackState
 
 SAMPLE_DIR = Path("data/sample")
@@ -105,21 +110,34 @@ def cmd_record(settings: Settings, packs: list[Path], force: bool) -> int:
     return 1 if failures else 0
 
 
-def _run_all(settings: Settings, packs: list[Path]) -> list[PackState]:
-    stack = build_llm_stack(settings)
-    deps = Deps(
-        llm=stack.extractor,
+def _deps(settings: Settings) -> Deps:
+    return Deps(
+        llm=build_llm_stack(settings).extractor,
         regex=RegexExtractor(),
         pr_lines=load_pr_lines(SAMPLE_DIR / "purchase-request.csv"),
     )
-    return run_packs(build_graph(deps), packs)
 
 
-def cmd_run(settings: Settings, packs: list[Path], out: Path) -> int:
-    states = _run_all(settings, packs)
-    write_run([s["report"] for s in states], out)
-    for s in states:
-        print(f"{s['pack_id']:<20} {s['report'].decision.value:<26} {s['report'].headline}")
+def _run_all(settings: Settings, packs: list[Path]) -> list[PackState]:
+    """Evaluation only: in-memory checkpoints, so nothing is stored or reused between runs."""
+    return run_packs(build_graph(_deps(settings)), packs)
+
+
+def cmd_run(settings: Settings, packs: list[Path], out: Path, db: Path) -> int:
+    deps = _deps(settings)  # before the file is opened: a config error must not create a database
+    with sqlite_saver(db) as saver:
+        graph = build_graph(deps, checkpointer=saver)
+        store = GraphReviewStore(graph, saver)
+        on_record = set(store.pack_ids())
+        for path in packs:
+            if path.stem in on_record:  # re-running would silently restart a paused pack
+                print(f"{path.stem:<20} already on record in {db}; skipped")
+        states = run_packs(graph, [p for p in packs if p.stem not in on_record])
+        for s in states:
+            r = report_of(s)
+            note = "  [awaiting review]" if "__interrupt__" in s else ""
+            print(f"{s['pack_id']:<20} {r.decision.value:<26} {r.headline}{note}")
+        write_run([report_of(s) for s in store.states()], out)
     print(f"reports written to {out}")
     return 0
 
@@ -127,7 +145,7 @@ def cmd_run(settings: Settings, packs: list[Path], out: Path) -> int:
 def cmd_eval(settings: Settings, packs: list[Path], out: Path, golden_file: Path) -> int:
     golden = load_golden(golden_file)
     states = _run_all(settings, packs)
-    write_run([s["report"] for s in states], out)
+    write_run([report_of(s) for s in states], out)
     # The automatic decision only: a later human decision must not mask a wrong verdict.
     actual: dict[int, Decision] = {pack_number(s["pack_id"]): s["verdict"].decision for s in states}
     result = score(golden, actual)
@@ -136,6 +154,29 @@ def cmd_eval(settings: Settings, packs: list[Path], out: Path, golden_file: Path
         json.dumps(result_to_dict(result), indent=2) + "\n", encoding="utf-8"
     )
     return 0 if result.passed else 1
+
+
+def _existing_db(db: Path) -> Path:
+    if not db.is_file():  # opening would create an empty file and hide the real problem
+        raise SettingsError(f"no checkpoint database at {db}; run `python tasks.py run` first")
+    return db
+
+
+def cmd_review(args: argparse.Namespace) -> int:
+    with sqlite_saver(_existing_db(args.db)) as saver:
+        settings = replace(load_settings(_environment()), provider="replay")  # never live
+        graph = build_graph(_deps(settings), checkpointer=saver)
+        store = GraphReviewStore(graph, saver)
+        if args.action == "list":
+            print(render_pending(store.pending()))
+        elif args.action == "show":
+            print(render_status(store.status(args.pack)))
+        else:
+            decision = Decision(args.decision.capitalize())
+            store.resolve(args.pack, decision, args.reason, args.reviewer)
+            write_run([report_of(s) for s in store.states()], args.out)
+            print(f"{args.pack}: {args.decision} by {args.reviewer}; reports in {args.out}")
+    return 0
 
 
 def main(argv: Sequence[str]) -> int:
@@ -156,21 +197,36 @@ def main(argv: Sequence[str]) -> int:
         # Replay unless asked: a stray DOCGATE_PROVIDER=groq in .env must never spend requests.
         cmd.add_argument("--provider", choices=PROVIDERS, default="replay")
         if name == "run":
+            cmd.add_argument("--db", type=Path, default=DEFAULT_DB, help="checkpoint database")
             cmd.add_argument("--pack", type=int, action="append", help="pack number, repeatable")
         else:
             cmd.add_argument("--golden", type=Path, default=DEFAULT_GOLDEN)
+    rev = sub.add_parser("review", help="list, show and resolve packs waiting for a person")
+    actions = rev.add_subparsers(dest="action", required=True)
+    for action in ("list", "show", "resolve"):
+        act = actions.add_parser(action)
+        act.add_argument("--db", type=Path, default=DEFAULT_DB, help="checkpoint database")
+        if action != "list":
+            act.add_argument("pack", help="pack id, e.g. supplier-pack-09")
+        if action == "resolve":
+            act.add_argument("--decision", choices=["approve", "reject"], required=True)
+            act.add_argument("--reason", required=True, help="why; must not be empty")
+            act.add_argument("--reviewer", default=getpass.getuser(), help="default: OS username")
+            act.add_argument("--out", type=Path, default=DEFAULT_OUT, help="report directory")
     args = parser.parse_args(argv)
     try:
         settings = load_settings(_environment())
+        if args.command == "review":
+            return cmd_review(args)
         if args.command in ("run", "eval"):
             settings = replace(settings, provider=args.provider)
             if args.command == "run":
-                return cmd_run(settings, _packs(args.pack), args.out)
+                return cmd_run(settings, _packs(args.pack), args.out, args.db)
             return cmd_eval(settings, _packs(None), args.out, args.golden)
         if args.command == "extract":
             return cmd_extract(settings, _packs(args.pack))
         return cmd_record(settings, _packs([SMOKE_PACK] if args.smoke else args.pack), args.force)
-    except (SettingsError, LLMConfigError, OperatorError, GoldenError) as exc:
+    except (SettingsError, LLMConfigError, OperatorError, GoldenError, ReviewError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
 

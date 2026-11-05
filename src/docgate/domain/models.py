@@ -7,7 +7,13 @@ from decimal import Decimal
 from enum import StrEnum
 from typing import Any, Literal, Self
 
-from pydantic import BaseModel, ConfigDict, field_validator, model_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    ValidationInfo,
+    field_validator,
+    model_validator,
+)
 from pydantic import Field as PydanticField
 
 
@@ -123,15 +129,52 @@ class RuleResult(BaseModel):
     evidence_quote: str | None = None
 
 
+class HumanReview(BaseModel):
+    """A reviewer's answer to a paused pack. It never replaces the machine verdict."""
+
+    model_config = ConfigDict(frozen=True)
+
+    decision: Decision
+    reason: str
+    reviewer: str
+    reviewed_at: datetime.datetime
+
+    @field_validator("decision")
+    @classmethod
+    def _final_decision(cls, v: Decision) -> Decision:
+        if v is Decision.NEEDS_PERSON:
+            raise ValueError("a human decision must be Approve or Reject")
+        return v
+
+    @field_validator("reason", "reviewer")
+    @classmethod
+    def _not_blank(cls, v: str, info: ValidationInfo) -> str:
+        text = v.strip()
+        if not text:
+            raise ValueError(f"{info.field_name} must not be empty")
+        return text
+
+    @field_validator("reviewed_at")
+    @classmethod
+    def _aware(cls, v: datetime.datetime) -> datetime.datetime:
+        if v.tzinfo is None:
+            raise ValueError("reviewed_at needs a timezone")
+        return v
+
+
 class Verdict(BaseModel):
     decision: Decision
     reason: str
     rule_results: list[RuleResult]
-    human_decision: Decision | None = None
+    human_review: HumanReview | None = None
 
     @property
     def needs_human(self) -> bool:
         return self.decision is Decision.NEEDS_PERSON
+
+    @property
+    def human_decision(self) -> Decision | None:
+        return self.human_review.decision if self.human_review else None
 
 
 ErrorKind = Literal["error", "config"]

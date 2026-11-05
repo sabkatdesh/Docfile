@@ -24,6 +24,7 @@ from docgate.reporting.writer import write_run
 from docgate.rules.engine import evaluate
 from docgate.rules.titles import rule_titles
 from docgate.workflow.graph import build_graph, run_pack
+from docgate.workflow.runner import report_of
 from tests.factories import absent, baseline_extraction, ok, pr_line
 from tests.graph_support import pack_path, replay_deps
 
@@ -34,7 +35,7 @@ def reports() -> dict[int, PackReport]:
     out: dict[int, PackReport] = {}
     for n in range(1, 11):
         state = run_pack(graph, f"supplier-pack-{n:02d}", pack_path(n))
-        out[n] = state["report"]
+        out[n] = report_of(state)
     return out
 
 
@@ -195,7 +196,7 @@ def test_escalated_pack_report_shows_the_error(tmp_path: Path) -> None:
     bad = tmp_path / "bad.pdf"
     bad.write_bytes(b"not a pdf")
     state = run_pack(build_graph(replay_deps()), "bad", bad)
-    r = state["report"]
+    r = report_of(state)
     assert r.decision is Decision.NEEDS_PERSON and r.needs_human
     assert r.errors and r.errors[0].node == "ingest"
     assert r.fields == [] and r.rule_results == []
@@ -215,4 +216,4 @@ def test_build_report_is_pure_over_state() -> None:
         errors=state["errors"],
         cfg=DEFAULT_CONFIG,
     )
-    assert again == state["report"]
+    assert again == report_of(state)

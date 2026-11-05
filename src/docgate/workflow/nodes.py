@@ -10,12 +10,16 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
+from langgraph.types import interrupt
+
 from docgate.compare.summary import compare
-from docgate.domain.models import NodeError
+from docgate.domain.config import RuleConfig
+from docgate.domain.models import HumanReview, NodeError
 from docgate.extraction.base import ExtractorOutput
 from docgate.extraction.reconcile import reconcile
 from docgate.llm.provider import LLMConfigError
-from docgate.reporting.report import build_report
+from docgate.reporting.report import PackReport, build_report
+from docgate.review.payload import build_payload
 from docgate.rules.engine import decide, escalate, run_rules
 from docgate.workflow.deps import Deps
 from docgate.workflow.state import PackState, describe_errors
@@ -41,6 +45,21 @@ def guarded(name: str, fn: Node, fallback: Fallback | None = None) -> Node:
         return update
 
     return run
+
+
+def report_from_state(state: PackState, cfg: RuleConfig) -> PackReport:
+    """Build the report for whatever the state holds; a paused pack gets a provisional one."""
+    return build_report(
+        pack_id=state["pack_id"],
+        source_file=Path(state["pdf_path"]).name,
+        verdict=state["verdict"],
+        extraction=state.get("extraction"),
+        issues=state.get("issues", []),
+        comparison=state.get("comparison"),
+        errors=state.get("errors", []),
+        cfg=cfg,
+        human_review=state["verdict"].human_review,
+    )
 
 
 def build_nodes(deps: Deps) -> dict[str, Node]:
@@ -70,23 +89,26 @@ def build_nodes(deps: Deps) -> dict[str, Node]:
     def escalate_node(state: PackState) -> Update:
         return {"verdict": escalate(describe_errors(state["errors"]))}
 
-    def human_gate(_state: PackState) -> Update:
-        # Placeholder: M4 replaces this body with interrupt(). The edges stay as they are.
-        return {}
+    def human_gate(state: PackState) -> Update:
+        # Nothing may happen before interrupt(): on resume this node runs again from the top.
+        verdict = state["verdict"]
+        payload = build_payload(
+            state["pack_id"],
+            verdict,
+            state.get("issues", []),
+            state.get("errors", []),
+            deps.config,
+        )
+        answer = interrupt(payload.model_dump(mode="json"))
+        review = HumanReview.model_validate(answer)
+        # The machine decision stays as it was; the human answer is recorded beside it.
+        return {
+            "human_review": review,
+            "verdict": verdict.model_copy(update={"human_review": review}),
+        }
 
     def report(state: PackState) -> Update:
-        pdf = Path(state["pdf_path"])
-        built = build_report(
-            pack_id=state["pack_id"],
-            source_file=pdf.name,
-            verdict=state["verdict"],
-            extraction=state.get("extraction"),
-            issues=state.get("issues", []),
-            comparison=state.get("comparison"),
-            errors=state.get("errors", []),
-            cfg=deps.config,
-        )
-        return {"report": built}
+        return {"report": report_from_state(state, deps.config)}
 
     def failed(source: str) -> Fallback:
         return lambda message: {
@@ -104,6 +126,7 @@ def build_nodes(deps: Deps) -> dict[str, Node]:
         "apply_rules": guarded("apply_rules", apply_rules),
         "decide": guarded("decide", decide_node),
         "escalate": escalate_node,
-        "human_gate": guarded("human_gate", human_gate),
+        # Not guarded: the interrupt is an exception that must reach LangGraph.
+        "human_gate": human_gate,
         "report": guarded("report", report),
     }

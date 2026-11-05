@@ -56,6 +56,7 @@ COMMANDS: dict[str, Callable[[list[str]], int]] = {
     "extract": _cli("extract"),
     "record": _cli("record"),
     "eval": _cli("eval"),
+    "review": _cli("review"),
 }
 
 

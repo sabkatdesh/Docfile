@@ -20,14 +20,21 @@ def _write(path: Path, text: str) -> None:
         fh.write(text)
 
 
+def write_pack(report: PackReport, out_dir: Path) -> list[Path]:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    written: list[Path] = []
+    for suffix, text in ((".json", render_json(report)), (".md", render_markdown(report))):
+        path = out_dir / f"{report.pack_id}{suffix}"
+        _write(path, text)
+        written.append(path)
+    return written
+
+
 def write_run(reports: Sequence[PackReport], out_dir: Path) -> list[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
     for r in reports:
-        for suffix, text in ((".json", render_json(r)), (".md", render_markdown(r))):
-            path = out_dir / f"{r.pack_id}{suffix}"
-            _write(path, text)
-            written.append(path)
+        written += write_pack(r, out_dir)
     summary = build_summary(reports)
     for name, text in (
         ("summary.json", render_json(summary)),
