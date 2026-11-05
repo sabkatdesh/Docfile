@@ -1,0 +1,415 @@
+{
+  "pack_id": "supplier-pack-07",
+  "source_file": "supplier-pack-07.pdf",
+  "pdf_url": "/api/packs/supplier-pack-07/pdf",
+  "status": "pending_review",
+  "text": "Rupsha Zipper Factory\nQUOTATION\nQuotation no. QT-2026-907 Date 2026-10-20\nTo Aamar Garments Ltd (fictional) Reference PR-2026-114\nItem Description Qty Unit Unit price (BDT) Amount (BDT)\nB Metal zipper, 18 cm 16,500 piece 35.00 577,500.00\nSubtotal 577,500.00\nVAT 15% 86,625.00\nTotal 664,125.00\nSupplier TIN: 107458073391 BIN: 000770741-0101\nTERMS AND CONDITIONS\n1. Payment. No advance payment required. Payment within 45 days of delivery.\n2. Delivery. Delivery within 22 days of PO.\n3. Delay. Late delivery penalty: 0.5% of order value per week.\n4. Validity. This quotation is valid for 35 days from the date above.\n5. Quality. Goods are supplied as per the buyer's approved sample. Defective goods will be replaced at the\nsupplier's cost.\n6. Disputes. Any dispute will first be settled by discussion; failing that, through arbitration in Dhaka.\nFor Rupsha Zipper Factory\nAuthorised signatory (fictional sample document)",
+  "machine": {
+    "decision": "Needs a person to check",
+    "reason": "H2: quantity 16500 vs requested 20000 (-17.50%) differs by more than 5%",
+    "headline": "A person must check: H2 (Quantity differs from the PR by more than 5%): quantity 16500 vs requested 20000 (-17.50%) differs by more than 5% [evidence: \"B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00\"].",
+    "explanation": "A person must check: H2 (Quantity differs from the PR by more than 5%): quantity 16500 vs requested 20000 (-17.50%) differs by more than 5% [evidence: \"B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00\"].",
+    "primary_rule": null,
+    "needs_human": true
+  },
+  "human_review": null,
+  "fields": [
+    {
+      "name": "supplier",
+      "status": "OK",
+      "value": "Rupsha Zipper Factory",
+      "quote": "Rupsha Zipper Factory",
+      "span": {
+        "start": 0,
+        "end": 21
+      },
+      "issue": null
+    },
+    {
+      "name": "quotation_no",
+      "status": "OK",
+      "value": "QT-2026-907",
+      "quote": "Quotation no. QT-2026-907 Date 2026-10-20",
+      "span": {
+        "start": 32,
+        "end": 73
+      },
+      "issue": null
+    },
+    {
+      "name": "date",
+      "status": "OK",
+      "value": "2026-10-20",
+      "quote": "Quotation no. QT-2026-907 Date 2026-10-20",
+      "span": {
+        "start": 32,
+        "end": 73
+      },
+      "issue": null
+    },
+    {
+      "name": "item_code",
+      "status": "OK",
+      "value": "B",
+      "quote": "B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      },
+      "issue": null
+    },
+    {
+      "name": "description",
+      "status": "OK",
+      "value": "Metal zipper, 18 cm",
+      "quote": "B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      },
+      "issue": null
+    },
+    {
+      "name": "qty",
+      "status": "OK",
+      "value": "16500",
+      "quote": "B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      },
+      "issue": null
+    },
+    {
+      "name": "unit",
+      "status": "OK",
+      "value": "piece",
+      "quote": "B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      },
+      "issue": null
+    },
+    {
+      "name": "unit_price",
+      "status": "OK",
+      "value": "35.00",
+      "quote": "B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      },
+      "issue": null
+    },
+    {
+      "name": "subtotal",
+      "status": "OK",
+      "value": "577500.00",
+      "quote": "Subtotal 577,500.00",
+      "span": {
+        "start": 238,
+        "end": 257
+      },
+      "issue": null
+    },
+    {
+      "name": "vat_amount",
+      "status": "OK",
+      "value": "86625.00",
+      "quote": "VAT 15% 86,625.00",
+      "span": {
+        "start": 258,
+        "end": 275
+      },
+      "issue": null
+    },
+    {
+      "name": "total",
+      "status": "OK",
+      "value": "664125.00",
+      "quote": "Total 664,125.00",
+      "span": {
+        "start": 276,
+        "end": 292
+      },
+      "issue": null
+    },
+    {
+      "name": "vat_shown_separately",
+      "status": "OK",
+      "value": "True",
+      "quote": "VAT 15% 86,625.00",
+      "span": {
+        "start": 258,
+        "end": 275
+      },
+      "issue": null
+    },
+    {
+      "name": "tin",
+      "status": "OK",
+      "value": "107458073391",
+      "quote": "Supplier TIN: 107458073391 BIN: 000770741-0101",
+      "span": {
+        "start": 293,
+        "end": 339
+      },
+      "issue": null
+    },
+    {
+      "name": "bin",
+      "status": "OK",
+      "value": "000770741-0101",
+      "quote": "Supplier TIN: 107458073391 BIN: 000770741-0101",
+      "span": {
+        "start": 293,
+        "end": 339
+      },
+      "issue": null
+    },
+    {
+      "name": "advance_pct",
+      "status": "OK",
+      "value": "0",
+      "quote": "1. Payment. No advance payment required. Payment within 45 days of delivery.",
+      "span": {
+        "start": 361,
+        "end": 437
+      },
+      "issue": null
+    },
+    {
+      "name": "payment_days",
+      "status": "OK",
+      "value": "45-45 days",
+      "quote": "1. Payment. No advance payment required. Payment within 45 days of delivery.",
+      "span": {
+        "start": 361,
+        "end": 437
+      },
+      "issue": null
+    },
+    {
+      "name": "delivery_days",
+      "status": "OK",
+      "value": "22",
+      "quote": "2. Delivery. Delivery within 22 days of PO.",
+      "span": {
+        "start": 438,
+        "end": 481
+      },
+      "issue": null
+    },
+    {
+      "name": "penalty_pct_per_week",
+      "status": "OK",
+      "value": "0.5",
+      "quote": "3. Delay. Late delivery penalty: 0.5% of order value per week.",
+      "span": {
+        "start": 482,
+        "end": 544
+      },
+      "issue": null
+    },
+    {
+      "name": "validity_days",
+      "status": "OK",
+      "value": "35",
+      "quote": "4. Validity. This quotation is valid for 35 days from the date above.",
+      "span": {
+        "start": 545,
+        "end": 614
+      },
+      "issue": null
+    }
+  ],
+  "comparison": {
+    "pr_line": {
+      "pr_number": "PR-2026-114",
+      "item_code": "B",
+      "description": "Metal zipper, 18 cm",
+      "unit": "piece",
+      "qty": "20000",
+      "max_unit_price": "38.00"
+    },
+    "requested_qty": "20000",
+    "quoted_qty": "16500",
+    "qty_delta_pct": "-17.50",
+    "max_unit_price": "38.00",
+    "quoted_unit_price": "35.00",
+    "price_delta_pct": "-7.89",
+    "price_note": null,
+    "arithmetic": [
+      {
+        "check": "line_total",
+        "expected": "577500.00",
+        "actual": "577500.00",
+        "ok": true,
+        "quote": "Subtotal 577,500.00",
+        "span": {
+          "start": 238,
+          "end": 257
+        }
+      },
+      {
+        "check": "vat",
+        "expected": "86625.00",
+        "actual": "86625.00",
+        "ok": true,
+        "quote": "VAT 15% 86,625.00",
+        "span": {
+          "start": 258,
+          "end": 275
+        }
+      },
+      {
+        "check": "total",
+        "expected": "664125.00",
+        "actual": "664125.00",
+        "ok": true,
+        "quote": "Total 664,125.00",
+        "span": {
+          "start": 276,
+          "end": 292
+        }
+      }
+    ]
+  },
+  "rules": [
+    {
+      "rule_id": "R1",
+      "title": "Unit price more than 3% above the PR maximum",
+      "status": "PASS",
+      "message": "unit price 35.00 vs PR max 38.00 (-7.89%) is within the 3% limit",
+      "evidence_quote": "B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      }
+    },
+    {
+      "rule_id": "R2",
+      "title": "Advance payment more than 20%",
+      "status": "PASS",
+      "message": "advance 0% is within 20%",
+      "evidence_quote": "1. Payment. No advance payment required. Payment within 45 days of delivery.",
+      "span": {
+        "start": 361,
+        "end": 437
+      }
+    },
+    {
+      "rule_id": "R3",
+      "title": "No late-delivery penalty of at least 0.5% per week",
+      "status": "PASS",
+      "message": "penalty 0.5% per week meets 0.5%",
+      "evidence_quote": "3. Delay. Late delivery penalty: 0.5% of order value per week.",
+      "span": {
+        "start": 482,
+        "end": 544
+      }
+    },
+    {
+      "rule_id": "R4",
+      "title": "TIN or BIN missing",
+      "status": "PASS",
+      "message": "TIN and BIN are present",
+      "evidence_quote": "Supplier TIN: 107458073391 BIN: 000770741-0101",
+      "span": {
+        "start": 293,
+        "end": 339
+      }
+    },
+    {
+      "rule_id": "R5",
+      "title": "Delivery later than 45 days after the PO",
+      "status": "PASS",
+      "message": "delivery in 22 days is within 45",
+      "evidence_quote": "2. Delivery. Delivery within 22 days of PO.",
+      "span": {
+        "start": 438,
+        "end": 481
+      }
+    },
+    {
+      "rule_id": "H1",
+      "title": "Unit price above the PR maximum by up to 3%",
+      "status": "PASS",
+      "message": "unit price is not slightly over the PR max",
+      "evidence_quote": "B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      }
+    },
+    {
+      "rule_id": "H2",
+      "title": "Quantity differs from the PR by more than 5%",
+      "status": "FAIL",
+      "message": "quantity 16500 vs requested 20000 (-17.50%) differs by more than 5%",
+      "evidence_quote": "B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      }
+    },
+    {
+      "rule_id": "H3",
+      "title": "Payment terms unclear or outside 30-60 days after delivery",
+      "status": "PASS",
+      "message": "payment in 45 to 45 days is acceptable",
+      "evidence_quote": "1. Payment. No advance payment required. Payment within 45 days of delivery.",
+      "span": {
+        "start": 361,
+        "end": 437
+      }
+    },
+    {
+      "rule_id": "H4",
+      "title": "Delivery in 31-45 days",
+      "status": "PASS",
+      "message": "delivery in 22 days is not in the review window",
+      "evidence_quote": "2. Delivery. Delivery within 22 days of PO.",
+      "span": {
+        "start": 438,
+        "end": 481
+      }
+    },
+    {
+      "rule_id": "H5",
+      "title": "VAT not shown separately at 15%",
+      "status": "PASS",
+      "message": "VAT is shown separately at 15%",
+      "evidence_quote": "VAT 15% 86,625.00",
+      "span": {
+        "start": 258,
+        "end": 275
+      }
+    },
+    {
+      "rule_id": "H6",
+      "title": "Numbers do not add up",
+      "status": "PASS",
+      "message": "line total and total add up",
+      "evidence_quote": "Total 664,125.00",
+      "span": {
+        "start": 276,
+        "end": 292
+      }
+    },
+    {
+      "rule_id": "H7",
+      "title": "Quotation valid for less than 30 days",
+      "status": "PASS",
+      "message": "valid for 35 days",
+      "evidence_quote": "4. Validity. This quotation is valid for 35 days from the date above.",
+      "span": {
+        "start": 545,
+        "end": 614
+      }
+    }
+  ],
+  "issues": [],
+  "errors": []
+}

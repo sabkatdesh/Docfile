@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "machine_final",
+    "message": "supplier-pack-01 was decided automatically (Approve); that decision is final and only 'Needs a person to check' packs are reviewed",
+    "details": null
+  }
+}

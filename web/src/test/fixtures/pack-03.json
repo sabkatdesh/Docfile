@@ -1,0 +1,415 @@
+{
+  "pack_id": "supplier-pack-03",
+  "source_file": "supplier-pack-03.pdf",
+  "pdf_url": "/api/packs/supplier-pack-03/pdf",
+  "status": "final",
+  "text": "Karnaphuli Yarn Traders\nQUOTATION\nQuotation no. QT-2026-903 Date 2026-10-23\nTo Aamar Garments Ltd (fictional) Reference PR-2026-114\nItem Description Qty Unit Unit price (BDT) Amount (BDT)\nC Polyester sewing thread, cone 800 cone 229.00 183,200.00\nSubtotal 183,200.00\nVAT 15% 27,480.00\nTotal 210,680.00\nSupplier TIN: 103458033391 BIN: 000370341-0101\nTERMS AND CONDITIONS\n1. Payment. 15% advance payable with the purchase order. Balance within 40 days of delivery.\n2. Delivery. Delivery within 20 days of PO.\n3. Delay. Delay in delivery will attract a penalty of 0.5% of order value per week.\n4. Validity. This quotation is valid for 30 days from the date above.\n5. Quality. Goods are supplied as per the buyer's approved sample. Defective goods will be replaced at the\nsupplier's cost.\n6. Disputes. Any dispute will first be settled by discussion; failing that, through arbitration in Dhaka.\nFor Karnaphuli Yarn Traders\nAuthorised signatory (fictional sample document)",
+  "machine": {
+    "decision": "Reject",
+    "reason": "R1: unit price 229.00 vs PR max 210.00 (+9.05%) is more than 3% above max",
+    "headline": "Rejected because R1 (Unit price more than 3% above the PR maximum): unit price 229.00 vs PR max 210.00 (+9.05%) is more than 3% above max [evidence: \"C Polyester sewing thread, cone 800 cone 229.00 183,200.00\"].",
+    "explanation": "Rejected because R1 (Unit price more than 3% above the PR maximum): unit price 229.00 vs PR max 210.00 (+9.05%) is more than 3% above max [evidence: \"C Polyester sewing thread, cone 800 cone 229.00 183,200.00\"].",
+    "primary_rule": "R1",
+    "needs_human": false
+  },
+  "human_review": null,
+  "fields": [
+    {
+      "name": "supplier",
+      "status": "OK",
+      "value": "Karnaphuli Yarn Traders",
+      "quote": "Karnaphuli Yarn Traders",
+      "span": {
+        "start": 0,
+        "end": 23
+      },
+      "issue": null
+    },
+    {
+      "name": "quotation_no",
+      "status": "OK",
+      "value": "QT-2026-903",
+      "quote": "Quotation no. QT-2026-903 Date 2026-10-23",
+      "span": {
+        "start": 34,
+        "end": 75
+      },
+      "issue": null
+    },
+    {
+      "name": "date",
+      "status": "OK",
+      "value": "2026-10-23",
+      "quote": "Quotation no. QT-2026-903 Date 2026-10-23",
+      "span": {
+        "start": 34,
+        "end": 75
+      },
+      "issue": null
+    },
+    {
+      "name": "item_code",
+      "status": "OK",
+      "value": "C",
+      "quote": "C Polyester sewing thread, cone 800 cone 229.00 183,200.00",
+      "span": {
+        "start": 188,
+        "end": 246
+      },
+      "issue": null
+    },
+    {
+      "name": "description",
+      "status": "OK",
+      "value": "Polyester sewing thread, cone",
+      "quote": "C Polyester sewing thread, cone 800 cone 229.00 183,200.00",
+      "span": {
+        "start": 188,
+        "end": 246
+      },
+      "issue": null
+    },
+    {
+      "name": "qty",
+      "status": "OK",
+      "value": "800",
+      "quote": "C Polyester sewing thread, cone 800 cone 229.00 183,200.00",
+      "span": {
+        "start": 188,
+        "end": 246
+      },
+      "issue": null
+    },
+    {
+      "name": "unit",
+      "status": "OK",
+      "value": "cone",
+      "quote": "C Polyester sewing thread, cone 800 cone 229.00 183,200.00",
+      "span": {
+        "start": 188,
+        "end": 246
+      },
+      "issue": null
+    },
+    {
+      "name": "unit_price",
+      "status": "OK",
+      "value": "229.00",
+      "quote": "C Polyester sewing thread, cone 800 cone 229.00 183,200.00",
+      "span": {
+        "start": 188,
+        "end": 246
+      },
+      "issue": null
+    },
+    {
+      "name": "subtotal",
+      "status": "OK",
+      "value": "183200.00",
+      "quote": "Subtotal 183,200.00",
+      "span": {
+        "start": 247,
+        "end": 266
+      },
+      "issue": null
+    },
+    {
+      "name": "vat_amount",
+      "status": "OK",
+      "value": "27480.00",
+      "quote": "VAT 15% 27,480.00",
+      "span": {
+        "start": 267,
+        "end": 284
+      },
+      "issue": null
+    },
+    {
+      "name": "total",
+      "status": "OK",
+      "value": "210680.00",
+      "quote": "Total 210,680.00",
+      "span": {
+        "start": 285,
+        "end": 301
+      },
+      "issue": null
+    },
+    {
+      "name": "vat_shown_separately",
+      "status": "OK",
+      "value": "True",
+      "quote": "VAT 15% 27,480.00",
+      "span": {
+        "start": 267,
+        "end": 284
+      },
+      "issue": null
+    },
+    {
+      "name": "tin",
+      "status": "OK",
+      "value": "103458033391",
+      "quote": "Supplier TIN: 103458033391 BIN: 000370341-0101",
+      "span": {
+        "start": 302,
+        "end": 348
+      },
+      "issue": null
+    },
+    {
+      "name": "bin",
+      "status": "OK",
+      "value": "000370341-0101",
+      "quote": "Supplier TIN: 103458033391 BIN: 000370341-0101",
+      "span": {
+        "start": 302,
+        "end": 348
+      },
+      "issue": null
+    },
+    {
+      "name": "advance_pct",
+      "status": "OK",
+      "value": "15",
+      "quote": "1. Payment. 15% advance payable with the purchase order. Balance within 40 days of delivery.",
+      "span": {
+        "start": 370,
+        "end": 462
+      },
+      "issue": null
+    },
+    {
+      "name": "payment_days",
+      "status": "OK",
+      "value": "40-40 days",
+      "quote": "1. Payment. 15% advance payable with the purchase order. Balance within 40 days of delivery.",
+      "span": {
+        "start": 370,
+        "end": 462
+      },
+      "issue": null
+    },
+    {
+      "name": "delivery_days",
+      "status": "OK",
+      "value": "20",
+      "quote": "2. Delivery. Delivery within 20 days of PO.",
+      "span": {
+        "start": 463,
+        "end": 506
+      },
+      "issue": null
+    },
+    {
+      "name": "penalty_pct_per_week",
+      "status": "OK",
+      "value": "0.5",
+      "quote": "3. Delay. Delay in delivery will attract a penalty of 0.5% of order value per week.",
+      "span": {
+        "start": 507,
+        "end": 590
+      },
+      "issue": null
+    },
+    {
+      "name": "validity_days",
+      "status": "OK",
+      "value": "30",
+      "quote": "4. Validity. This quotation is valid for 30 days from the date above.",
+      "span": {
+        "start": 591,
+        "end": 660
+      },
+      "issue": null
+    }
+  ],
+  "comparison": {
+    "pr_line": {
+      "pr_number": "PR-2026-114",
+      "item_code": "C",
+      "description": "Polyester sewing thread, cone",
+      "unit": "cone",
+      "qty": "800",
+      "max_unit_price": "210.00"
+    },
+    "requested_qty": "800",
+    "quoted_qty": "800",
+    "qty_delta_pct": "0.00",
+    "max_unit_price": "210.00",
+    "quoted_unit_price": "229.00",
+    "price_delta_pct": "9.05",
+    "price_note": null,
+    "arithmetic": [
+      {
+        "check": "line_total",
+        "expected": "183200.00",
+        "actual": "183200.00",
+        "ok": true,
+        "quote": "Subtotal 183,200.00",
+        "span": {
+          "start": 247,
+          "end": 266
+        }
+      },
+      {
+        "check": "vat",
+        "expected": "27480.00",
+        "actual": "27480.00",
+        "ok": true,
+        "quote": "VAT 15% 27,480.00",
+        "span": {
+          "start": 267,
+          "end": 284
+        }
+      },
+      {
+        "check": "total",
+        "expected": "210680.00",
+        "actual": "210680.00",
+        "ok": true,
+        "quote": "Total 210,680.00",
+        "span": {
+          "start": 285,
+          "end": 301
+        }
+      }
+    ]
+  },
+  "rules": [
+    {
+      "rule_id": "R1",
+      "title": "Unit price more than 3% above the PR maximum",
+      "status": "FAIL",
+      "message": "unit price 229.00 vs PR max 210.00 (+9.05%) is more than 3% above max",
+      "evidence_quote": "C Polyester sewing thread, cone 800 cone 229.00 183,200.00",
+      "span": {
+        "start": 188,
+        "end": 246
+      }
+    },
+    {
+      "rule_id": "R2",
+      "title": "Advance payment more than 20%",
+      "status": "PASS",
+      "message": "advance 15% is within 20%",
+      "evidence_quote": "1. Payment. 15% advance payable with the purchase order. Balance within 40 days of delivery.",
+      "span": {
+        "start": 370,
+        "end": 462
+      }
+    },
+    {
+      "rule_id": "R3",
+      "title": "No late-delivery penalty of at least 0.5% per week",
+      "status": "PASS",
+      "message": "penalty 0.5% per week meets 0.5%",
+      "evidence_quote": "3. Delay. Delay in delivery will attract a penalty of 0.5% of order value per week.",
+      "span": {
+        "start": 507,
+        "end": 590
+      }
+    },
+    {
+      "rule_id": "R4",
+      "title": "TIN or BIN missing",
+      "status": "PASS",
+      "message": "TIN and BIN are present",
+      "evidence_quote": "Supplier TIN: 103458033391 BIN: 000370341-0101",
+      "span": {
+        "start": 302,
+        "end": 348
+      }
+    },
+    {
+      "rule_id": "R5",
+      "title": "Delivery later than 45 days after the PO",
+      "status": "PASS",
+      "message": "delivery in 20 days is within 45",
+      "evidence_quote": "2. Delivery. Delivery within 20 days of PO.",
+      "span": {
+        "start": 463,
+        "end": 506
+      }
+    },
+    {
+      "rule_id": "H1",
+      "title": "Unit price above the PR maximum by up to 3%",
+      "status": "PASS",
+      "message": "unit price is not slightly over the PR max",
+      "evidence_quote": "C Polyester sewing thread, cone 800 cone 229.00 183,200.00",
+      "span": {
+        "start": 188,
+        "end": 246
+      }
+    },
+    {
+      "rule_id": "H2",
+      "title": "Quantity differs from the PR by more than 5%",
+      "status": "PASS",
+      "message": "quantity 800 vs requested 800 (+0.00%) is within 5%",
+      "evidence_quote": "C Polyester sewing thread, cone 800 cone 229.00 183,200.00",
+      "span": {
+        "start": 188,
+        "end": 246
+      }
+    },
+    {
+      "rule_id": "H3",
+      "title": "Payment terms unclear or outside 30-60 days after delivery",
+      "status": "PASS",
+      "message": "payment in 40 to 40 days is acceptable",
+      "evidence_quote": "1. Payment. 15% advance payable with the purchase order. Balance within 40 days of delivery.",
+      "span": {
+        "start": 370,
+        "end": 462
+      }
+    },
+    {
+      "rule_id": "H4",
+      "title": "Delivery in 31-45 days",
+      "status": "PASS",
+      "message": "delivery in 20 days is not in the review window",
+      "evidence_quote": "2. Delivery. Delivery within 20 days of PO.",
+      "span": {
+        "start": 463,
+        "end": 506
+      }
+    },
+    {
+      "rule_id": "H5",
+      "title": "VAT not shown separately at 15%",
+      "status": "PASS",
+      "message": "VAT is shown separately at 15%",
+      "evidence_quote": "VAT 15% 27,480.00",
+      "span": {
+        "start": 267,
+        "end": 284
+      }
+    },
+    {
+      "rule_id": "H6",
+      "title": "Numbers do not add up",
+      "status": "PASS",
+      "message": "line total and total add up",
+      "evidence_quote": "Total 210,680.00",
+      "span": {
+        "start": 285,
+        "end": 301
+      }
+    },
+    {
+      "rule_id": "H7",
+      "title": "Quotation valid for less than 30 days",
+      "status": "PASS",
+      "message": "valid for 30 days",
+      "evidence_quote": "4. Validity. This quotation is valid for 30 days from the date above.",
+      "span": {
+        "start": 591,
+        "end": 660
+      }
+    }
+  ],
+  "issues": [],
+  "errors": []
+}

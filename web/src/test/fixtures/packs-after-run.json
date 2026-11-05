@@ -1,0 +1,112 @@
+[
+  {
+    "pack_id": "supplier-pack-01",
+    "source_file": "supplier-pack-01.pdf",
+    "supplier": "Padma Textile Mills Ltd",
+    "item": "A",
+    "status": "final",
+    "decision": "Approve",
+    "human_decision": null,
+    "primary_rule": null,
+    "headline": "All 12 checks passed."
+  },
+  {
+    "pack_id": "supplier-pack-02",
+    "source_file": "supplier-pack-02.pdf",
+    "supplier": "Jamuna Trims and Accessories",
+    "item": "B",
+    "status": "final",
+    "decision": "Approve",
+    "human_decision": null,
+    "primary_rule": null,
+    "headline": "All 12 checks passed."
+  },
+  {
+    "pack_id": "supplier-pack-03",
+    "source_file": "supplier-pack-03.pdf",
+    "supplier": "Karnaphuli Yarn Traders",
+    "item": "C",
+    "status": "final",
+    "decision": "Reject",
+    "human_decision": null,
+    "primary_rule": "R1",
+    "headline": "Rejected because R1 (Unit price more than 3% above the PR maximum): unit price 229.00 vs PR max 210.00 (+9.05%) is more than 3% above max [evidence: \"C Polyester sewing thread, cone 800 cone 229.00 183,200.00\"]."
+  },
+  {
+    "pack_id": "supplier-pack-04",
+    "source_file": "supplier-pack-04.pdf",
+    "supplier": "Surma Packaging Industries",
+    "item": "D",
+    "status": "pending_review",
+    "decision": "Needs a person to check",
+    "human_decision": null,
+    "primary_rule": null,
+    "headline": "A person must check: H1 (Unit price above the PR maximum by up to 3%): unit price is +2.31% above the PR max 6.50 [evidence: \"D Poly bag, 30 x 40 cm 50,000 piece 6.65 332,500.00\"]."
+  },
+  {
+    "pack_id": "supplier-pack-05",
+    "source_file": "supplier-pack-05.pdf",
+    "supplier": "Meghna Carton Works",
+    "item": "E",
+    "status": "final",
+    "decision": "Reject",
+    "human_decision": null,
+    "primary_rule": "R2",
+    "headline": "Rejected because R2 (Advance payment more than 20%): advance 40% is more than 20% [evidence: \"1. Payment. 40% advance payable with the purchase order. 40% advance with the purchase order, balance 60% within 30 days of delivery.\"]."
+  },
+  {
+    "pack_id": "supplier-pack-06",
+    "source_file": "supplier-pack-06.pdf",
+    "supplier": "Teesta Fabrics Ltd",
+    "item": "A",
+    "status": "final",
+    "decision": "Reject",
+    "human_decision": null,
+    "primary_rule": "R3",
+    "headline": "Rejected because R3 (No late-delivery penalty of at least 0.5% per week): no late-delivery penalty clause found [evidence: not found in the document]."
+  },
+  {
+    "pack_id": "supplier-pack-07",
+    "source_file": "supplier-pack-07.pdf",
+    "supplier": "Rupsha Zipper Factory",
+    "item": "B",
+    "status": "pending_review",
+    "decision": "Needs a person to check",
+    "human_decision": null,
+    "primary_rule": null,
+    "headline": "A person must check: H2 (Quantity differs from the PR by more than 5%): quantity 16500 vs requested 20000 (-17.50%) differs by more than 5% [evidence: \"B Metal zipper, 18 cm 16,500 piece 35.00 577,500.00\"]."
+  },
+  {
+    "pack_id": "supplier-pack-08",
+    "source_file": "supplier-pack-08.pdf",
+    "supplier": "Bhairab Thread and Co",
+    "item": "C",
+    "status": "final",
+    "decision": "Reject",
+    "human_decision": null,
+    "primary_rule": "R4",
+    "headline": "Rejected because R4 (TIN or BIN missing): TIN and BIN missing from the quotation [evidence: not found in the document]."
+  },
+  {
+    "pack_id": "supplier-pack-09",
+    "source_file": "supplier-pack-09.pdf",
+    "supplier": "Dhaleshwari Poly Pack",
+    "item": "D",
+    "status": "pending_review",
+    "decision": "Needs a person to check",
+    "human_decision": null,
+    "primary_rule": null,
+    "headline": "A person must check: H3 (Payment terms unclear or outside 30-60 days after delivery): payment in 30 to 90 days is outside 30 to 60 days [evidence: \"Payment within 30 to 90 days as agreed by both parties.\"]; H6 (Numbers do not add up): line_total: expected 320000.00 but quoted 322000.00 [evidence: \"Subtotal 322,000.00\"]."
+  },
+  {
+    "pack_id": "supplier-pack-10",
+    "source_file": "supplier-pack-10.pdf",
+    "supplier": "Kushiyara Box Industries",
+    "item": "E",
+    "status": "final",
+    "decision": "Reject",
+    "human_decision": null,
+    "primary_rule": "R5",
+    "headline": "Rejected because R5 (Delivery later than 45 days after the PO): delivery in 60 days is later than 45 [evidence: \"Delivery within 60 days of PO.\"]."
+  }
+]

@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+/* Colour tokens. Pairs used together are checked for WCAG AA in src/lib/contrast.test.ts, so
+   change a value here and that test tells you if a pair stopped being readable. */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface-2: #eff1f5;
+  --border: #d9dde5;
+  --control-border: #6b7280;
+  --fg: #111827;
+  --muted: #4b5563;
+  --accent-text: #4338ca;
+  --accent-bg: #4f46e5;
+  --accent-fg: #ffffff;
+  --approve-bg: #dcfce7;
+  --approve-fg: #14532d;
+  --approve-border: #4ade80;
+  --reject-bg: #fee2e2;
+  --reject-fg: #7f1d1d;
+  --reject-border: #f87171;
+  --review-bg: #fef3c7;
+  --review-fg: #78350f;
+  --review-border: #f59e0b;
+  --mark-bg: #fde68a;
+  --mark-fg: #111827;
+  --mark-active-bg: #fbbf24;
+  --shadow: 0 1px 2px rgb(16 24 40 / 0.06), 0 1px 3px rgb(16 24 40 / 0.08);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1117;
+    --surface: #161b23;
+    --surface-2: #1e2430;
+    --border: #2c3341;
+    --control-border: #8b95a7;
+    --fg: #e8eaf0;
+    --muted: #a3acbb;
+    --accent-text: #a5b4fc;
+    --accent-bg: #4f46e5;
+    --accent-fg: #ffffff;
+    --approve-bg: #12301f;
+    --approve-fg: #86efac;
+    --approve-border: #1f6b3b;
+    --reject-bg: #3a1517;
+    --reject-fg: #fca5a5;
+    --reject-border: #8a2f35;
+    --review-bg: #3a2a0a;
+    --review-fg: #fcd34d;
+    --review-border: #8a6414;
+    --mark-bg: #6b4a0a;
+    --mark-fg: #fff7e0;
+    --mark-active-bg: #7c5208;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0e1117;
+  --surface: #161b23;
+  --surface-2: #1e2430;
+  --border: #2c3341;
+  --control-border: #8b95a7;
+  --fg: #e8eaf0;
+  --muted: #a3acbb;
+  --accent-text: #a5b4fc;
+  --accent-bg: #4f46e5;
+  --accent-fg: #ffffff;
+  --approve-bg: #12301f;
+  --approve-fg: #86efac;
+  --approve-border: #1f6b3b;
+  --reject-bg: #3a1517;
+  --reject-fg: #fca5a5;
+  --reject-border: #8a2f35;
+  --review-bg: #3a2a0a;
+  --review-fg: #fcd34d;
+  --review-border: #8a6414;
+  --mark-bg: #6b4a0a;
+  --mark-fg: #fff7e0;
+  --mark-active-bg: #7c5208;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--border);
+  --color-control: var(--control-border);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent-text);
+  --color-accent-bg: var(--accent-bg);
+  --color-accent-fg: var(--accent-fg);
+  --color-approve-bg: var(--approve-bg);
+  --color-approve-fg: var(--approve-fg);
+  --color-approve-line: var(--approve-border);
+  --color-reject-bg: var(--reject-bg);
+  --color-reject-fg: var(--reject-fg);
+  --color-reject-line: var(--reject-border);
+  --color-review-bg: var(--review-bg);
+  --color-review-fg: var(--review-fg);
+  --color-review-line: var(--review-border);
+  --color-mark: var(--mark-bg);
+  --color-mark-fg: var(--mark-fg);
+  --color-mark-active: var(--mark-active-bg);
+  --font-sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, "Liberation Mono", monospace;
+  --shadow-card: var(--shadow);
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  line-height: 1.5;
+  background: var(--bg);
+}
+
+/* One visible focus style for every interactive element, for keyboard users. */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Evidence highlight. The flash draws attention to the quote a field points at. */
+mark.evidence {
+  background: var(--mark-bg);
+  color: var(--mark-fg);
+  border-radius: 3px;
+  padding: 1px 0;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+mark.evidence[data-active="true"] {
+  background: var(--mark-active-bg);
+  outline: 2px solid var(--accent-text);
+  outline-offset: 1px;
+}
+mark.evidence.flash {
+  animation: evidence-flash 1.4s ease-out;
+}
+@keyframes evidence-flash {
+  0%,
+  40% {
+    box-shadow: 0 0 0 6px var(--mark-active-bg);
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+dialog::backdrop {
+  background: rgb(10 14 20 / 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced motion must beat utility classes */
+    animation-duration: 0.001ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: see above */
+    animation-iteration-count: 1 !important;
+    /* biome-ignore lint/complexity/noImportantStyles: see above */
+    transition-duration: 0.001ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: see above */
+    scroll-behavior: auto !important;
+  }
+  mark.evidence.flash {
+    animation: none;
+  }
+}

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 import sys
 from collections.abc import Callable, Mapping
@@ -58,6 +59,64 @@ def _cli(command: str) -> Callable[[list[str]], int]:
     return forward
 
 
+WEB = ROOT / "web"
+WEB_CACHE = WEB / ".npm-cache"  # keeps npm's download cache on the project's drive, not C:
+
+
+def web_env(env: Mapping[str, str]) -> dict[str, str]:
+    """The environment for npm: cache inside web/ unless the caller chose one."""
+    return {"npm_config_cache": str(WEB_CACHE), **env}
+
+
+def web_dist_notice(root: Path) -> str | None:
+    """What to tell someone who serves the API before the front end is built; None when built."""
+    if (root / "web" / "dist" / "index.html").is_file():
+        return None
+    return (
+        "note: the web front end is not built (web/dist is missing), so the browser will show "
+        "only a placeholder page. The API itself works.\n"
+        "      Build it once with:  python tasks.py web-install  then  python tasks.py web-build"
+    )
+
+
+def npm(*args: str) -> int:
+    exe = shutil.which("npm")
+    if exe is None:
+        print("npm was not found. Install Node.js 20+ to build the front end.", file=sys.stderr)
+        return 127
+    print("+ npm", " ".join(args), flush=True)
+    return subprocess.call([exe, *args], cwd=WEB, env=web_env(os.environ))
+
+
+def web_install(_args: list[str]) -> int:
+    return npm("install", "--no-audit", "--no-fund")
+
+
+def web_dev(args: list[str]) -> int:
+    return npm("run", "dev", "--", *args)
+
+
+def web_build(_args: list[str]) -> int:
+    return npm("run", "build")
+
+
+def web_test(args: list[str]) -> int:
+    return npm("run", "test", "--", *args)
+
+
+def web_check(_args: list[str]) -> int:
+    steps = ["lint", "typecheck", "check:types-drift", "test"]
+    codes = [npm("run", step) for step in steps]
+    return 0 if not any(codes) else 1
+
+
+def serve(args: list[str]) -> int:
+    notice = web_dist_notice(ROOT)
+    if notice:
+        print(notice, file=sys.stderr, flush=True)
+    return _cli("serve")(args)
+
+
 COMMANDS: dict[str, Callable[[list[str]], int]] = {
     "setup": setup,
     "check": check,
@@ -68,7 +127,12 @@ COMMANDS: dict[str, Callable[[list[str]], int]] = {
     "record": _cli("record"),
     "eval": _cli("eval"),
     "review": _cli("review"),
-    "serve": _cli("serve"),
+    "serve": serve,
+    "web-install": web_install,
+    "web-dev": web_dev,
+    "web-build": web_build,
+    "web-test": web_test,
+    "web-check": web_check,
     "openapi": _cli("openapi"),
     "mutation-report": lambda args: run(PY, "-m", "scripts.mutation_report", *args),
 }

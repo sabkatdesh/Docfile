@@ -44,3 +44,22 @@ def test_setup_never_re_execs(command: str) -> None:
 @pytest.mark.parametrize("command", ["check", "demo", "eval", "run"])
 def test_other_commands_may_re_exec(command: str) -> None:
     assert tasks.wants_venv(command)
+
+
+def test_dist_notice_when_front_end_is_not_built(tmp_path: Path) -> None:
+    notice = tasks.web_dist_notice(tmp_path)
+    assert notice is not None
+    assert "web-build" in notice
+    assert "API itself works" in notice
+
+
+def test_no_dist_notice_when_built(tmp_path: Path) -> None:
+    dist = tmp_path / "web" / "dist"
+    dist.mkdir(parents=True)
+    (dist / "index.html").write_text("<html></html>", encoding="utf-8")
+    assert tasks.web_dist_notice(tmp_path) is None
+
+
+def test_npm_cache_stays_inside_web_unless_the_caller_chose_one() -> None:
+    assert tasks.web_env({})["npm_config_cache"].endswith(".npm-cache")
+    assert tasks.web_env({"npm_config_cache": "X"})["npm_config_cache"] == "X"

@@ -1,0 +1,415 @@
+{
+  "pack_id": "supplier-pack-01",
+  "source_file": "supplier-pack-01.pdf",
+  "pdf_url": "/api/packs/supplier-pack-01/pdf",
+  "status": "final",
+  "text": "Padma Textile Mills Ltd\nQUOTATION\nQuotation no. QT-2026-901 Date 2026-10-21\nTo Aamar Garments Ltd (fictional) Reference PR-2026-114\nItem Description Qty Unit Unit price (BDT) Amount (BDT)\nA Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00\nSubtotal 5,664,000.00\nVAT 15% 849,600.00\nTotal 6,513,600.00\nSupplier TIN: 101458013391 BIN: 000170141-0101\nTERMS AND CONDITIONS\n1. Payment. 10% advance payable with the purchase order. Balance payable within 45 days after delivery and\nacceptance of goods.\n2. Delivery. Delivery within 24 days of receiving the purchase order.\n3. Delay. Late delivery penalty: 1% of order value for each full week of delay.\n4. Validity. This quotation is valid for 45 days from the date above.\n5. Quality. Goods are supplied as per the buyer's approved sample. Defective goods will be replaced at the\nsupplier's cost.\n6. Disputes. Any dispute will first be settled by discussion; failing that, through arbitration in Dhaka.\nFor Padma Textile Mills Ltd\nAuthorised signatory (fictional sample document)",
+  "machine": {
+    "decision": "Approve",
+    "reason": "All reject and review rules passed.",
+    "headline": "All 12 checks passed.",
+    "explanation": "All 12 checks passed.",
+    "primary_rule": null,
+    "needs_human": false
+  },
+  "human_review": null,
+  "fields": [
+    {
+      "name": "supplier",
+      "status": "OK",
+      "value": "Padma Textile Mills Ltd",
+      "quote": "Padma Textile Mills Ltd",
+      "span": {
+        "start": 0,
+        "end": 23
+      },
+      "issue": null
+    },
+    {
+      "name": "quotation_no",
+      "status": "OK",
+      "value": "QT-2026-901",
+      "quote": "Quotation no. QT-2026-901 Date 2026-10-21",
+      "span": {
+        "start": 34,
+        "end": 75
+      },
+      "issue": null
+    },
+    {
+      "name": "date",
+      "status": "OK",
+      "value": "2026-10-21",
+      "quote": "Quotation no. QT-2026-901 Date 2026-10-21",
+      "span": {
+        "start": 34,
+        "end": 75
+      },
+      "issue": null
+    },
+    {
+      "name": "item_code",
+      "status": "OK",
+      "value": "A",
+      "quote": "A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00",
+      "span": {
+        "start": 188,
+        "end": 251
+      },
+      "issue": null
+    },
+    {
+      "name": "description",
+      "status": "OK",
+      "value": "Cotton twill fabric, 280 gsm",
+      "quote": "A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00",
+      "span": {
+        "start": 188,
+        "end": 251
+      },
+      "issue": null
+    },
+    {
+      "name": "qty",
+      "status": "OK",
+      "value": "12000",
+      "quote": "A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00",
+      "span": {
+        "start": 188,
+        "end": 251
+      },
+      "issue": null
+    },
+    {
+      "name": "unit",
+      "status": "OK",
+      "value": "metre",
+      "quote": "A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00",
+      "span": {
+        "start": 188,
+        "end": 251
+      },
+      "issue": null
+    },
+    {
+      "name": "unit_price",
+      "status": "OK",
+      "value": "472.00",
+      "quote": "A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00",
+      "span": {
+        "start": 188,
+        "end": 251
+      },
+      "issue": null
+    },
+    {
+      "name": "subtotal",
+      "status": "OK",
+      "value": "5664000.00",
+      "quote": "Subtotal 5,664,000.00",
+      "span": {
+        "start": 252,
+        "end": 273
+      },
+      "issue": null
+    },
+    {
+      "name": "vat_amount",
+      "status": "OK",
+      "value": "849600.00",
+      "quote": "VAT 15% 849,600.00",
+      "span": {
+        "start": 274,
+        "end": 292
+      },
+      "issue": null
+    },
+    {
+      "name": "total",
+      "status": "OK",
+      "value": "6513600.00",
+      "quote": "Total 6,513,600.00",
+      "span": {
+        "start": 293,
+        "end": 311
+      },
+      "issue": null
+    },
+    {
+      "name": "vat_shown_separately",
+      "status": "OK",
+      "value": "True",
+      "quote": "VAT 15% 849,600.00",
+      "span": {
+        "start": 274,
+        "end": 292
+      },
+      "issue": null
+    },
+    {
+      "name": "tin",
+      "status": "OK",
+      "value": "101458013391",
+      "quote": "Supplier TIN: 101458013391 BIN: 000170141-0101",
+      "span": {
+        "start": 312,
+        "end": 358
+      },
+      "issue": null
+    },
+    {
+      "name": "bin",
+      "status": "OK",
+      "value": "000170141-0101",
+      "quote": "Supplier TIN: 101458013391 BIN: 000170141-0101",
+      "span": {
+        "start": 312,
+        "end": 358
+      },
+      "issue": null
+    },
+    {
+      "name": "advance_pct",
+      "status": "OK",
+      "value": "10",
+      "quote": "1. Payment. 10% advance payable with the purchase order.",
+      "span": {
+        "start": 380,
+        "end": 436
+      },
+      "issue": null
+    },
+    {
+      "name": "payment_days",
+      "status": "OK",
+      "value": "45-45 days",
+      "quote": "Balance payable within 45 days after delivery and acceptance of goods.",
+      "span": {
+        "start": 437,
+        "end": 507
+      },
+      "issue": null
+    },
+    {
+      "name": "delivery_days",
+      "status": "OK",
+      "value": "24",
+      "quote": "2. Delivery. Delivery within 24 days of receiving the purchase order.",
+      "span": {
+        "start": 508,
+        "end": 577
+      },
+      "issue": null
+    },
+    {
+      "name": "penalty_pct_per_week",
+      "status": "OK",
+      "value": "1",
+      "quote": "3. Delay. Late delivery penalty: 1% of order value for each full week of delay.",
+      "span": {
+        "start": 578,
+        "end": 657
+      },
+      "issue": null
+    },
+    {
+      "name": "validity_days",
+      "status": "OK",
+      "value": "45",
+      "quote": "4. Validity. This quotation is valid for 45 days from the date above.",
+      "span": {
+        "start": 658,
+        "end": 727
+      },
+      "issue": null
+    }
+  ],
+  "comparison": {
+    "pr_line": {
+      "pr_number": "PR-2026-114",
+      "item_code": "A",
+      "description": "Cotton twill fabric, 280 gsm",
+      "unit": "metre",
+      "qty": "12000",
+      "max_unit_price": "480.00"
+    },
+    "requested_qty": "12000",
+    "quoted_qty": "12000",
+    "qty_delta_pct": "0.00",
+    "max_unit_price": "480.00",
+    "quoted_unit_price": "472.00",
+    "price_delta_pct": "-1.67",
+    "price_note": null,
+    "arithmetic": [
+      {
+        "check": "line_total",
+        "expected": "5664000.00",
+        "actual": "5664000.00",
+        "ok": true,
+        "quote": "Subtotal 5,664,000.00",
+        "span": {
+          "start": 252,
+          "end": 273
+        }
+      },
+      {
+        "check": "vat",
+        "expected": "849600.00",
+        "actual": "849600.00",
+        "ok": true,
+        "quote": "VAT 15% 849,600.00",
+        "span": {
+          "start": 274,
+          "end": 292
+        }
+      },
+      {
+        "check": "total",
+        "expected": "6513600.00",
+        "actual": "6513600.00",
+        "ok": true,
+        "quote": "Total 6,513,600.00",
+        "span": {
+          "start": 293,
+          "end": 311
+        }
+      }
+    ]
+  },
+  "rules": [
+    {
+      "rule_id": "R1",
+      "title": "Unit price more than 3% above the PR maximum",
+      "status": "PASS",
+      "message": "unit price 472.00 vs PR max 480.00 (-1.67%) is within the 3% limit",
+      "evidence_quote": "A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00",
+      "span": {
+        "start": 188,
+        "end": 251
+      }
+    },
+    {
+      "rule_id": "R2",
+      "title": "Advance payment more than 20%",
+      "status": "PASS",
+      "message": "advance 10% is within 20%",
+      "evidence_quote": "1. Payment. 10% advance payable with the purchase order.",
+      "span": {
+        "start": 380,
+        "end": 436
+      }
+    },
+    {
+      "rule_id": "R3",
+      "title": "No late-delivery penalty of at least 0.5% per week",
+      "status": "PASS",
+      "message": "penalty 1% per week meets 0.5%",
+      "evidence_quote": "3. Delay. Late delivery penalty: 1% of order value for each full week of delay.",
+      "span": {
+        "start": 578,
+        "end": 657
+      }
+    },
+    {
+      "rule_id": "R4",
+      "title": "TIN or BIN missing",
+      "status": "PASS",
+      "message": "TIN and BIN are present",
+      "evidence_quote": "Supplier TIN: 101458013391 BIN: 000170141-0101",
+      "span": {
+        "start": 312,
+        "end": 358
+      }
+    },
+    {
+      "rule_id": "R5",
+      "title": "Delivery later than 45 days after the PO",
+      "status": "PASS",
+      "message": "delivery in 24 days is within 45",
+      "evidence_quote": "2. Delivery. Delivery within 24 days of receiving the purchase order.",
+      "span": {
+        "start": 508,
+        "end": 577
+      }
+    },
+    {
+      "rule_id": "H1",
+      "title": "Unit price above the PR maximum by up to 3%",
+      "status": "PASS",
+      "message": "unit price is not slightly over the PR max",
+      "evidence_quote": "A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00",
+      "span": {
+        "start": 188,
+        "end": 251
+      }
+    },
+    {
+      "rule_id": "H2",
+      "title": "Quantity differs from the PR by more than 5%",
+      "status": "PASS",
+      "message": "quantity 12000 vs requested 12000 (+0.00%) is within 5%",
+      "evidence_quote": "A Cotton twill fabric, 280 gsm 12,000 metre 472.00 5,664,000.00",
+      "span": {
+        "start": 188,
+        "end": 251
+      }
+    },
+    {
+      "rule_id": "H3",
+      "title": "Payment terms unclear or outside 30-60 days after delivery",
+      "status": "PASS",
+      "message": "payment in 45 to 45 days is acceptable",
+      "evidence_quote": "Balance payable within 45 days after delivery and acceptance of goods.",
+      "span": {
+        "start": 437,
+        "end": 507
+      }
+    },
+    {
+      "rule_id": "H4",
+      "title": "Delivery in 31-45 days",
+      "status": "PASS",
+      "message": "delivery in 24 days is not in the review window",
+      "evidence_quote": "2. Delivery. Delivery within 24 days of receiving the purchase order.",
+      "span": {
+        "start": 508,
+        "end": 577
+      }
+    },
+    {
+      "rule_id": "H5",
+      "title": "VAT not shown separately at 15%",
+      "status": "PASS",
+      "message": "VAT is shown separately at 15%",
+      "evidence_quote": "VAT 15% 849,600.00",
+      "span": {
+        "start": 274,
+        "end": 292
+      }
+    },
+    {
+      "rule_id": "H6",
+      "title": "Numbers do not add up",
+      "status": "PASS",
+      "message": "line total and total add up",
+      "evidence_quote": "Total 6,513,600.00",
+      "span": {
+        "start": 293,
+        "end": 311
+      }
+    },
+    {
+      "rule_id": "H7",
+      "title": "Quotation valid for less than 30 days",
+      "status": "PASS",
+      "message": "valid for 45 days",
+      "evidence_quote": "4. Validity. This quotation is valid for 45 days from the date above.",
+      "span": {
+        "start": 658,
+        "end": 727
+      }
+    }
+  ],
+  "issues": [],
+  "errors": []
+}

@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "invalid_review",
+    "message": "invalid review (reason: reason must not be empty)",
+    "details": null
+  }
+}

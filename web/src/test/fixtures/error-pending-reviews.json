@@ -1,0 +1,13 @@
+{
+  "error": {
+    "code": "pending_reviews_would_be_lost",
+    "message": "starting a fresh run would discard 3 review(s) still waiting for a decision (supplier-pack-04, supplier-pack-07, supplier-pack-09). Resolve them, resume the record, or discard them explicitly.",
+    "details": {
+      "pack_ids": [
+        "supplier-pack-04",
+        "supplier-pack-07",
+        "supplier-pack-09"
+      ]
+    }
+  }
+}

@@ -1,0 +1,415 @@
+{
+  "pack_id": "supplier-pack-09",
+  "source_file": "supplier-pack-09.pdf",
+  "pdf_url": "/api/packs/supplier-pack-09/pdf",
+  "status": "pending_review",
+  "text": "Dhaleshwari Poly Pack\nQUOTATION\nQuotation no. QT-2026-909 Date 2026-10-22\nTo Aamar Garments Ltd (fictional) Reference PR-2026-114\nItem Description Qty Unit Unit price (BDT) Amount (BDT)\nD Poly bag, 30 x 40 cm 50,000 piece 6.40 322,000.00\nSubtotal 322,000.00\nVAT 15% 48,300.00\nTotal 370,300.00\nSupplier TIN: 109458093391 BIN: 000970941-0101\nTERMS AND CONDITIONS\n1. Payment. 5% advance payable with the purchase order. Payment within 30 to 90 days as agreed by both\nparties.\n2. Delivery. Delivery within 4 weeks of PO.\n3. Delay. Late delivery penalty of 0.5% of order value per week.\n4. Validity. This quotation is valid for 30 days from the date above.\n5. Quality. Goods are supplied as per the buyer's approved sample. Defective goods will be replaced at the\nsupplier's cost.\n6. Disputes. Any dispute will first be settled by discussion; failing that, through arbitration in Dhaka.\nFor Dhaleshwari Poly Pack\nAuthorised signatory (fictional sample document)",
+  "machine": {
+    "decision": "Needs a person to check",
+    "reason": "H3: payment in 30 to 90 days is outside 30 to 60 days; H6: line_total: expected 320000.00 but quoted 322000.00",
+    "headline": "A person must check: H3 (Payment terms unclear or outside 30-60 days after delivery): payment in 30 to 90 days is outside 30 to 60 days [evidence: \"Payment within 30 to 90 days as agreed by both parties.\"]; H6 (Numbers do not add up): line_total: expected 320000.00 but quoted 322000.00 [evidence: \"Subtotal 322,000.00\"].",
+    "explanation": "A person must check: H3 (Payment terms unclear or outside 30-60 days after delivery): payment in 30 to 90 days is outside 30 to 60 days [evidence: \"Payment within 30 to 90 days as agreed by both parties.\"]; H6 (Numbers do not add up): line_total: expected 320000.00 but quoted 322000.00 [evidence: \"Subtotal 322,000.00\"].",
+    "primary_rule": null,
+    "needs_human": true
+  },
+  "human_review": null,
+  "fields": [
+    {
+      "name": "supplier",
+      "status": "OK",
+      "value": "Dhaleshwari Poly Pack",
+      "quote": "Dhaleshwari Poly Pack",
+      "span": {
+        "start": 0,
+        "end": 21
+      },
+      "issue": null
+    },
+    {
+      "name": "quotation_no",
+      "status": "OK",
+      "value": "QT-2026-909",
+      "quote": "Quotation no. QT-2026-909 Date 2026-10-22",
+      "span": {
+        "start": 32,
+        "end": 73
+      },
+      "issue": null
+    },
+    {
+      "name": "date",
+      "status": "OK",
+      "value": "2026-10-22",
+      "quote": "Quotation no. QT-2026-909 Date 2026-10-22",
+      "span": {
+        "start": 32,
+        "end": 73
+      },
+      "issue": null
+    },
+    {
+      "name": "item_code",
+      "status": "OK",
+      "value": "D",
+      "quote": "D Poly bag, 30 x 40 cm 50,000 piece 6.40 322,000.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      },
+      "issue": null
+    },
+    {
+      "name": "description",
+      "status": "OK",
+      "value": "Poly bag, 30 x 40 cm",
+      "quote": "D Poly bag, 30 x 40 cm 50,000 piece 6.40 322,000.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      },
+      "issue": null
+    },
+    {
+      "name": "qty",
+      "status": "OK",
+      "value": "50000",
+      "quote": "D Poly bag, 30 x 40 cm 50,000 piece 6.40 322,000.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      },
+      "issue": null
+    },
+    {
+      "name": "unit",
+      "status": "OK",
+      "value": "piece",
+      "quote": "D Poly bag, 30 x 40 cm 50,000 piece 6.40 322,000.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      },
+      "issue": null
+    },
+    {
+      "name": "unit_price",
+      "status": "OK",
+      "value": "6.40",
+      "quote": "D Poly bag, 30 x 40 cm 50,000 piece 6.40 322,000.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      },
+      "issue": null
+    },
+    {
+      "name": "subtotal",
+      "status": "OK",
+      "value": "322000.00",
+      "quote": "Subtotal 322,000.00",
+      "span": {
+        "start": 238,
+        "end": 257
+      },
+      "issue": null
+    },
+    {
+      "name": "vat_amount",
+      "status": "OK",
+      "value": "48300.00",
+      "quote": "VAT 15% 48,300.00",
+      "span": {
+        "start": 258,
+        "end": 275
+      },
+      "issue": null
+    },
+    {
+      "name": "total",
+      "status": "OK",
+      "value": "370300.00",
+      "quote": "Total 370,300.00",
+      "span": {
+        "start": 276,
+        "end": 292
+      },
+      "issue": null
+    },
+    {
+      "name": "vat_shown_separately",
+      "status": "OK",
+      "value": "True",
+      "quote": "VAT 15% 48,300.00",
+      "span": {
+        "start": 258,
+        "end": 275
+      },
+      "issue": null
+    },
+    {
+      "name": "tin",
+      "status": "OK",
+      "value": "109458093391",
+      "quote": "Supplier TIN: 109458093391 BIN: 000970941-0101",
+      "span": {
+        "start": 293,
+        "end": 339
+      },
+      "issue": null
+    },
+    {
+      "name": "bin",
+      "status": "OK",
+      "value": "000970941-0101",
+      "quote": "Supplier TIN: 109458093391 BIN: 000970941-0101",
+      "span": {
+        "start": 293,
+        "end": 339
+      },
+      "issue": null
+    },
+    {
+      "name": "advance_pct",
+      "status": "OK",
+      "value": "5",
+      "quote": "1. Payment. 5% advance payable with the purchase order.",
+      "span": {
+        "start": 361,
+        "end": 416
+      },
+      "issue": null
+    },
+    {
+      "name": "payment_days",
+      "status": "OK",
+      "value": "30-90 days",
+      "quote": "Payment within 30 to 90 days as agreed by both parties.",
+      "span": {
+        "start": 417,
+        "end": 472
+      },
+      "issue": null
+    },
+    {
+      "name": "delivery_days",
+      "status": "OK",
+      "value": "28",
+      "quote": "2. Delivery. Delivery within 4 weeks of PO.",
+      "span": {
+        "start": 473,
+        "end": 516
+      },
+      "issue": null
+    },
+    {
+      "name": "penalty_pct_per_week",
+      "status": "OK",
+      "value": "0.5",
+      "quote": "3. Delay. Late delivery penalty of 0.5% of order value per week.",
+      "span": {
+        "start": 517,
+        "end": 581
+      },
+      "issue": null
+    },
+    {
+      "name": "validity_days",
+      "status": "OK",
+      "value": "30",
+      "quote": "4. Validity. This quotation is valid for 30 days from the date above.",
+      "span": {
+        "start": 582,
+        "end": 651
+      },
+      "issue": null
+    }
+  ],
+  "comparison": {
+    "pr_line": {
+      "pr_number": "PR-2026-114",
+      "item_code": "D",
+      "description": "Poly bag, 30 x 40 cm",
+      "unit": "piece",
+      "qty": "50000",
+      "max_unit_price": "6.50"
+    },
+    "requested_qty": "50000",
+    "quoted_qty": "50000",
+    "qty_delta_pct": "0.00",
+    "max_unit_price": "6.50",
+    "quoted_unit_price": "6.40",
+    "price_delta_pct": "-1.54",
+    "price_note": null,
+    "arithmetic": [
+      {
+        "check": "line_total",
+        "expected": "320000.00",
+        "actual": "322000.00",
+        "ok": false,
+        "quote": "Subtotal 322,000.00",
+        "span": {
+          "start": 238,
+          "end": 257
+        }
+      },
+      {
+        "check": "vat",
+        "expected": "48300.00",
+        "actual": "48300.00",
+        "ok": true,
+        "quote": "VAT 15% 48,300.00",
+        "span": {
+          "start": 258,
+          "end": 275
+        }
+      },
+      {
+        "check": "total",
+        "expected": "370300.00",
+        "actual": "370300.00",
+        "ok": true,
+        "quote": "Total 370,300.00",
+        "span": {
+          "start": 276,
+          "end": 292
+        }
+      }
+    ]
+  },
+  "rules": [
+    {
+      "rule_id": "R1",
+      "title": "Unit price more than 3% above the PR maximum",
+      "status": "PASS",
+      "message": "unit price 6.40 vs PR max 6.50 (-1.54%) is within the 3% limit",
+      "evidence_quote": "D Poly bag, 30 x 40 cm 50,000 piece 6.40 322,000.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      }
+    },
+    {
+      "rule_id": "R2",
+      "title": "Advance payment more than 20%",
+      "status": "PASS",
+      "message": "advance 5% is within 20%",
+      "evidence_quote": "1. Payment. 5% advance payable with the purchase order.",
+      "span": {
+        "start": 361,
+        "end": 416
+      }
+    },
+    {
+      "rule_id": "R3",
+      "title": "No late-delivery penalty of at least 0.5% per week",
+      "status": "PASS",
+      "message": "penalty 0.5% per week meets 0.5%",
+      "evidence_quote": "3. Delay. Late delivery penalty of 0.5% of order value per week.",
+      "span": {
+        "start": 517,
+        "end": 581
+      }
+    },
+    {
+      "rule_id": "R4",
+      "title": "TIN or BIN missing",
+      "status": "PASS",
+      "message": "TIN and BIN are present",
+      "evidence_quote": "Supplier TIN: 109458093391 BIN: 000970941-0101",
+      "span": {
+        "start": 293,
+        "end": 339
+      }
+    },
+    {
+      "rule_id": "R5",
+      "title": "Delivery later than 45 days after the PO",
+      "status": "PASS",
+      "message": "delivery in 28 days is within 45",
+      "evidence_quote": "2. Delivery. Delivery within 4 weeks of PO.",
+      "span": {
+        "start": 473,
+        "end": 516
+      }
+    },
+    {
+      "rule_id": "H1",
+      "title": "Unit price above the PR maximum by up to 3%",
+      "status": "PASS",
+      "message": "unit price is not slightly over the PR max",
+      "evidence_quote": "D Poly bag, 30 x 40 cm 50,000 piece 6.40 322,000.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      }
+    },
+    {
+      "rule_id": "H2",
+      "title": "Quantity differs from the PR by more than 5%",
+      "status": "PASS",
+      "message": "quantity 50000 vs requested 50000 (+0.00%) is within 5%",
+      "evidence_quote": "D Poly bag, 30 x 40 cm 50,000 piece 6.40 322,000.00",
+      "span": {
+        "start": 186,
+        "end": 237
+      }
+    },
+    {
+      "rule_id": "H3",
+      "title": "Payment terms unclear or outside 30-60 days after delivery",
+      "status": "FAIL",
+      "message": "payment in 30 to 90 days is outside 30 to 60 days",
+      "evidence_quote": "Payment within 30 to 90 days as agreed by both parties.",
+      "span": {
+        "start": 417,
+        "end": 472
+      }
+    },
+    {
+      "rule_id": "H4",
+      "title": "Delivery in 31-45 days",
+      "status": "PASS",
+      "message": "delivery in 28 days is not in the review window",
+      "evidence_quote": "2. Delivery. Delivery within 4 weeks of PO.",
+      "span": {
+        "start": 473,
+        "end": 516
+      }
+    },
+    {
+      "rule_id": "H5",
+      "title": "VAT not shown separately at 15%",
+      "status": "PASS",
+      "message": "VAT is shown separately at 15%",
+      "evidence_quote": "VAT 15% 48,300.00",
+      "span": {
+        "start": 258,
+        "end": 275
+      }
+    },
+    {
+      "rule_id": "H6",
+      "title": "Numbers do not add up",
+      "status": "FAIL",
+      "message": "line_total: expected 320000.00 but quoted 322000.00",
+      "evidence_quote": "Subtotal 322,000.00",
+      "span": {
+        "start": 238,
+        "end": 257
+      }
+    },
+    {
+      "rule_id": "H7",
+      "title": "Quotation valid for less than 30 days",
+      "status": "PASS",
+      "message": "valid for 30 days",
+      "evidence_quote": "4. Validity. This quotation is valid for 30 days from the date above.",
+      "span": {
+        "start": 582,
+        "end": 651
+      }
+    }
+  ],
+  "issues": [],
+  "errors": []
+}

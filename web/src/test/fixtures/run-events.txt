@@ -1,0 +1,396 @@
+id: 1
+event: run_started
+data: {"run_id": "94e9aab5b446", "packs": ["supplier-pack-01", "supplier-pack-02", "supplier-pack-03", "supplier-pack-04", "supplier-pack-05", "supplier-pack-06", "supplier-pack-07", "supplier-pack-08", "supplier-pack-09", "supplier-pack-10"], "total": 10, "resume": false, "seq": 1, "ts": "2026-11-05T20:51:06.220+00:00"}
+
+id: 2
+event: pack_started
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-01", "index": 1, "total": 10, "steps": ["ingest", "extract_llm", "extract_regex", "reconcile", "compare_pr", "apply_rules", "decide", "human_gate", "report"], "seq": 2, "ts": "2026-11-05T20:51:06.220+00:00"}
+
+id: 3
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-01", "node": "ingest", "ok": true, "elapsed_ms": 92, "message": null, "seq": 3, "ts": "2026-11-05T20:51:06.305+00:00"}
+
+id: 4
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-01", "node": "extract_regex", "ok": true, "elapsed_ms": 342, "message": null, "seq": 4, "ts": "2026-11-05T20:51:06.557+00:00"}
+
+id: 5
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-01", "node": "extract_llm", "ok": true, "elapsed_ms": 592, "message": null, "seq": 5, "ts": "2026-11-05T20:51:06.808+00:00"}
+
+id: 6
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-01", "node": "reconcile", "ok": true, "elapsed_ms": 842, "message": null, "seq": 6, "ts": "2026-11-05T20:51:07.062+00:00"}
+
+id: 7
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-01", "node": "compare_pr", "ok": true, "elapsed_ms": 1092, "message": null, "seq": 7, "ts": "2026-11-05T20:51:07.314+00:00"}
+
+id: 8
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-01", "node": "apply_rules", "ok": true, "elapsed_ms": 1342, "message": null, "seq": 8, "ts": "2026-11-05T20:51:07.565+00:00"}
+
+id: 9
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-01", "node": "decide", "ok": true, "elapsed_ms": 1592, "message": null, "seq": 9, "ts": "2026-11-05T20:51:07.816+00:00"}
+
+id: 10
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-01", "node": "report", "ok": true, "elapsed_ms": 1859, "message": null, "seq": 10, "ts": "2026-11-05T20:51:08.074+00:00"}
+
+id: 11
+event: pack_finished
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-01", "decision": "Approve", "headline": "All 12 checks passed.", "primary_rule": null, "seq": 11, "ts": "2026-11-05T20:51:08.325+00:00"}
+
+id: 12
+event: pack_started
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-02", "index": 2, "total": 10, "steps": ["ingest", "extract_llm", "extract_regex", "reconcile", "compare_pr", "apply_rules", "decide", "human_gate", "report"], "seq": 12, "ts": "2026-11-05T20:51:08.325+00:00"}
+
+id: 13
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-02", "node": "ingest", "ok": true, "elapsed_ms": 30, "message": null, "seq": 13, "ts": "2026-11-05T20:51:08.358+00:00"}
+
+id: 14
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-02", "node": "extract_regex", "ok": true, "elapsed_ms": 280, "message": null, "seq": 14, "ts": "2026-11-05T20:51:08.610+00:00"}
+
+id: 15
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-02", "node": "extract_llm", "ok": true, "elapsed_ms": 530, "message": null, "seq": 15, "ts": "2026-11-05T20:51:08.861+00:00"}
+
+id: 16
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-02", "node": "reconcile", "ok": true, "elapsed_ms": 796, "message": null, "seq": 16, "ts": "2026-11-05T20:51:09.115+00:00"}
+
+id: 17
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-02", "node": "compare_pr", "ok": true, "elapsed_ms": 1046, "message": null, "seq": 17, "ts": "2026-11-05T20:51:09.367+00:00"}
+
+id: 18
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-02", "node": "apply_rules", "ok": true, "elapsed_ms": 1296, "message": null, "seq": 18, "ts": "2026-11-05T20:51:09.617+00:00"}
+
+id: 19
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-02", "node": "decide", "ok": true, "elapsed_ms": 1546, "message": null, "seq": 19, "ts": "2026-11-05T20:51:09.868+00:00"}
+
+id: 20
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-02", "node": "report", "ok": true, "elapsed_ms": 1811, "message": null, "seq": 20, "ts": "2026-11-05T20:51:10.132+00:00"}
+
+id: 21
+event: pack_finished
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-02", "decision": "Approve", "headline": "All 12 checks passed.", "primary_rule": null, "seq": 21, "ts": "2026-11-05T20:51:10.383+00:00"}
+
+id: 22
+event: pack_started
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-03", "index": 3, "total": 10, "steps": ["ingest", "extract_llm", "extract_regex", "reconcile", "compare_pr", "apply_rules", "decide", "human_gate", "report"], "seq": 22, "ts": "2026-11-05T20:51:10.383+00:00"}
+
+id: 23
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-03", "node": "ingest", "ok": true, "elapsed_ms": 32, "message": null, "seq": 23, "ts": "2026-11-05T20:51:10.415+00:00"}
+
+id: 24
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-03", "node": "extract_regex", "ok": true, "elapsed_ms": 282, "message": null, "seq": 24, "ts": "2026-11-05T20:51:10.667+00:00"}
+
+id: 25
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-03", "node": "extract_llm", "ok": true, "elapsed_ms": 532, "message": null, "seq": 25, "ts": "2026-11-05T20:51:10.917+00:00"}
+
+id: 26
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-03", "node": "reconcile", "ok": true, "elapsed_ms": 782, "message": null, "seq": 26, "ts": "2026-11-05T20:51:11.173+00:00"}
+
+id: 27
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-03", "node": "compare_pr", "ok": true, "elapsed_ms": 1032, "message": null, "seq": 27, "ts": "2026-11-05T20:51:11.425+00:00"}
+
+id: 28
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-03", "node": "apply_rules", "ok": true, "elapsed_ms": 1282, "message": null, "seq": 28, "ts": "2026-11-05T20:51:11.676+00:00"}
+
+id: 29
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-03", "node": "decide", "ok": true, "elapsed_ms": 1546, "message": null, "seq": 29, "ts": "2026-11-05T20:51:11.927+00:00"}
+
+id: 30
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-03", "node": "report", "ok": true, "elapsed_ms": 1813, "message": null, "seq": 30, "ts": "2026-11-05T20:51:12.192+00:00"}
+
+id: 31
+event: pack_finished
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-03", "decision": "Reject", "headline": "Rejected because R1 (Unit price more than 3% above the PR maximum): unit price 229.00 vs PR max 210.00 (+9.05%) is more than 3% above max [evidence: \"C Polyester sewing thread, cone 800 cone 229.00 183,200.00\"].", "primary_rule": "R1", "seq": 31, "ts": "2026-11-05T20:51:12.447+00:00"}
+
+id: 32
+event: pack_started
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-04", "index": 4, "total": 10, "steps": ["ingest", "extract_llm", "extract_regex", "reconcile", "compare_pr", "apply_rules", "decide", "human_gate", "report"], "seq": 32, "ts": "2026-11-05T20:51:12.447+00:00"}
+
+id: 33
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-04", "node": "ingest", "ok": true, "elapsed_ms": 30, "message": null, "seq": 33, "ts": "2026-11-05T20:51:12.484+00:00"}
+
+id: 34
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-04", "node": "extract_regex", "ok": true, "elapsed_ms": 280, "message": null, "seq": 34, "ts": "2026-11-05T20:51:12.737+00:00"}
+
+id: 35
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-04", "node": "extract_llm", "ok": true, "elapsed_ms": 530, "message": null, "seq": 35, "ts": "2026-11-05T20:51:12.988+00:00"}
+
+id: 36
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-04", "node": "reconcile", "ok": true, "elapsed_ms": 796, "message": null, "seq": 36, "ts": "2026-11-05T20:51:13.250+00:00"}
+
+id: 37
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-04", "node": "compare_pr", "ok": true, "elapsed_ms": 1046, "message": null, "seq": 37, "ts": "2026-11-05T20:51:13.500+00:00"}
+
+id: 38
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-04", "node": "apply_rules", "ok": true, "elapsed_ms": 1296, "message": null, "seq": 38, "ts": "2026-11-05T20:51:13.752+00:00"}
+
+id: 39
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-04", "node": "decide", "ok": true, "elapsed_ms": 1546, "message": null, "seq": 39, "ts": "2026-11-05T20:51:14.003+00:00"}
+
+id: 40
+event: pack_paused
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-04", "machine_decision": "Needs a person to check", "reason": "H1: unit price is +2.31% above the PR max 6.50", "question": "The automatic checks could not settle this pack. Approve or Reject it, with a reason.", "seq": 40, "ts": "2026-11-05T20:51:14.261+00:00"}
+
+id: 41
+event: pack_started
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-05", "index": 5, "total": 10, "steps": ["ingest", "extract_llm", "extract_regex", "reconcile", "compare_pr", "apply_rules", "decide", "human_gate", "report"], "seq": 41, "ts": "2026-11-05T20:51:14.261+00:00"}
+
+id: 42
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-05", "node": "ingest", "ok": true, "elapsed_ms": 32, "message": null, "seq": 42, "ts": "2026-11-05T20:51:14.292+00:00"}
+
+id: 43
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-05", "node": "extract_regex", "ok": true, "elapsed_ms": 282, "message": null, "seq": 43, "ts": "2026-11-05T20:51:14.545+00:00"}
+
+id: 44
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-05", "node": "extract_llm", "ok": true, "elapsed_ms": 532, "message": null, "seq": 44, "ts": "2026-11-05T20:51:14.796+00:00"}
+
+id: 45
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-05", "node": "reconcile", "ok": true, "elapsed_ms": 782, "message": null, "seq": 45, "ts": "2026-11-05T20:51:15.050+00:00"}
+
+id: 46
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-05", "node": "compare_pr", "ok": true, "elapsed_ms": 1032, "message": null, "seq": 46, "ts": "2026-11-05T20:51:15.300+00:00"}
+
+id: 47
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-05", "node": "apply_rules", "ok": true, "elapsed_ms": 1296, "message": null, "seq": 47, "ts": "2026-11-05T20:51:15.551+00:00"}
+
+id: 48
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-05", "node": "decide", "ok": true, "elapsed_ms": 1546, "message": null, "seq": 48, "ts": "2026-11-05T20:51:15.803+00:00"}
+
+id: 49
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-05", "node": "report", "ok": true, "elapsed_ms": 1796, "message": null, "seq": 49, "ts": "2026-11-05T20:51:16.064+00:00"}
+
+id: 50
+event: pack_finished
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-05", "decision": "Reject", "headline": "Rejected because R2 (Advance payment more than 20%): advance 40% is more than 20% [evidence: \"1. Payment. 40% advance payable with the purchase order. 40% advance with the purchase order, balance 60% within 30 days of delivery.\"].", "primary_rule": "R2", "seq": 50, "ts": "2026-11-05T20:51:16.315+00:00"}
+
+id: 51
+event: pack_started
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-06", "index": 6, "total": 10, "steps": ["ingest", "extract_llm", "extract_regex", "reconcile", "compare_pr", "apply_rules", "decide", "human_gate", "report"], "seq": 51, "ts": "2026-11-05T20:51:16.315+00:00"}
+
+id: 52
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-06", "node": "ingest", "ok": true, "elapsed_ms": 47, "message": null, "seq": 52, "ts": "2026-11-05T20:51:16.351+00:00"}
+
+id: 53
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-06", "node": "extract_regex", "ok": true, "elapsed_ms": 297, "message": null, "seq": 53, "ts": "2026-11-05T20:51:16.606+00:00"}
+
+id: 54
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-06", "node": "extract_llm", "ok": true, "elapsed_ms": 547, "message": null, "seq": 54, "ts": "2026-11-05T20:51:16.857+00:00"}
+
+id: 55
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-06", "node": "reconcile", "ok": true, "elapsed_ms": 813, "message": null, "seq": 55, "ts": "2026-11-05T20:51:17.119+00:00"}
+
+id: 56
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-06", "node": "compare_pr", "ok": true, "elapsed_ms": 1063, "message": null, "seq": 56, "ts": "2026-11-05T20:51:17.373+00:00"}
+
+id: 57
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-06", "node": "apply_rules", "ok": true, "elapsed_ms": 1313, "message": null, "seq": 57, "ts": "2026-11-05T20:51:17.626+00:00"}
+
+id: 58
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-06", "node": "decide", "ok": true, "elapsed_ms": 1563, "message": null, "seq": 58, "ts": "2026-11-05T20:51:17.877+00:00"}
+
+id: 59
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-06", "node": "report", "ok": true, "elapsed_ms": 1828, "message": null, "seq": 59, "ts": "2026-11-05T20:51:18.139+00:00"}
+
+id: 60
+event: pack_finished
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-06", "decision": "Reject", "headline": "Rejected because R3 (No late-delivery penalty of at least 0.5% per week): no late-delivery penalty clause found [evidence: not found in the document].", "primary_rule": "R3", "seq": 60, "ts": "2026-11-05T20:51:18.391+00:00"}
+
+id: 61
+event: pack_started
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-07", "index": 7, "total": 10, "steps": ["ingest", "extract_llm", "extract_regex", "reconcile", "compare_pr", "apply_rules", "decide", "human_gate", "report"], "seq": 61, "ts": "2026-11-05T20:51:18.391+00:00"}
+
+id: 62
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-07", "node": "ingest", "ok": true, "elapsed_ms": 32, "message": null, "seq": 62, "ts": "2026-11-05T20:51:18.420+00:00"}
+
+id: 63
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-07", "node": "extract_regex", "ok": true, "elapsed_ms": 282, "message": null, "seq": 63, "ts": "2026-11-05T20:51:18.672+00:00"}
+
+id: 64
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-07", "node": "extract_llm", "ok": true, "elapsed_ms": 532, "message": null, "seq": 64, "ts": "2026-11-05T20:51:18.923+00:00"}
+
+id: 65
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-07", "node": "reconcile", "ok": true, "elapsed_ms": 796, "message": null, "seq": 65, "ts": "2026-11-05T20:51:19.180+00:00"}
+
+id: 66
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-07", "node": "compare_pr", "ok": true, "elapsed_ms": 1046, "message": null, "seq": 66, "ts": "2026-11-05T20:51:19.431+00:00"}
+
+id: 67
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-07", "node": "apply_rules", "ok": true, "elapsed_ms": 1296, "message": null, "seq": 67, "ts": "2026-11-05T20:51:19.682+00:00"}
+
+id: 68
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-07", "node": "decide", "ok": true, "elapsed_ms": 1546, "message": null, "seq": 68, "ts": "2026-11-05T20:51:19.933+00:00"}
+
+id: 69
+event: pack_paused
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-07", "machine_decision": "Needs a person to check", "reason": "H2: quantity 16500 vs requested 20000 (-17.50%) differs by more than 5%", "question": "The automatic checks could not settle this pack. Approve or Reject it, with a reason.", "seq": 69, "ts": "2026-11-05T20:51:20.191+00:00"}
+
+id: 70
+event: pack_started
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-08", "index": 8, "total": 10, "steps": ["ingest", "extract_llm", "extract_regex", "reconcile", "compare_pr", "apply_rules", "decide", "human_gate", "report"], "seq": 70, "ts": "2026-11-05T20:51:20.191+00:00"}
+
+id: 71
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-08", "node": "ingest", "ok": true, "elapsed_ms": 47, "message": null, "seq": 71, "ts": "2026-11-05T20:51:20.228+00:00"}
+
+id: 72
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-08", "node": "extract_regex", "ok": true, "elapsed_ms": 297, "message": null, "seq": 72, "ts": "2026-11-05T20:51:20.481+00:00"}
+
+id: 73
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-08", "node": "extract_llm", "ok": true, "elapsed_ms": 547, "message": null, "seq": 73, "ts": "2026-11-05T20:51:20.732+00:00"}
+
+id: 74
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-08", "node": "reconcile", "ok": true, "elapsed_ms": 797, "message": null, "seq": 74, "ts": "2026-11-05T20:51:20.987+00:00"}
+
+id: 75
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-08", "node": "compare_pr", "ok": true, "elapsed_ms": 1063, "message": null, "seq": 75, "ts": "2026-11-05T20:51:21.239+00:00"}
+
+id: 76
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-08", "node": "apply_rules", "ok": true, "elapsed_ms": 1313, "message": null, "seq": 76, "ts": "2026-11-05T20:51:21.491+00:00"}
+
+id: 77
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-08", "node": "decide", "ok": true, "elapsed_ms": 1563, "message": null, "seq": 77, "ts": "2026-11-05T20:51:21.744+00:00"}
+
+id: 78
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-08", "node": "report", "ok": true, "elapsed_ms": 1828, "message": null, "seq": 78, "ts": "2026-11-05T20:51:22.013+00:00"}
+
+id: 79
+event: pack_finished
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-08", "decision": "Reject", "headline": "Rejected because R4 (TIN or BIN missing): TIN and BIN missing from the quotation [evidence: not found in the document].", "primary_rule": "R4", "seq": 79, "ts": "2026-11-05T20:51:22.264+00:00"}
+
+id: 80
+event: pack_started
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-09", "index": 9, "total": 10, "steps": ["ingest", "extract_llm", "extract_regex", "reconcile", "compare_pr", "apply_rules", "decide", "human_gate", "report"], "seq": 80, "ts": "2026-11-05T20:51:22.264+00:00"}
+
+id: 81
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-09", "node": "ingest", "ok": true, "elapsed_ms": 46, "message": null, "seq": 81, "ts": "2026-11-05T20:51:22.306+00:00"}
+
+id: 82
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-09", "node": "extract_regex", "ok": true, "elapsed_ms": 296, "message": null, "seq": 82, "ts": "2026-11-05T20:51:22.562+00:00"}
+
+id: 83
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-09", "node": "extract_llm", "ok": true, "elapsed_ms": 546, "message": null, "seq": 83, "ts": "2026-11-05T20:51:22.813+00:00"}
+
+id: 84
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-09", "node": "reconcile", "ok": true, "elapsed_ms": 813, "message": null, "seq": 84, "ts": "2026-11-05T20:51:23.068+00:00"}
+
+id: 85
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-09", "node": "compare_pr", "ok": true, "elapsed_ms": 1063, "message": null, "seq": 85, "ts": "2026-11-05T20:51:23.319+00:00"}
+
+id: 86
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-09", "node": "apply_rules", "ok": true, "elapsed_ms": 1313, "message": null, "seq": 86, "ts": "2026-11-05T20:51:23.570+00:00"}
+
+id: 87
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-09", "node": "decide", "ok": true, "elapsed_ms": 1563, "message": null, "seq": 87, "ts": "2026-11-05T20:51:23.821+00:00"}
+
+id: 88
+event: pack_paused
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-09", "machine_decision": "Needs a person to check", "reason": "H3: payment in 30 to 90 days is outside 30 to 60 days; H6: line_total: expected 320000.00 but quoted 322000.00", "question": "The automatic checks could not settle this pack. Approve or Reject it, with a reason.", "seq": 88, "ts": "2026-11-05T20:51:24.079+00:00"}
+
+id: 89
+event: pack_started
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-10", "index": 10, "total": 10, "steps": ["ingest", "extract_llm", "extract_regex", "reconcile", "compare_pr", "apply_rules", "decide", "human_gate", "report"], "seq": 89, "ts": "2026-11-05T20:51:24.079+00:00"}
+
+id: 90
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-10", "node": "ingest", "ok": true, "elapsed_ms": 30, "message": null, "seq": 90, "ts": "2026-11-05T20:51:24.110+00:00"}
+
+id: 91
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-10", "node": "extract_regex", "ok": true, "elapsed_ms": 280, "message": null, "seq": 91, "ts": "2026-11-05T20:51:24.362+00:00"}
+
+id: 92
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-10", "node": "extract_llm", "ok": true, "elapsed_ms": 530, "message": null, "seq": 92, "ts": "2026-11-05T20:51:24.613+00:00"}
+
+id: 93
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-10", "node": "reconcile", "ok": true, "elapsed_ms": 796, "message": null, "seq": 93, "ts": "2026-11-05T20:51:24.867+00:00"}
+
+id: 94
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-10", "node": "compare_pr", "ok": true, "elapsed_ms": 1046, "message": null, "seq": 94, "ts": "2026-11-05T20:51:25.118+00:00"}
+
+id: 95
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-10", "node": "apply_rules", "ok": true, "elapsed_ms": 1296, "message": null, "seq": 95, "ts": "2026-11-05T20:51:25.370+00:00"}
+
+id: 96
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-10", "node": "decide", "ok": true, "elapsed_ms": 1546, "message": null, "seq": 96, "ts": "2026-11-05T20:51:25.621+00:00"}
+
+id: 97
+event: node_completed
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-10", "node": "report", "ok": true, "elapsed_ms": 1811, "message": null, "seq": 97, "ts": "2026-11-05T20:51:25.884+00:00"}
+
+id: 98
+event: pack_finished
+data: {"run_id": "94e9aab5b446", "pack_id": "supplier-pack-10", "decision": "Reject", "headline": "Rejected because R5 (Delivery later than 45 days after the PO): delivery in 60 days is later than 45 [evidence: \"Delivery within 60 days of PO.\"].", "primary_rule": "R5", "seq": 98, "ts": "2026-11-05T20:51:26.135+00:00"}
+
+id: 99
+event: run_finished
+data: {"run_id": "94e9aab5b446", "status": "completed", "counts": {"Approve": 2, "Reject": 5, "Needs a person to check": 3}, "paused": ["supplier-pack-04", "supplier-pack-07", "supplier-pack-09"], "finished": ["supplier-pack-01", "supplier-pack-02", "supplier-pack-03", "supplier-pack-05", "supplier-pack-06", "supplier-pack-08", "supplier-pack-10"], "skipped": [], "seq": 99, "ts": "2026-11-05T20:51:26.135+00:00"}
+
