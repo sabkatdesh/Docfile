@@ -15,6 +15,7 @@ from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
+from docgate.api.serve import OPENAPI_FILE, ServeOptions, build_app, is_loopback, openapi_text
 from docgate.domain.models import Decision, Extraction, FieldStatus
 from docgate.evaluation.golden import GoldenError, load_golden
 from docgate.evaluation.score import render_report, result_to_dict, score
@@ -23,7 +24,7 @@ from docgate.extraction.quotes import verify_quote
 from docgate.extraction.regex import RegexExtractor
 from docgate.extraction.service import extract_document
 from docgate.ingest.pdf import extract_text
-from docgate.ingest.purchase_request import PurchaseRequestError, load_pr_lines
+from docgate.ingest.purchase_request import PurchaseRequestError
 from docgate.llm.provider import LLMConfigError
 from docgate.reporting.writer import write_run
 from docgate.review.checkpoint import DEFAULT_DB, sqlite_saver
@@ -36,6 +37,7 @@ from docgate.workflow.deps import Deps
 from docgate.workflow.graph import build_graph
 from docgate.workflow.runner import OperatorError, pack_number, report_of, run_packs
 from docgate.workflow.state import PackState
+from docgate.workflow.wiring import build_deps
 
 SAMPLE_DIR = Path("data/sample")
 DEFAULT_OUT = Path("runs/latest")
@@ -118,11 +120,7 @@ def cmd_record(settings: Settings, packs: list[Path], force: bool) -> int:
 
 
 def _deps(settings: Settings) -> Deps:
-    return Deps(
-        llm=build_llm_stack(settings).extractor,
-        regex=RegexExtractor(),
-        pr_lines=load_pr_lines(SAMPLE_DIR / "purchase-request.csv"),
-    )
+    return build_deps(settings, SAMPLE_DIR)
 
 
 def _run_all(settings: Settings, packs: list[Path]) -> list[PackState]:
@@ -227,6 +225,38 @@ def cmd_review(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_serve(settings: Settings, args: argparse.Namespace) -> int:
+    import uvicorn  # only `serve` needs it
+
+    opts = ServeOptions(
+        db=args.db,
+        out_dir=args.out,
+        web_dist=args.web_dist,
+        host=args.host,
+        port=args.port,
+        step_delay_s=args.step_delay,
+        reviewer=getpass.getuser(),
+    )
+    app = build_app(replace(settings, provider=args.provider), opts)  # config errors stop here
+    if not is_loopback(args.host):
+        print(
+            f"warning: serving on {args.host}; this API has no authentication, so anyone who can "
+            "reach it can record review decisions",
+            file=sys.stderr,
+        )
+    print(f"docgate API on http://{args.host}:{args.port} (provider: {args.provider})", flush=True)
+    uvicorn.run(app, host=args.host, port=args.port, log_level="info")
+    return 0
+
+
+def cmd_openapi(settings: Settings, out: Path) -> int:
+    text = openapi_text(settings, ServeOptions())
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(text, encoding="utf-8", newline="")
+    print(f"wrote {out}")
+    return 0
+
+
 def main(argv: Sequence[str]) -> int:
     parser = argparse.ArgumentParser(prog="docgate")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -257,6 +287,19 @@ def main(argv: Sequence[str]) -> int:
     demo = sub.add_parser("demo", help="run all packs from the recordings: no key, no network")
     demo.add_argument("--out", type=Path, default=DEMO_OUT, help="report directory")
     demo.add_argument("--db", type=Path, default=DEMO_DB, help="demo checkpoint database")
+    srv = sub.add_parser("serve", help="serve the API (and web/dist when built) on localhost")
+    srv.add_argument("--host", default="127.0.0.1", help="default: loopback only")
+    srv.add_argument("--port", type=int, default=8000)
+    # Replay unless asked, like `run`: a stray DOCGATE_PROVIDER=groq must not spend requests.
+    srv.add_argument("--provider", choices=PROVIDERS, default="replay")
+    srv.add_argument("--db", type=Path, default=ServeOptions.db, help="checkpoint database")
+    srv.add_argument("--out", type=Path, default=ServeOptions.out_dir, help="report directory")
+    srv.add_argument("--web-dist", type=Path, default=ServeOptions.web_dist)
+    srv.add_argument(
+        "--step-delay", type=float, default=0.0, help="seconds between steps, to watch a demo"
+    )
+    oa = sub.add_parser("openapi", help="write the API contract for the front end's type generator")
+    oa.add_argument("--out", type=Path, default=OPENAPI_FILE)
     rev = sub.add_parser("review", help="list, show and resolve packs waiting for a person")
     actions = rev.add_subparsers(dest="action", required=True)
     for action in ("list", "show", "resolve"):
@@ -274,6 +317,10 @@ def main(argv: Sequence[str]) -> int:
         settings = load_settings(_environment())
         if args.command == "review":
             return cmd_review(args)
+        if args.command == "serve":
+            return cmd_serve(settings, args)
+        if args.command == "openapi":
+            return cmd_openapi(settings, args.out)
         if args.command == "demo":
             return cmd_demo(settings, args.out, args.db)
         if args.command in ("run", "eval"):

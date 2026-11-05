@@ -1,0 +1,1777 @@
+{
+  "components": {
+    "schemas": {
+      "ArithmeticDetail": {
+        "properties": {
+          "actual": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual"
+          },
+          "check": {
+            "title": "Check",
+            "type": "string"
+          },
+          "expected": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected"
+          },
+          "ok": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ok"
+          },
+          "quote": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quote"
+          },
+          "span": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextSpan"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "check",
+          "expected",
+          "actual",
+          "ok",
+          "quote",
+          "span"
+        ],
+        "title": "ArithmeticDetail",
+        "type": "object"
+      },
+      "ComparisonDetail": {
+        "properties": {
+          "arithmetic": {
+            "items": {
+              "$ref": "#/components/schemas/ArithmeticDetail"
+            },
+            "title": "Arithmetic",
+            "type": "array"
+          },
+          "max_unit_price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Unit Price"
+          },
+          "pr_line": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PRLine"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "price_delta_pct": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Delta Pct"
+          },
+          "price_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Note"
+          },
+          "qty_delta_pct": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Qty Delta Pct"
+          },
+          "quoted_qty": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quoted Qty"
+          },
+          "quoted_unit_price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quoted Unit Price"
+          },
+          "requested_qty": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Qty"
+          }
+        },
+        "required": [
+          "pr_line",
+          "requested_qty",
+          "quoted_qty",
+          "qty_delta_pct",
+          "max_unit_price",
+          "quoted_unit_price",
+          "price_delta_pct",
+          "price_note",
+          "arithmetic"
+        ],
+        "title": "ComparisonDetail",
+        "type": "object"
+      },
+      "ConfusionView": {
+        "description": "`counts[i][j]`: packs expected as `labels[i]` that the system decided as `labels[j]`.",
+        "properties": {
+          "counts": {
+            "items": {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "title": "Counts",
+            "type": "array"
+          },
+          "labels": {
+            "items": {
+              "$ref": "#/components/schemas/Decision"
+            },
+            "title": "Labels",
+            "type": "array"
+          }
+        },
+        "required": [
+          "labels",
+          "counts"
+        ],
+        "title": "ConfusionView",
+        "type": "object"
+      },
+      "Decision": {
+        "enum": [
+          "Approve",
+          "Reject",
+          "Needs a person to check"
+        ],
+        "title": "Decision",
+        "type": "string"
+      },
+      "ErrorBody": {
+        "description": "Every non-2xx response has this shape.",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorDetail"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "ErrorBody",
+        "type": "object"
+      },
+      "ErrorDetail": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "details": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Details"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorDetail",
+        "type": "object"
+      },
+      "EvalRowView": {
+        "properties": {
+          "actual": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Decision"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "expected": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Decision"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "human_decision": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Decision"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "match": {
+            "title": "Match",
+            "type": "boolean"
+          },
+          "pack": {
+            "title": "Pack",
+            "type": "integer"
+          },
+          "pack_id": {
+            "title": "Pack Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pack",
+          "pack_id",
+          "expected",
+          "actual",
+          "match",
+          "human_decision"
+        ],
+        "title": "EvalRowView",
+        "type": "object"
+      },
+      "EvalView": {
+        "properties": {
+          "golden": {
+            "$ref": "#/components/schemas/GoldenView"
+          },
+          "mutation": {
+            "$ref": "#/components/schemas/MutationView"
+          }
+        },
+        "required": [
+          "golden",
+          "mutation"
+        ],
+        "title": "EvalView",
+        "type": "object"
+      },
+      "FieldDetail": {
+        "properties": {
+          "issue": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Issue"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "quote": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quote"
+          },
+          "span": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextSpan"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": [
+          "name",
+          "status",
+          "value",
+          "quote",
+          "span",
+          "issue"
+        ],
+        "title": "FieldDetail",
+        "type": "object"
+      },
+      "GoldenView": {
+        "properties": {
+          "confusion": {
+            "$ref": "#/components/schemas/ConfusionView"
+          },
+          "conservative_misses": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Conservative Misses",
+            "type": "array"
+          },
+          "correct": {
+            "title": "Correct",
+            "type": "integer"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/EvalRowView"
+            },
+            "title": "Rows",
+            "type": "array"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          },
+          "unsafe": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Unsafe",
+            "type": "array"
+          }
+        },
+        "required": [
+          "total",
+          "correct",
+          "passed",
+          "unsafe",
+          "conservative_misses",
+          "rows",
+          "confusion"
+        ],
+        "title": "GoldenView",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "Health": {
+        "properties": {
+          "active_run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Run Id"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "packs": {
+            "title": "Packs",
+            "type": "integer"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "web_built": {
+            "title": "Web Built",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "status",
+          "provider",
+          "model",
+          "packs",
+          "web_built",
+          "active_run_id"
+        ],
+        "title": "Health",
+        "type": "object"
+      },
+      "HumanReview": {
+        "description": "A reviewer's answer to a paused pack. It never replaces the machine verdict.",
+        "properties": {
+          "decision": {
+            "$ref": "#/components/schemas/Decision"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "reviewed_at": {
+            "format": "date-time",
+            "title": "Reviewed At",
+            "type": "string"
+          },
+          "reviewer": {
+            "title": "Reviewer",
+            "type": "string"
+          }
+        },
+        "required": [
+          "decision",
+          "reason",
+          "reviewer",
+          "reviewed_at"
+        ],
+        "title": "HumanReview",
+        "type": "object"
+      },
+      "IssueReport": {
+        "properties": {
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "llm_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Llm Value"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "regex_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Regex Value"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "status",
+          "reason",
+          "llm_value",
+          "regex_value"
+        ],
+        "title": "IssueReport",
+        "type": "object"
+      },
+      "MachineVerdict": {
+        "properties": {
+          "decision": {
+            "$ref": "#/components/schemas/Decision"
+          },
+          "explanation": {
+            "title": "Explanation",
+            "type": "string"
+          },
+          "headline": {
+            "title": "Headline",
+            "type": "string"
+          },
+          "needs_human": {
+            "title": "Needs Human",
+            "type": "boolean"
+          },
+          "primary_rule": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Primary Rule"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "decision",
+          "reason",
+          "headline",
+          "explanation",
+          "primary_rule",
+          "needs_human"
+        ],
+        "title": "MachineVerdict",
+        "type": "object"
+      },
+      "MutationCase": {
+        "properties": {
+          "actual": {
+            "$ref": "#/components/schemas/Decision"
+          },
+          "expect": {
+            "$ref": "#/components/schemas/Decision"
+          },
+          "family": {
+            "title": "Family",
+            "type": "string"
+          },
+          "fired": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RuleStatus"
+            },
+            "title": "Fired",
+            "type": "object"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "family",
+          "expect",
+          "actual",
+          "fired",
+          "ok"
+        ],
+        "title": "MutationCase",
+        "type": "object"
+      },
+      "MutationGroup": {
+        "properties": {
+          "cases": {
+            "items": {
+              "$ref": "#/components/schemas/MutationCase"
+            },
+            "title": "Cases",
+            "type": "array"
+          },
+          "family": {
+            "title": "Family",
+            "type": "string"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "family",
+          "total",
+          "passed",
+          "cases"
+        ],
+        "title": "MutationGroup",
+        "type": "object"
+      },
+      "MutationView": {
+        "properties": {
+          "available": {
+            "title": "Available",
+            "type": "boolean"
+          },
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/MutationGroup"
+            },
+            "title": "Groups",
+            "type": "array"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "integer"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "available",
+          "reason",
+          "total",
+          "passed",
+          "groups"
+        ],
+        "title": "MutationView",
+        "type": "object"
+      },
+      "NodeError": {
+        "description": "A pipeline step failed. `config` marks an operator problem (bad key, budget) that stops a\nbatch; anything else escalates just that pack.",
+        "properties": {
+          "kind": {
+            "enum": [
+              "error",
+              "config"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "node": {
+            "title": "Node",
+            "type": "string"
+          }
+        },
+        "required": [
+          "node",
+          "kind",
+          "message"
+        ],
+        "title": "NodeError",
+        "type": "object"
+      },
+      "PRLine": {
+        "description": "One requested item from the purchase request.",
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "item_code": {
+            "title": "Item Code",
+            "type": "string"
+          },
+          "max_unit_price": {
+            "title": "Max Unit Price",
+            "type": "string"
+          },
+          "pr_number": {
+            "title": "Pr Number",
+            "type": "string"
+          },
+          "qty": {
+            "title": "Qty",
+            "type": "string"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pr_number",
+          "item_code",
+          "description",
+          "unit",
+          "qty",
+          "max_unit_price"
+        ],
+        "title": "PRLine",
+        "type": "object"
+      },
+      "PackDetail": {
+        "properties": {
+          "comparison": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ComparisonDetail"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/NodeError"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/FieldDetail"
+            },
+            "title": "Fields",
+            "type": "array"
+          },
+          "human_review": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/HumanReview"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "issues": {
+            "items": {
+              "$ref": "#/components/schemas/IssueReport"
+            },
+            "title": "Issues",
+            "type": "array"
+          },
+          "machine": {
+            "$ref": "#/components/schemas/MachineVerdict"
+          },
+          "pack_id": {
+            "title": "Pack Id",
+            "type": "string"
+          },
+          "pdf_url": {
+            "title": "Pdf Url",
+            "type": "string"
+          },
+          "rules": {
+            "items": {
+              "$ref": "#/components/schemas/RuleDetail"
+            },
+            "title": "Rules",
+            "type": "array"
+          },
+          "source_file": {
+            "title": "Source File",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "not_run",
+              "pending_review",
+              "resolved",
+              "final"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pack_id",
+          "source_file",
+          "pdf_url",
+          "status",
+          "text",
+          "machine",
+          "human_review",
+          "fields",
+          "comparison",
+          "rules",
+          "issues",
+          "errors"
+        ],
+        "title": "PackDetail",
+        "type": "object"
+      },
+      "PackListItem": {
+        "properties": {
+          "decision": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Decision"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "headline": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Headline"
+          },
+          "human_decision": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Decision"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "item": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Item"
+          },
+          "pack_id": {
+            "title": "Pack Id",
+            "type": "string"
+          },
+          "primary_rule": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Primary Rule"
+          },
+          "source_file": {
+            "title": "Source File",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "not_run",
+              "pending_review",
+              "resolved",
+              "final"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "supplier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supplier"
+          }
+        },
+        "required": [
+          "pack_id",
+          "source_file",
+          "supplier",
+          "item",
+          "status",
+          "decision",
+          "human_decision",
+          "primary_rule",
+          "headline"
+        ],
+        "title": "PackListItem",
+        "type": "object"
+      },
+      "PayloadIssue": {
+        "properties": {
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "llm_quote": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Llm Quote"
+          },
+          "llm_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Llm Value"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "regex_quote": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Regex Quote"
+          },
+          "regex_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Regex Value"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "status",
+          "reason",
+          "llm_value",
+          "regex_value",
+          "llm_quote",
+          "regex_quote"
+        ],
+        "title": "PayloadIssue",
+        "type": "object"
+      },
+      "PayloadRule": {
+        "properties": {
+          "evidence_quote": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Quote"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "rule_id": {
+            "title": "Rule Id",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "rule_id",
+          "title",
+          "status",
+          "message",
+          "evidence_quote"
+        ],
+        "title": "PayloadRule",
+        "type": "object"
+      },
+      "PendingReviewItem": {
+        "properties": {
+          "pack_id": {
+            "title": "Pack Id",
+            "type": "string"
+          },
+          "payload": {
+            "$ref": "#/components/schemas/ReviewPayload"
+          }
+        },
+        "required": [
+          "pack_id",
+          "payload"
+        ],
+        "title": "PendingReviewItem",
+        "type": "object"
+      },
+      "ReviewPayload": {
+        "properties": {
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/NodeError"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "issues": {
+            "items": {
+              "$ref": "#/components/schemas/PayloadIssue"
+            },
+            "title": "Issues",
+            "type": "array"
+          },
+          "machine_decision": {
+            "$ref": "#/components/schemas/Decision"
+          },
+          "pack_id": {
+            "title": "Pack Id",
+            "type": "string"
+          },
+          "question": {
+            "title": "Question",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "rules": {
+            "items": {
+              "$ref": "#/components/schemas/PayloadRule"
+            },
+            "title": "Rules",
+            "type": "array"
+          }
+        },
+        "required": [
+          "pack_id",
+          "question",
+          "machine_decision",
+          "reason",
+          "rules",
+          "issues",
+          "errors"
+        ],
+        "title": "ReviewPayload",
+        "type": "object"
+      },
+      "ReviewRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "decision": {
+            "$ref": "#/components/schemas/Decision"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "reviewer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewer"
+          }
+        },
+        "required": [
+          "decision",
+          "reason"
+        ],
+        "title": "ReviewRequest",
+        "type": "object"
+      },
+      "RuleDetail": {
+        "properties": {
+          "evidence_quote": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Quote"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "rule_id": {
+            "title": "Rule Id",
+            "type": "string"
+          },
+          "span": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextSpan"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "UNKNOWN"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "rule_id",
+          "title",
+          "status",
+          "message",
+          "evidence_quote",
+          "span"
+        ],
+        "title": "RuleDetail",
+        "type": "object"
+      },
+      "RuleStatus": {
+        "enum": [
+          "PASS",
+          "FAIL",
+          "UNKNOWN"
+        ],
+        "title": "RuleStatus",
+        "type": "string"
+      },
+      "RunAccepted": {
+        "properties": {
+          "events_url": {
+            "title": "Events Url",
+            "type": "string"
+          },
+          "packs": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Packs",
+            "type": "array"
+          },
+          "run_id": {
+            "title": "Run Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "run_id",
+          "packs",
+          "events_url"
+        ],
+        "title": "RunAccepted",
+        "type": "object"
+      },
+      "RunRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "discard_pending": {
+            "default": false,
+            "title": "Discard Pending",
+            "type": "boolean"
+          },
+          "packs": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Packs"
+          },
+          "resume": {
+            "default": false,
+            "title": "Resume",
+            "type": "boolean"
+          }
+        },
+        "title": "RunRequest",
+        "type": "object"
+      },
+      "TextSpan": {
+        "description": "Half-open range of Python string indices into `PackDetail.text`. The sample texts are\nASCII, where these equal JavaScript (UTF-16) offsets.",
+        "properties": {
+          "end": {
+            "title": "End",
+            "type": "integer"
+          },
+          "start": {
+            "title": "Start",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "start",
+          "end"
+        ],
+        "title": "TextSpan",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Supplier quotation checker. The LLM reads, code judges.",
+    "title": "docgate API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/eval": {
+      "get": {
+        "operationId": "evaluation_api_eval_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvalView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Evaluation"
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health"
+      }
+    },
+    "/api/packs": {
+      "get": {
+        "operationId": "list_packs_api_packs_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PackListItem"
+                  },
+                  "title": "Response List Packs Api Packs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Packs"
+      }
+    },
+    "/api/packs/{pack_id}": {
+      "get": {
+        "operationId": "pack_detail_api_packs__pack_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pack_id",
+            "required": true,
+            "schema": {
+              "title": "Pack Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Pack Detail"
+      }
+    },
+    "/api/packs/{pack_id}/pdf": {
+      "get": {
+        "operationId": "pack_pdf_api_packs__pack_id__pdf_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pack_id",
+            "required": true,
+            "schema": {
+              "title": "Pack Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/pdf": {}
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Pack Pdf"
+      }
+    },
+    "/api/review": {
+      "get": {
+        "operationId": "pending_reviews_api_review_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PendingReviewItem"
+                  },
+                  "title": "Response Pending Reviews Api Review Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Pending Reviews"
+      }
+    },
+    "/api/review/{pack_id}": {
+      "post": {
+        "operationId": "resolve_review_api_review__pack_id__post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pack_id",
+            "required": true,
+            "schema": {
+              "title": "Pack Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackListItem"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Resolve Review"
+      }
+    },
+    "/api/runs": {
+      "post": {
+        "operationId": "start_run_api_runs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunAccepted"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Start Run"
+      }
+    },
+    "/api/runs/{run_id}/events": {
+      "get": {
+        "operationId": "run_events_api_runs__run_id__events_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "last-event-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Last-Event-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "text/event-stream": {}
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Events"
+      }
+    }
+  }
+}

@@ -68,6 +68,9 @@ COMMANDS: dict[str, Callable[[list[str]], int]] = {
     "record": _cli("record"),
     "eval": _cli("eval"),
     "review": _cli("review"),
+    "serve": _cli("serve"),
+    "openapi": _cli("openapi"),
+    "mutation-report": lambda args: run(PY, "-m", "scripts.mutation_report", *args),
 }
 
 

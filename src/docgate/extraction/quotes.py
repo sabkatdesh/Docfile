@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import re
 import unicodedata
-from dataclasses import replace
+from dataclasses import dataclass, replace
 
 from docgate.extraction.base import Candidate, Outcome, unreadable
 
@@ -30,6 +30,46 @@ def verify_quote(quote: str | None, text: str) -> bool:
         return False
     q = normalise(quote)
     return len(q) >= _MIN_QUOTE_LEN and q in normalise(text)
+
+
+@dataclass(frozen=True)
+class Span:
+    """Half-open range of Python string indices into the document text."""
+
+    start: int
+    end: int
+
+
+def _folded_with_origin(text: str) -> tuple[str, list[int]]:
+    """`normalise(text)` without the strip, plus the source index of every folded character."""
+    out: list[str] = []
+    origin: list[int] = []
+    for i, ch in enumerate(text):
+        folded = unicodedata.normalize("NFKC", ch).translate(_DASH_TABLE).translate(_QUOTE_TABLE)
+        for piece in folded.casefold():
+            if piece.isspace():
+                if out and out[-1] == " ":
+                    continue
+                piece = " "
+            out.append(piece)
+            origin.append(i)
+    return "".join(out), origin
+
+
+def locate_quote(quote: str | None, text: str) -> Span | None:
+    """Where a quote sits in the text, or None. Same folding as `verify_quote`, so a quote that
+    verifies is found even across a line wrap. Never guesses: the span is re-checked, and a
+    quote that cannot be placed exactly gets None (the UI then shows the quote without a highlight).
+    """
+    if quote is None or not verify_quote(quote, text):
+        return None
+    wanted = normalise(quote)
+    folded, origin = _folded_with_origin(text)
+    at = folded.find(wanted)
+    if at < 0:
+        return None
+    span = Span(origin[at], origin[at + len(wanted) - 1] + 1)
+    return span if normalise(text[span.start : span.end]) == wanted else None
 
 
 def raw_in_quote(raw: str, quote: str) -> bool:

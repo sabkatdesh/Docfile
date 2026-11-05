@@ -1,0 +1,385 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "price_over_3_1pct",
+      "family": "mutation",
+      "expect": "Reject",
+      "actual": "Reject",
+      "fired": {
+        "R1": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "advance_21pct",
+      "family": "mutation",
+      "expect": "Reject",
+      "actual": "Reject",
+      "fired": {
+        "R2": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "tin_removed",
+      "family": "mutation",
+      "expect": "Reject",
+      "actual": "Reject",
+      "fired": {
+        "R4": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "bin_removed",
+      "family": "mutation",
+      "expect": "Reject",
+      "actual": "Reject",
+      "fired": {
+        "R4": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "delivery_46_days",
+      "family": "mutation",
+      "expect": "Reject",
+      "actual": "Reject",
+      "fired": {
+        "R5": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "delivery_40_days",
+      "family": "mutation",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "H4": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "quantity_minus_6pct",
+      "family": "mutation",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "H2": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "penalty_clause_removed",
+      "family": "mutation",
+      "expect": "Reject",
+      "actual": "Reject",
+      "fired": {
+        "R3": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "penalty_0_4pct",
+      "family": "mutation",
+      "expect": "Reject",
+      "actual": "Reject",
+      "fired": {
+        "R3": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "vat_line_removed",
+      "family": "mutation",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "subtotal_off_by_1",
+      "family": "mutation",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "H5": "FAIL",
+        "H6": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "validity_29_days",
+      "family": "mutation",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "H7": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "payment_61_days",
+      "family": "mutation",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "H3": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "price_plus_3_00pct_is_H1_not_R1",
+      "family": "twin",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "H1": "FAIL"
+      },
+      "ok": true
+    },
+    {
+      "id": "advance_20pct",
+      "family": "twin",
+      "expect": "Approve",
+      "actual": "Approve",
+      "fired": {},
+      "ok": true
+    },
+    {
+      "id": "quantity_minus_5_0pct",
+      "family": "twin",
+      "expect": "Approve",
+      "actual": "Approve",
+      "fired": {},
+      "ok": true
+    },
+    {
+      "id": "penalty_0_5pct",
+      "family": "twin",
+      "expect": "Approve",
+      "actual": "Approve",
+      "fired": {},
+      "ok": true
+    },
+    {
+      "id": "validity_30_days",
+      "family": "twin",
+      "expect": "Approve",
+      "actual": "Approve",
+      "fired": {},
+      "ok": true
+    },
+    {
+      "id": "payment_60_days",
+      "family": "twin",
+      "expect": "Approve",
+      "actual": "Approve",
+      "fired": {},
+      "ok": true
+    },
+    {
+      "id": "delivery_30_days",
+      "family": "twin",
+      "expect": "Approve",
+      "actual": "Approve",
+      "fired": {},
+      "ok": true
+    },
+    {
+      "id": "supplier_renamed",
+      "family": "control",
+      "expect": "Approve",
+      "actual": "Approve",
+      "fired": {},
+      "ok": true
+    },
+    {
+      "id": "blank_lines_added",
+      "family": "control",
+      "expect": "Approve",
+      "actual": "Approve",
+      "fired": {},
+      "ok": true
+    },
+    {
+      "id": "spaces_widened",
+      "family": "whitespace",
+      "expect": "Approve",
+      "actual": "Approve",
+      "fired": {},
+      "ok": true
+    },
+    {
+      "id": "tabs_for_spaces",
+      "family": "whitespace",
+      "expect": "Approve",
+      "actual": "Approve",
+      "fired": {},
+      "ok": true
+    },
+    {
+      "id": "crlf_line_endings",
+      "family": "whitespace",
+      "expect": "Approve",
+      "actual": "Approve",
+      "fired": {},
+      "ok": true
+    },
+    {
+      "id": "trailing_spaces",
+      "family": "whitespace",
+      "expect": "Approve",
+      "actual": "Approve",
+      "fired": {},
+      "ok": true
+    },
+    {
+      "id": "price_over_3_1pct",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "R1": "UNKNOWN",
+        "H1": "UNKNOWN",
+        "H2": "UNKNOWN",
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "advance_21pct",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "R2": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "tin_removed",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "R4": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "bin_removed",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "R4": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "delivery_46_days",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "R5": "UNKNOWN",
+        "H4": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "delivery_40_days",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "R5": "UNKNOWN",
+        "H4": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "quantity_minus_6pct",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "R1": "UNKNOWN",
+        "H1": "UNKNOWN",
+        "H2": "UNKNOWN",
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "penalty_clause_removed",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "R3": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "penalty_0_4pct",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "R3": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "vat_line_removed",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "subtotal_off_by_1",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "validity_29_days",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "H7": "UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "id": "payment_61_days",
+      "family": "stale",
+      "expect": "Needs a person to check",
+      "actual": "Needs a person to check",
+      "fired": {
+        "H3": "UNKNOWN"
+      },
+      "ok": true
+    }
+  ]
+}

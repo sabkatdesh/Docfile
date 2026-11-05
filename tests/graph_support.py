@@ -35,3 +35,19 @@ def replay_deps(
         regex=regex or RegexExtractor(),
         pr_lines=PR_LINES if pr_lines is None else pr_lines,
     )
+
+
+def base_texts_and_quotes() -> list[tuple[int, str, list[str]]]:
+    """Each sample pack's ingest-normalised text with every quote its recording carries."""
+    import json
+
+    from docgate.ingest.pdf import extract_text
+    from docgate.ingest.whitespace import normalise_whitespace
+
+    out: list[tuple[int, str, list[str]]] = []
+    for n in range(1, 11):
+        path = next(RECORDED.glob(f"supplier-pack-{n:02d}__*.json"))
+        response = json.loads(json.loads(path.read_text("utf-8"))["response"])
+        quotes = [w["quote"] for w in response.values() if w.get("quote")]
+        out.append((n, normalise_whitespace(extract_text(pack_path(n))), quotes))
+    return out

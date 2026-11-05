@@ -72,6 +72,13 @@ class GraphReviewStore:
         """The latest state of every pack on record, finished or paused."""
         return [self._graph.get_state(_config(i)).values for i in self.pack_ids()]
 
+    def state(self, pack_id: str) -> PackState | None:
+        """The latest state of one pack, or None when it has never been run."""
+        if pack_id not in self.pack_ids():
+            return None
+        values: PackState = self._graph.get_state(_config(pack_id)).values
+        return values
+
     def pending(self) -> list[PendingReview]:
         out: list[PendingReview] = []
         for pack_id in self.pack_ids():
