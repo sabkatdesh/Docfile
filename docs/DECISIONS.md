@@ -1,19 +1,19 @@
 # Decisions
 
-Judgment calls made while building. Newest last.
+Judgment calls made while building, one section per milestone, oldest first. Dates are commit dates (YYYY-MM-DD). Later entries override earlier ones where they disagree; the earlier text is left as written and marked.
 
-## M0
+## M0 (2026-11-05)
 
 - **Project name is `docgate`.** The plan documents say `suppliercheck`/`supplier-checker`; the package, distribution and repo all use `docgate`.
-- **Task runner is `tasks.py`, not `make`.** `make` is not available on the Windows dev machine. `tasks.py` is plain Python (`setup|check|demo|live|eval`), so it works anywhere Python does and CI uses the same entry point. A thin `Makefile` forwards to it, so `make check` still works where make exists. `demo`, `live` and `eval` are stubs that exit 1 until their milestones.
-- **Minimal dependencies.** Only `pydantic` and `pdfplumber` at runtime, plus ruff, mypy, pytest and pytest-cov for development. LangGraph, FastAPI and boto3 arrive with the milestones that use them. All versions are pinned.
+- **Task runner is `tasks.py`, not `make`.** `make` is not available on the Windows dev machine. `tasks.py` is plain Python (`setup|check|demo|live|eval`), so it works anywhere Python does and CI uses the same entry point. A thin `Makefile` forwards to it, so `make check` still works where make exists. `demo`, `live` and `eval` were stubs in M0 and are implemented now.
+- **Minimal dependencies.** Only `pydantic` and `pdfplumber` at runtime, plus ruff, mypy, pytest and pytest-cov for development. LangGraph and FastAPI arrived with the milestones that use them (the plan's boto3/Bedrock was replaced by Groq in M2). All versions are pinned.
 - **Validators raise `ValueError`.** Pydantic only wraps `ValueError` into `ValidationError`; a `TypeError` would escape as a raw crash.
 - **`Field` invariant.** An `OK` field must have a value and a quote; any other status must have no value. This enforces "no verified quote, no value" in the type itself, so later code cannot build a half-trusted value.
 - **Floats are rejected** in `Field` values, config thresholds and `to_money`. Money is `Decimal` only.
 - **Config holds the thresholds as the rules state them.** H4 is stored as "above 30 days" and R5 as "above 45 days", matching the strict "more than" semantics in the spec.
 - **Empty PDF text raises `EmptyPdfError`.** No OCR (out of scope), so a scanned PDF fails loudly instead of yielding an empty string that downstream code could mistake for "no problems".
 
-## M1
+## M1 (2026-11-05)
 
 - **Dependency direction.** `compare` imports only `domain`; `rules` imports `domain` and `compare`, so delta and arithmetic math is written once. CLAUDE.md's "rules imports only domain" is read as "no I/O, no workflow, no LLM".
 - **Exact boundaries.** Threshold comparisons (`is_above`, `differs_by_more_than` in `domain/money.py`) cross-multiply instead of dividing, so exactly +3% is H1 and never tips into R1 through rounding. `pct_delta` is for display only.
@@ -26,7 +26,7 @@ Judgment calls made while building. Newest last.
 - **Weeks to days** is an extraction concern (M2); M1 fixtures give days directly (pack 09: 4 weeks = 28).
 - **Fixtures** in `tests/fixtures/packs.py` are hand-written with verbatim quotes, and a test checks each quote against the PDF text. M2 owns real quote verification.
 
-## M2
+## M2 (2026-11-05)
 
 - **LLM provider is Groq, `openai/gpt-oss-120b` (free tier), not Bedrock.** The `LLMProvider` protocol is unchanged, so the provider is a config value (`DOCGATE_PROVIDER=replay|groq`). Client is the official `groq` SDK pinned to 1.7.0, with `max_retries=0` so our own `RetryingProvider` is the only retry policy (testable with a fake clock, honest request counts). Structured output uses `json_schema` with `strict: true`; `best_effort` and `json_object` are config fallbacks. Free-tier limits (30 req/min, 8K tokens/min, 1K req/day, 200K tokens/day) mean live recording is paced.
 - **LLM wire values are strings exactly as printed; code parses them.** The model never converts or computes (weeks to days, number formats, VAT). Status is assigned by code, never reported by the model.
@@ -41,7 +41,7 @@ Judgment calls made while building. Newest last.
 - **Prompt is `extract-v3`.** v1 let the model return whole sentences as values (parsed as UNVERIFIED, never guessed); v2 fixed that by requiring only the figure; v3 stopped it returning null for pack 06's one-letter `item_code` (caught as a CONFLICT by reconcile). Each bump changes the recording key, so all 10 were re-recorded.
 - **Recordings keep the raw response even if the model slipped on a field;** only packs whose extraction failed outright are discarded.
 
-## M3
+## M3 (2026-11-05)
 
 - **LangGraph 1.1.2 pinned** (the version already vetted on this machine; official `langchain-ai` package). The SQLite checkpointer package arrives with M4.
 - **Graph is fixed and explicit.** `ingest` fans out to `extract_llm` and `extract_regex`, which join at `reconcile`, then `compare_pr -> apply_rules -> decide -> human_gate -> report`. `human_gate` is a no-op in M3 and runs for every pack; M4 swaps its body for `interrupt()` without touching edges. Dependencies (extractors, PR lines, config) are closed over in `build_graph(deps)`, not stored in state, so state stays serializable. A test round-trips the full state through `InMemorySaver` to de-risk M4.
@@ -53,7 +53,7 @@ Judgment calls made while building. Newest last.
 - **Reason text is templated, not LLM-written** (`reporting/explain.py`). For a Reject the first failing R rule in the company's listed order (R1..R5) leads, which is not a severity ranking; then "Also rejected by", "Also flagged" (H fails) and "Could not be checked" (UNKNOWN). A FAIL with no quote (MISSING field: packs 06, 08) says "not found in the document".
 - **Reports** are pure models rendered to `runs/<out>/pack-id.json|md`, `summary.json|md` and `eval.json`; no timestamps, so reruns are byte-identical. Deltas are shown to 2 decimals and tested against the rule messages. `NodeError` lives in `domain` so `reporting` does not import `workflow`.
 
-## M4
+## M4 (2026-11-06)
 
 - **New dependency: `langgraph-checkpoint-sqlite==3.1.3`** (official langchain-ai package, MIT; pulls `aiosqlite` and `sqlite-vec`, which are unused here). Pinned in `pyproject.toml` and `requirements.txt`. `sqlite-vec` has placeholder PyPI metadata ("TODO"); it is the real package by its upstream author and is required by the checkpointer.
 - **Only a machine "Needs a person" ever reaches the gate.** Enforced by the graph (`decide -> human_gate | report`), not by a check inside the node. Approve and Reject are final and never paused. A pack escalated by a node failure is a machine Needs-person verdict, so it pauses too.
@@ -66,11 +66,11 @@ Judgment calls made while building. Newest last.
 - **`run` skips packs already on record** in the checkpoint database and says so, so re-running never silently restarts a paused or resolved pack. Delete the database to start over. Review commands on a missing database fail instead of creating an empty one.
 - **Reports.** A paused pack gets a provisional report ("Awaiting a human decision"); `run` and `resolve` rewrite the reports and summary for every pack on record. Existing reporting tests now read reports through `report_of(state)` because paused packs have no final report yet.
 - **Reviewer** defaults to the OS username (`getpass.getuser()`), override with `--reviewer`.
-- **Process note.** There is no `m3-done` tag in the repo; only `m2-done` existed before this commit.
+- **Process note.** There was no `m3-done` tag when M4 was committed; it was created retroactively in M5 (see below).
 - **Checkpoint serializer allowlist.** `review/checkpoint.py` lists every type stored in `PackState` for the msgpack serializer. LangGraph 1.1.2 only warns about unlisted types but says it will block them later; a test reads a full pause/resume checkpoint and fails on any "unregistered type" log line, so a new state type cannot slip in unnoticed.
 - **Tests never write the default database.** The CLI `run` tests pass `--db` in `tmp_path`; the default `runs/checkpoints.sqlite` is for real use only.
 
-## M5
+## M5 (2026-11-06)
 
 - **Mutants go through the real pipeline with a scripted provider.** The recording key hashes the document text, so replay cannot serve an edited document. `tests/mutation/harness.py` hands the edited recorded response to the real `LLMExtractor`; the regex reader, reconcile, compare, rules and decide are the real code. Only the PDF read is swapped for the edited text. A mutation edits text, recorded value and recorded quote together (so grounding passes); the harness fails loudly if any quote stops being a substring, so a harness bug cannot look like a verdict. Repricing recomputes amount, subtotal, 15% VAT and total with `Decimal`, so a price mutation fires only its own rule.
 - **Every mutation asserts verdict and the exact set of non-PASS rules.** All 13 predicted rule vectors matched on the first real run. Twins (3.00% over, 20% advance, -5.0% qty, 0.5% penalty, 30-day validity, 60-day payment, 30-day delivery) pin the boundaries from the safe side. The stale family (text changed, recording not) must come out UNVERIFIED and Needs a person. A safety invariant runs over every case: never Approve when the true verdict is not Approve.
@@ -83,14 +83,14 @@ Judgment calls made while building. Newest last.
 - **Process note.** `m3-done` was created retroactively on `bd05cae`.
 
 
-## M5.1
+## M5.1 (2026-11-06)
 
 - **Whitespace is normalised once, in the `ingest` node** (`ingest/whitespace.py`, pure and idempotent), not in `extract_text` and not in `RegexExtractor`. The node is the only place text enters the graph (the mutation harness bypasses `extract_text`), so the LLM extractor, the regex reader and quote verification all see the same string.
 - **Normalised:** CRLF and lone CR to LF; runs of spaces and tabs to one space; leading and trailing spaces and tabs on each line removed; 3 or more newlines to one blank line. **Not touched:** digits, separators, punctuation, case, dashes, unicode (NBSP is still handled by `quotes.normalise` for verification only), single line breaks (they separate fields and rows). Stripping per-line indentation and capping blank lines go slightly beyond the literal list; neither changes a token.
 - **Recording keys are unchanged.** The key hashes the document text; all 10 sample packs are already canonical (tested), so no hash moves and nothing was re-recorded. `git status` shows no change under `data/recorded/`. If a pack's text ever stops being a fixed point, that test fails and the answer is to ask, not to re-record.
 - **Tests.** The old whitespace probes (which allowed Needs a person) now require the original Approve with no non-PASS rules; a tab probe was added. All 10 packs under doubled spaces, tabs, CRLF and trailing spaces keep their verdict and rule results through the real graph. Every M5 mutation re-run under heavy noise still fires the same rules, so normalising cannot hide a changed number. The stale-extraction (UNVERIFIED) tests are unchanged and still pass.
 
-## M5.5
+## M5.5 (2026-11-06)
 
 - **The API is a shell.** `api/` parses, delegates and returns typed models. Runs, events, detail mapping and evaluation live in `workflow/` and `evaluation/`, are HTTP-free and are tested without a server. No rule, extraction or verdict code changed.
 - **One run at a time, one active checkpoint database** (`runs/api.sqlite`, never the CLI's or the demo's). A run is a background thread with an ordered, replayable event log. A second `POST /api/runs` while one is active is 409 `run_in_progress`; resolving a review during a run is refused the same way, so the graph is never resumed under a running one.
@@ -107,7 +107,7 @@ Judgment calls made while building. Newest last.
 - **Dependencies.** `fastapi==0.142.2`, `starlette==1.10.0` (pinned because fastapi accepts a range), `uvicorn==0.54.0`, dev `httpx==0.28.1`. Pinned and installed, not independently hash-verified.
 - **Process note.** The M5.5 code was found uncommitted in the working tree before this session's plan; it was audited against the spec, baseline-verified (806 tests green), and extended with probes for reads during a run and secrets in logs, both of which passed without a code change.
 
-## M6
+## M6 (2026-11-06)
 
 - **No backend change.** Everything the four screens need already existed. `src/docgate/`, `data/golden/` and every earlier test are untouched; only `web/`, `tasks.py` (and its small test) and the Makefile changed. Three gaps were handled in the client instead:
   - *SSE payloads are not in OpenAPI.* `web/src/api/events.ts` is the only hand-written API type: a union of the eight events, parsed defensively (an unknown or malformed event is ignored, never guessed at).
@@ -124,3 +124,13 @@ Judgment calls made while building. Newest last.
 - **Accessibility.** Verdicts always carry an icon and the exact wording ("Approve", "Reject", "Needs a person to check"). A unit test checks every text/background token pair against WCAG AA in both themes; it caught a dark-theme highlight at 3.8:1, fixed by changing the colour token, not the test. Reduced motion turns off the flash and smooth scroll.
 - **web/dist is committed (changed after M6).** It is 444 KB of static files, so a reviewer can run `serve` or the demo without installing Node. Rebuild it with `python tasks.py web-build` after any change under `web/src`.
 - **Process note.** Some implementation files were written alongside their tests rather than strictly red-first (the helpers in `lib/`); each has tests, and the red-then-green steps that did happen are the highlight, reducer, validation, `shortReason` and contrast ones.
+
+## M7 (2026-11-06)
+
+- **Documentation and hygiene only.** No behaviour changed. Every number in the README, `docs/NOTE.md` and `docs/LOOM_SCRIPT.md` (811 Python tests, 145 front-end tests, 39 mutation cases, 10/10, 0 unsafe errors) came from running `check`, `web-check`, `eval` and the mutation file on the final commit, not from earlier reports.
+- **Quick start uses `python tasks.py ...`, not `make`,** and needs a Python 3.12+ virtual environment created by the user (`py -3.12 -m venv .venv` on Windows). `tasks.py` re-execs into `.venv` afterwards, so no activation is needed. I did not add an auto-create-venv step: that would be a feature, and the three commands after clone are honest as they are.
+- **`web/dist` stays committed** (444 KB, 3 files). A rebuild with Node 24 on this machine produced identical hashed file names and no `git status` change, so the build is reproducible here. `.gitignore` no longer lists `web/dist/` (it was tracked despite the rule, which would have hidden future rebuilds).
+- **Licence** is MIT (Sabkat Shoheb Desh, 2026). `pyproject.toml` gained readme, licence and author metadata.
+- **The plan documents stay local.** `CLAUDE.md`, `docs/plan/` and `.claude/` are git-ignored; the README states that Claude Code wrote most of the code and describes what the author decided and checked.
+- **Limitations are listed in the README and the note,** written from the repository state (template-specific regex reader, text PDFs only, 10 samples, one model and prompt version in replay, Groq free-tier limits, one run and one database, no auth, Approve/Reject-only human gate, unverified `sqlite-vec` binary).
+
