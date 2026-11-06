@@ -21,4 +21,5 @@ checkpoints/
 
 # Front end
 web/node_modules/
-web/dist/.coverage
+# web/dist is committed on purpose (the demo runs without Node); rebuild with `python tasks.py web-build`
+.coverage

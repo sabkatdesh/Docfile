@@ -6,7 +6,14 @@ build-backend = "setuptools.build_meta"
 name = "docgate"
 version = "0.1.0"
 description = "Supplier quotation checker: the LLM reads, code judges."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Sabkat Shoheb Desh" }]
 requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
 dependencies = [
     "pydantic==2.14.2",
     "pdfplumber==0.11.10",
