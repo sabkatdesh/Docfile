@@ -4,7 +4,6 @@ docgate reads supplier quotation PDFs, compares each one with a purchase request
 
 Built for BIAI Round 2, Task 1. On the 10 sample packs it gets **10/10 correct with 0 unsafe errors** (an unsafe error is an Approve where the answer should not be Approve).
 
-<!-- Screenshots: add them to docs/img/ and reference them here once they exist. -->
 
 ## Quick start (no API key, no Node)
 
@@ -13,7 +12,7 @@ You need **Python 3.12 or newer** and `git`. The demo uses recorded model respon
 **Windows (PowerShell)**
 
 ```powershell
-git clone <repo-url> docgate; cd docgate
+git clone https://github.com/sabkatdesh/Docfile.git docgate; cd docgate
 py -3.12 -m venv .venv; .venv\Scripts\python tasks.py setup
 python tasks.py demo
 ```
@@ -21,7 +20,7 @@ python tasks.py demo
 **macOS / Linux**
 
 ```bash
-git clone <repo-url> docgate && cd docgate
+git clone https://github.com/sabkatdesh/Docfile.git docgate && cd docgate
 python3.12 -m venv .venv && .venv/bin/python tasks.py setup
 python tasks.py demo
 ```
